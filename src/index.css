@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 7%; /* #0B0F19 */
+    --surface: 222 47% 11%;    /* #0F172A */
+    --surface-elevated: 217 33% 17%; /* #1E293B */
+    --surface-muted: 215 25% 27%;    /* #334155 */
+    --border: 217 33% 20%;
+    --text: 210 40% 98%;
+    --text-muted: 215 20.2% 65.1%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    background-color: #0B0F19;
+    color: #F8FAFC;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0F19;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Metric card pulse glow */
+.metric-glow {
+  box-shadow: 0 0 20px -5px rgba(14, 165, 233, 0.15);
+}
+
+.critical-glow {
+  box-shadow: 0 0 25px -5px rgba(239, 68, 68, 0.2);
+}
+
+.ai-glow {
+  box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.2);
+}
+
