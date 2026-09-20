@@ -41,27 +41,27 @@ export function getSeverityStyle(severity: AlertSeverity): { bg: string; text: s
   switch (severity) {
     case 'Critical':
       return {
-        bg: 'bg-red-500/10',
-        text: 'text-red-400',
-        border: 'border-red-500/30',
+        bg: 'bg-rose-50',
+        text: 'text-rose-700',
+        border: 'border-rose-200',
       };
     case 'High':
       return {
-        bg: 'bg-orange-500/10',
-        text: 'text-orange-400',
-        border: 'border-orange-500/30',
+        bg: 'bg-orange-50',
+        text: 'text-orange-700',
+        border: 'border-orange-200',
       };
     case 'Medium':
       return {
-        bg: 'bg-amber-500/10',
-        text: 'text-amber-400',
-        border: 'border-amber-500/30',
+        bg: 'bg-amber-50',
+        text: 'text-amber-700',
+        border: 'border-amber-200',
       };
     case 'Low':
       return {
-        bg: 'bg-blue-500/10',
-        text: 'text-blue-400',
-        border: 'border-blue-500/30',
+        bg: 'bg-sky-50',
+        text: 'text-sky-700',
+        border: 'border-sky-200',
       };
   }
 }
@@ -69,36 +69,36 @@ export function getSeverityStyle(severity: AlertSeverity): { bg: string; text: s
 export function getBatchStatusStyle(status: BatchVerificationStatus): { bg: string; text: string; border: string } {
   switch (status) {
     case 'Verified':
-      return { bg: 'bg-emerald-500/10', text: 'text-emerald-400', border: 'border-emerald-500/30' };
+      return { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200' };
     case 'Pending':
-      return { bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/30' };
+      return { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' };
     case 'Unverified':
-      return { bg: 'bg-slate-500/10', text: 'text-slate-400', border: 'border-slate-500/30' };
+      return { bg: 'bg-slate-100', text: 'text-slate-600', border: 'border-slate-200' };
     case 'Expired':
-      return { bg: 'bg-red-500/10', text: 'text-red-400', border: 'border-red-500/30' };
+      return { bg: 'bg-rose-50', text: 'text-rose-700', border: 'border-rose-200' };
     case 'Recalled':
-      return { bg: 'bg-rose-500/10', text: 'text-rose-400', border: 'border-rose-500/30' };
+      return { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200' };
     case 'Suspicious':
-      return { bg: 'bg-orange-500/10', text: 'text-orange-400', border: 'border-orange-500/30' };
+      return { bg: 'bg-orange-50', text: 'text-orange-700', border: 'border-orange-200' };
     case 'Rejected':
-      return { bg: 'bg-zinc-500/10', text: 'text-zinc-400', border: 'border-zinc-500/30' };
+      return { bg: 'bg-zinc-100', text: 'text-zinc-700', border: 'border-zinc-200' };
     case 'Expiring Soon':
-      return { bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/30' };
+      return { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' };
     default:
-      return { bg: 'bg-slate-500/10', text: 'text-slate-400', border: 'border-slate-500/30' };
+      return { bg: 'bg-slate-100', text: 'text-slate-600', border: 'border-slate-200' };
   }
 }
 
 export function getAWaReStyle(category?: AWaReCategory): { bg: string; text: string; label: string } {
   switch (category) {
     case 'Access':
-      return { bg: 'bg-emerald-950 text-emerald-300 border-emerald-800/40', text: 'text-emerald-400', label: 'Access (1st Line)' };
+      return { bg: 'bg-emerald-50 text-emerald-800 border-emerald-200', text: 'text-emerald-700', label: 'Access (1st Line)' };
     case 'Watch':
-      return { bg: 'bg-amber-950 text-amber-300 border-amber-800/40', text: 'text-amber-400', label: 'Watch (Higher Resistance Risk)' };
+      return { bg: 'bg-amber-50 text-amber-800 border-amber-200', text: 'text-amber-700', label: 'Watch (Higher Resistance Risk)' };
     case 'Reserve':
-      return { bg: 'bg-rose-950 text-rose-300 border-rose-800/40', text: 'text-rose-400', label: 'Reserve (Last-Resort Only)' };
+      return { bg: 'bg-rose-50 text-rose-800 border-rose-200', text: 'text-rose-700', label: 'Reserve (Last-Resort Only)' };
     default:
-      return { bg: 'bg-slate-800 text-slate-300 border-slate-700', text: 'text-slate-400', label: 'Unclassified' };
+      return { bg: 'bg-slate-100 text-slate-700 border-slate-200', text: 'text-slate-600', label: 'Unclassified' };
   }
 }
 

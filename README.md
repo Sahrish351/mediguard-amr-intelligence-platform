@@ -60,13 +60,32 @@ mediguard/
 │   │   ├── investigations/    # Case investigation workspace
 │   │   ├── reports/           # Epidemiological reports generator
 │   │   ├── audit/             # Immutable audit trail
-│   │   └── public/            # Landing page, How It Works, Solutions
+│   │   ├── workspaces/        # 9 Dedicated Role Workspaces
+│   │   └── public/            # Marketing portal, solutions, research & auth
 │   └── services/              # API layer, state synchronization & mock data
 ├── supabase/
 │   ├── migrations/            # 25 relational tables, RLS policies, seed data
 │   └── functions/             # Supabase Edge Functions
-└── tests/                     # Automated QA & E2E verification suites
+└── tests/                     # Automated QA, RBAC & E2E verification suites
 ```
+
+---
+
+## 👥 9 Dedicated Healthcare Workspaces
+
+MediGuard features genuinely isolated, role-specific workspaces with real authentication and strict RBAC route guarding:
+
+| Healthcare Role | Specialized Workspace Route | Key Capabilities & Workflows |
+| :--- | :--- | :--- |
+| **Doctor / Prescriber** | `/doctor` | Fast prescription generator, dosage calculators, AWaRe alerts, patient history |
+| **Pharmacist** | `/pharmacist` | Batch barcode lookup, stock deduction, repeat dispensing warnings, recall quarantine |
+| **Laboratory Scientist** | `/laboratory` | Culture accessioning, AST disc diffusion / MIC logging, CLSI M100 interpretation |
+| **Stewardship Lead** | `/stewardship` | AWaRe 60% Access ratio monitoring, prescriber analytics, audit & feedback interventions |
+| **Epidemiologist** | `/epidemiology` | Macro resistance maps, pathogen prevalence, cluster detection, regional alerts |
+| **Surveillance Officer** | `/surveillance` | Real-time safety signals, signal triage, outbreak investigation dispatch |
+| **Organization Admin** | `/organization` | Facility onboarding, user credential provisioning, data quality dashboards |
+| **Platform Administrator** | `/admin` | Cross-tenant global overview, API connectors, ETL pipeline jobs, audit logs |
+| **Scientific Researcher** | `/researcher` | De-identified aggregate AMR explorer, scientific methodology, CSV data export |
 
 ---
 
@@ -123,6 +142,9 @@ npx tsx tests/verifyFailureCases.ts
 # Clinical end-to-end workflow (8 stages)
 npx tsx tests/verifyE2EWorkflow.ts
 
+# Role workspaces & RBAC boundary verification (42 assertions)
+npx tsx tests/verifyRoleWorkspaces.ts
+
 # Remote Supabase production verification (10 criteria)
 npx tsx tests/verifyRemoteSupabaseFinal.ts
 ```
@@ -162,3 +184,4 @@ In **Supabase Dashboard $\rightarrow$ Authentication $\rightarrow$ URL Configura
 
 ## 📄 License
 This project is proprietary healthcare software developed for national and institutional surveillance.
+

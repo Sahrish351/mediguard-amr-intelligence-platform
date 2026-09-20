@@ -4,13 +4,13 @@
 
 @layer base {
   :root {
-    --background: 222 47% 7%; /* #0B0F19 */
-    --surface: 222 47% 11%;    /* #0F172A */
-    --surface-elevated: 217 33% 17%; /* #1E293B */
-    --surface-muted: 215 25% 27%;    /* #334155 */
-    --border: 217 33% 20%;
-    --text: 210 40% 98%;
-    --text-muted: 215 20.2% 65.1%;
+    --background: 210 40% 98%; /* #F8FAFC */
+    --surface: 0 0% 100%;       /* #FFFFFF */
+    --surface-elevated: 210 40% 96%; /* #F1F5F9 */
+    --surface-muted: 214 32% 91%;    /* #E2E8F0 */
+    --border: 214 32% 91%;          /* #E2E8F0 */
+    --text: 222 47% 11%;           /* #0F172A */
+    --text-muted: 215 16% 47%;      /* #64748B */
   }
 
   * {
@@ -18,39 +18,53 @@
   }
 
   body {
-    background-color: #0B0F19;
-    color: #F8FAFC;
+    background-color: #F8FAFC;
+    color: #0F172A;
     font-feature-settings: "rlig" 1, "calt" 1;
     overflow-x: hidden;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
 }
 
-/* Custom Scrollbars */
+/* Custom Clean Medical Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0F19;
+  background: #F1F5F9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1E293B;
+  background: #CBD5E1;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94A3B8;
 }
 
-/* Metric card pulse glow */
-.metric-glow {
-  box-shadow: 0 0 20px -5px rgba(14, 165, 233, 0.15);
+/* Medical Elevation & Focus Styles */
+.medical-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.03);
 }
 
-.critical-glow {
-  box-shadow: 0 0 25px -5px rgba(239, 68, 68, 0.2);
+.medical-card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.medical-card-hover:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.08), 0 2px 6px -2px rgb(0 0 0 / 0.04);
+  transform: translateY(-1px);
 }
 
-.ai-glow {
-  box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.2);
+/* Subtle dot grid for hero and preview panels */
+.bg-medical-grid {
+  background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 

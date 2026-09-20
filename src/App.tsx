@@ -1,19 +1,33 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from '@/context/AuthContext';
+import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { AppShell } from '@/components/layout/AppShell';
 import { PublicLayout } from '@/components/layout/PublicLayout';
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import { getWorkspacePathForRole } from '@/types';
 
-// Public Marketing Pages
+// Public Marketing & Portal Pages
 import { HomePage } from '@/pages/public/HomePage';
 import { HowItWorksPage } from '@/pages/public/HowItWorksPage';
 import { SolutionsPage } from '@/pages/public/SolutionsPage';
 import { ResearchInsightsPage } from '@/pages/public/ResearchInsightsPage';
 import { SecurityPrivacyPage } from '@/pages/public/SecurityPrivacyPage';
 import { ResourcesFaqPage } from '@/pages/public/ResourcesFaqPage';
-import { LoginPage, RegisterPage } from '@/pages/public/AuthPages';
+import { LoginPage, RegisterPage, ForgotPasswordPage } from '@/pages/public/AuthPages';
+import { AccessDeniedPage } from '@/pages/public/AccessDeniedPage';
 
-// Platform Application Pages
+// 9 Dedicated Role Workspaces
+import { DoctorWorkspace } from '@/pages/workspaces/DoctorWorkspace';
+import { PharmacistWorkspace } from '@/pages/workspaces/PharmacistWorkspace';
+import { LaboratoryWorkspace } from '@/pages/workspaces/LaboratoryWorkspace';
+import { StewardshipWorkspace } from '@/pages/workspaces/StewardshipWorkspace';
+import { EpidemiologyWorkspace } from '@/pages/workspaces/EpidemiologyWorkspace';
+import { SurveillanceWorkspace } from '@/pages/workspaces/SurveillanceWorkspace';
+import { OrganizationAdminWorkspace } from '@/pages/workspaces/OrganizationAdminWorkspace';
+import { PlatformAdminWorkspace } from '@/pages/workspaces/PlatformAdminWorkspace';
+import { ResearcherWorkspace } from '@/pages/workspaces/ResearcherWorkspace';
+
+// Platform Application Pages (Shared Clinical Submodules)
 import { OverviewDashboard } from '@/pages/dashboard/OverviewDashboard';
 import { GlobalCommandCenter } from '@/pages/dashboard/GlobalCommandCenter';
 import { OperationalDashboard } from '@/pages/dashboard/OperationalDashboard';
@@ -40,6 +54,13 @@ import { BackgroundJobsPage } from '@/pages/platform/BackgroundJobsPage';
 import { AuditLogsPage } from '@/pages/audit/AuditLogsPage';
 import { SettingsPage } from '@/pages/settings/SettingsPage';
 
+// Component to dynamically route /app to the authenticated user's assigned role workspace
+function WorkspaceRedirect() {
+  const { currentRole } = useAuth();
+  const target = getWorkspacePathForRole(currentRole?.slug);
+  return <Navigate to={target} replace />;
+}
+
 export function App() {
   return (
     <BrowserRouter>
@@ -57,11 +78,139 @@ export function App() {
             <Route path="/faq" element={<ResourcesFaqPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           </Route>
 
-          {/* Authenticated Clinical Surveillance Platform Routes */}
-          <Route path="/app" element={<AppShell />}>
-            <Route index element={<OverviewDashboard />} />
+          {/* Access Denied Privilege Boundary */}
+          <Route path="/access-denied" element={<AccessDeniedPage />} />
+
+          {/* ========================================================= */}
+          {/* 9 DEDICATED HEALTHCARE ROLE WORKSPACES                   */}
+          {/* Each route is RBAC protected and wraps into AppShell      */}
+          {/* ========================================================= */}
+
+          {/* 1. Doctor Clinical Prescribing Workspace */}
+          <Route
+            path="/doctor"
+            element={
+              <ProtectedRoute allowedRoles={['doctor']}>
+                <AppShell>
+                  <DoctorWorkspace />
+                </AppShell>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 2. Pharmacist Safety & Dispensing Workspace */}
+          <Route
+            path="/pharmacist"
+            element={
+              <ProtectedRoute allowedRoles={['pharmacist']}>
+                <AppShell>
+                  <PharmacistWorkspace />
+                </AppShell>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 3. Laboratory Microbiology Workspace */}
+          <Route
+            path="/laboratory"
+            element={
+              <ProtectedRoute allowedRoles={['lab-scientist']}>
+                <AppShell>
+                  <LaboratoryWorkspace />
+                </AppShell>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 4. Antimicrobial Stewardship Workspace */}
+          <Route
+            path="/stewardship"
+            element={
+              <ProtectedRoute allowedRoles={['stewardship-lead']}>
+                <AppShell>
+                  <StewardshipWorkspace />
+                </AppShell>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 5. Epidemiology Intelligence Workspace */}
+          <Route
+            path="/epidemiology"
+            element={
+              <ProtectedRoute allowedRoles={['epidemiologist']}>
+                <AppShell>
+                  <EpidemiologyWorkspace />
+                </AppShell>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 6. Clinical Surveillance Officer Workspace */}
+          <Route
+            path="/surveillance"
+            element={
+              <ProtectedRoute allowedRoles={['surveillance-officer']}>
+                <AppShell>
+                  <SurveillanceWorkspace />
+                </AppShell>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 7. Organization Executive & Governance Workspace */}
+          <Route
+            path="/organization"
+            element={
+              <ProtectedRoute allowedRoles={['org-admin']}>
+                <AppShell>
+                  <OrganizationAdminWorkspace />
+                </AppShell>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 8. Global Platform Admin Command Center */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute allowedRoles={['platform-admin']}>
+                <AppShell>
+                  <PlatformAdminWorkspace />
+                </AppShell>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 9. Scientific Research & Surveillance Explorer */}
+          <Route
+            path="/researcher"
+            element={
+              <ProtectedRoute allowedRoles={['read-only']}>
+                <AppShell>
+                  <ResearcherWorkspace />
+                </AppShell>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* ========================================================= */}
+          {/* SHARED CLINICAL SURVEILLANCE PLATFORM MODULES (/app/*)     */}
+          {/* ========================================================= */}
+          <Route
+            path="/app"
+            element={
+              <ProtectedRoute>
+                <AppShell />
+              </ProtectedRoute>
+            }
+          >
+            {/* Navigating to /app automatically redirects to user's assigned role workspace */}
+            <Route index element={<WorkspaceRedirect />} />
+            <Route path="overview" element={<OverviewDashboard />} />
             <Route path="command-center" element={<GlobalCommandCenter />} />
             <Route path="operational" element={<OperationalDashboard />} />
             <Route path="surveillance" element={<SurveillancePage />} />
@@ -88,12 +237,10 @@ export function App() {
             <Route path="settings" element={<SettingsPage />} />
           </Route>
 
-          {/* Legacy Path Compatibility Redirects */}
-          <Route path="/surveillance" element={<Navigate to="/app/surveillance" replace />} />
+          {/* Deep-link and legacy path compatibility redirects */}
           <Route path="/medications" element={<Navigate to="/app/medications" replace />} />
           <Route path="/prescriptions" element={<Navigate to="/app/prescriptions" replace />} />
           <Route path="/dispensing" element={<Navigate to="/app/dispensing" replace />} />
-          <Route path="/laboratory" element={<Navigate to="/app/laboratory" replace />} />
           <Route path="/alerts" element={<Navigate to="/app/alerts" replace />} />
           <Route path="/investigations" element={<Navigate to="/app/investigations" replace />} />
           <Route path="/reports" element={<Navigate to="/app/reports" replace />} />
@@ -101,7 +248,7 @@ export function App() {
           <Route path="/data-quality" element={<Navigate to="/app/data-quality" replace />} />
           <Route path="/audit" element={<Navigate to="/app/audit" replace />} />
 
-          {/* Catch-all */}
+          {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>

@@ -13,6 +13,31 @@ export type UserRoleSlug =
   | 'epidemiologist'
   | 'read-only';
 
+export function getWorkspacePathForRole(roleSlug?: UserRoleSlug | string): string {
+  switch (roleSlug) {
+    case 'doctor':
+      return '/doctor';
+    case 'pharmacist':
+      return '/pharmacist';
+    case 'lab-scientist':
+      return '/laboratory';
+    case 'stewardship-lead':
+      return '/stewardship';
+    case 'epidemiologist':
+      return '/epidemiology';
+    case 'surveillance-officer':
+      return '/surveillance';
+    case 'org-admin':
+      return '/organization';
+    case 'platform-admin':
+      return '/admin';
+    case 'read-only':
+      return '/researcher';
+    default:
+      return '/doctor';
+  }
+}
+
 export interface UserProfile {
   id: string;
   auth_user_id?: string;

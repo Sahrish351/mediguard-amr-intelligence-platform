@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Shield, Sparkles, Activity, Lock, ArrowRight, Globe, Building2, Microscope, Pill, CheckCircle2 } from 'lucide-react';
+import { Shield, ArrowRight, Menu, X, Activity, CheckCircle2, Lock, Sparkles, FileText, Globe } from 'lucide-react';
 import { DemoBanner } from '@/components/common/DemoBanner';
+import { useAuth } from '@/context/AuthContext';
+import { getWorkspacePathForRole } from '@/types';
 
 export const PublicLayout: React.FC = () => {
   const location = useLocation();
+  const { isAuthenticated, currentRole } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const workspacePath = getWorkspacePathForRole(currentRole?.slug);
 
   const navLinks = [
     { to: '/', label: 'Overview' },
@@ -16,42 +22,43 @@ export const PublicLayout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B0F19] text-slate-100 antialiased font-sans selection:bg-brand-500 selection:text-white">
-      {/* Universal Demo Label */}
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased font-sans selection:bg-sky-500 selection:text-white">
+      {/* Universal Demo & Non-Diagnostic Disclaimer */}
       <DemoBanner />
 
       {/* Public Navigation Header */}
-      <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-[#0B0F19]/90 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-500 to-teal-600 flex items-center justify-center text-white shadow-md shadow-sky-500/20">
-              <Shield className="w-4 h-4" />
+      <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md transition-all">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+          {/* Brand Logo */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-600 via-sky-500 to-teal-500 flex items-center justify-center text-white shadow-md shadow-sky-600/20 group-hover:scale-105 transition-transform">
+              <Shield className="w-5 h-5 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-bold tracking-tight text-white flex items-center gap-1.5">
+              <span className="text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2">
                 MediGuard
-                <span className="text-[10px] bg-sky-500/10 text-sky-400 px-1.5 py-0.2 rounded border border-sky-500/20 font-mono">
-                  AMR
+                <span className="text-[10px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded-full border border-sky-200 font-mono font-semibold">
+                  INTELLIGENCE
                 </span>
               </span>
-              <span className="text-[10px] text-slate-400 font-sans tracking-tight">
-                Global Healthcare Intelligence
+              <span className="text-[11px] text-slate-500 font-medium tracking-tight">
+                Medication Safety & AMR Surveillance
               </span>
             </div>
           </Link>
 
-          {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.to;
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all ${
                     isActive
-                      ? 'text-sky-400 bg-sky-500/10 border border-sky-500/20'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+                      ? 'text-sky-700 bg-sky-50 border border-sky-200 shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
                   }`}
                 >
                   {link.label}
@@ -61,22 +68,79 @@ export const PublicLayout: React.FC = () => {
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2.5">
-            <Link
-              to="/login"
-              className="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors"
+          <div className="hidden sm:flex items-center gap-3">
+            {isAuthenticated ? (
+              <Link
+                to={workspacePath}
+                className="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-sm shadow-sky-600/25 transition-all flex items-center gap-1.5"
+              >
+                <span>My Workspace</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/login"
+                  className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5"
+                >
+                  <span>Explore Platform</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-hidden"
+              aria-label="Toggle navigation menu"
             >
-              Sign In
-            </Link>
-            <Link
-              to="/app"
-              className="px-3.5 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-md shadow-sky-600/20 transition-all flex items-center gap-1.5"
-            >
-              <span>Command Center</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden border-b border-slate-200 bg-white px-4 pt-3 pb-5 space-y-3 shadow-lg">
+            <div className="flex flex-col space-y-1">
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.to;
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium ${
+                      isActive
+                        ? 'text-sky-700 bg-sky-50 font-semibold'
+                        : 'text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+              <Link
+                to="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-center text-xs font-semibold shadow-sm"
+              >
+                Sign In to Clinical Workspace
+              </Link>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Main Public Content */}
@@ -84,61 +148,68 @@ export const PublicLayout: React.FC = () => {
         <Outlet />
       </main>
 
-      {/* Public Footer */}
-      <footer className="border-t border-slate-800 bg-[#070A12] text-slate-400 text-xs py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded bg-sky-600 flex items-center justify-center text-white">
-                <Shield className="w-3.5 h-3.5" />
+      {/* Enterprise Public Footer */}
+      <footer className="border-t border-slate-200 bg-white text-slate-600 text-xs py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-5 gap-10">
+          <div className="md:col-span-2 space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-sky-600 flex items-center justify-center text-white shadow-xs">
+                <Shield className="w-4 h-4" />
               </div>
-              <span className="font-bold text-white text-sm">MediGuard</span>
+              <span className="font-bold text-slate-900 text-base">MediGuard</span>
             </div>
-            <p className="text-slate-400 text-xs leading-relaxed">
-              Global Medication Safety & Antimicrobial Resistance Intelligence Platform. Empowering clinical stewardship, microbiology surveillance, and outbreak prevention.
+            <p className="text-slate-500 text-xs leading-relaxed max-w-sm">
+              An enterprise healthcare surveillance platform connecting medication safety, pharmacy dispensing, and microbiology laboratory data to detect antimicrobial resistance patterns earlier.
             </p>
-            <div className="text-[11px] text-slate-500 font-mono">
-              Aligned with WHO Global AMR Action Plan & CLSI M100
+            <div className="flex items-center gap-2 text-[11px] text-slate-500 font-mono pt-1">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span>WHO AWaRe & CLSI M100 Alignment</span>
             </div>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-3 font-mono text-[11px] uppercase tracking-wider">Surveillance Intelligence</h4>
+            <h4 className="text-slate-900 font-bold mb-3 font-heading text-xs uppercase tracking-wider">
+              Surveillance
+            </h4>
             <ul className="space-y-2 text-xs">
-              <li><Link to="/how-it-works" className="hover:text-white transition-colors">Microbiology Antibiograms</Link></li>
-              <li><Link to="/how-it-works" className="hover:text-white transition-colors">WHO AWaRe Utilization</Link></li>
-              <li><Link to="/how-it-works" className="hover:text-white transition-colors">Batch Verification & Recalls</Link></li>
-              <li><Link to="/how-it-works" className="hover:text-white transition-colors">Deterministic Signal Detection</Link></li>
-              <li><Link to="/research" className="hover:text-white transition-colors">Epidemiological Forecasting</Link></li>
+              <li><Link to="/how-it-works" className="hover:text-sky-600 transition-colors">Microbiology Antibiograms</Link></li>
+              <li><Link to="/how-it-works" className="hover:text-sky-600 transition-colors">WHO AWaRe Utilization</Link></li>
+              <li><Link to="/how-it-works" className="hover:text-sky-600 transition-colors">Batch Verification & Recalls</Link></li>
+              <li><Link to="/how-it-works" className="hover:text-sky-600 transition-colors">Deterministic Signal Detection</Link></li>
+              <li><Link to="/research" className="hover:text-sky-600 transition-colors">Epidemiological Forecasting</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-3 font-mono text-[11px] uppercase tracking-wider">Stakeholder Solutions</h4>
+            <h4 className="text-slate-900 font-bold mb-3 font-heading text-xs uppercase tracking-wider">
+              Workspaces
+            </h4>
             <ul className="space-y-2 text-xs">
-              <li><Link to="/solutions" className="hover:text-white transition-colors">Hospitals & Clinical Networks</Link></li>
-              <li><Link to="/solutions" className="hover:text-white transition-colors">Microbiology Laboratories</Link></li>
-              <li><Link to="/solutions" className="hover:text-white transition-colors">Hospital & Community Pharmacies</Link></li>
-              <li><Link to="/solutions" className="hover:text-white transition-colors">Infection Control Officers</Link></li>
-              <li><Link to="/solutions" className="hover:text-white transition-colors">Public Health Agencies</Link></li>
+              <li><Link to="/solutions" className="hover:text-sky-600 transition-colors">Physicians & Prescribers</Link></li>
+              <li><Link to="/solutions" className="hover:text-sky-600 transition-colors">Clinical Pharmacists</Link></li>
+              <li><Link to="/solutions" className="hover:text-sky-600 transition-colors">Microbiology Laboratories</Link></li>
+              <li><Link to="/solutions" className="hover:text-sky-600 transition-colors">Stewardship Committees</Link></li>
+              <li><Link to="/solutions" className="hover:text-sky-600 transition-colors">Epidemiology Analysts</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-3 font-mono text-[11px] uppercase tracking-wider">Governance & Trust</h4>
+            <h4 className="text-slate-900 font-bold mb-3 font-heading text-xs uppercase tracking-wider">
+              Governance & Safety
+            </h4>
             <ul className="space-y-2 text-xs">
-              <li><Link to="/security" className="hover:text-white transition-colors">Multi-Tenant Row-Level Security</Link></li>
-              <li><Link to="/security" className="hover:text-white transition-colors">Patient Pseudonymization</Link></li>
-              <li><Link to="/security" className="hover:text-white transition-colors">Append-Only Auditability</Link></li>
-              <li><Link to="/resources" className="hover:text-white transition-colors">Clinical Non-Diagnostic Boundaries</Link></li>
-              <li><Link to="/resources" className="hover:text-white transition-colors">Documentation & FAQs</Link></li>
+              <li><Link to="/security" className="hover:text-sky-600 transition-colors">PostgreSQL Row-Level Security</Link></li>
+              <li><Link to="/security" className="hover:text-sky-600 transition-colors">Patient Pseudonymization</Link></li>
+              <li><Link to="/security" className="hover:text-sky-600 transition-colors">Immutable Audit Logs</Link></li>
+              <li><Link to="/resources" className="hover:text-sky-600 transition-colors">Clinical Boundaries Notice</Link></li>
+              <li><Link to="/resources" className="hover:text-sky-600 transition-colors">Methodology & FAQs</Link></li>
             </ul>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 mt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 mt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
           <div>
-            © {new Date().getFullYear()} MediGuard Platform. All clinical & patient data shown is synthetic demo data.
+            © {new Date().getFullYear()} MediGuard Platform. Synthetic Demonstration Data — Not Real Patient Data.
           </div>
           <div className="flex items-center gap-4">
             <span>HIPAA-Ready Architecture</span>
@@ -152,4 +223,3 @@ export const PublicLayout: React.FC = () => {
     </div>
   );
 };
-

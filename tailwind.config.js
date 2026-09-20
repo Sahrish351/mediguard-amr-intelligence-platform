@@ -58,7 +58,8 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'Geist', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['"IBM Plex Mono"', 'monospace'],
       },
     },

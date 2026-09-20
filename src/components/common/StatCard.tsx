@@ -30,13 +30,13 @@ export const StatCard: React.FC<StatCardProps> = ({
   const getVariantStyles = () => {
     switch (variant) {
       case 'critical':
-        return 'border-red-500/30 bg-red-950/10 hover:border-red-500/50 critical-glow';
+        return 'border-rose-200 bg-rose-50/40 hover:border-rose-300';
       case 'warning':
-        return 'border-amber-500/30 bg-amber-950/10 hover:border-amber-500/50';
+        return 'border-amber-200 bg-amber-50/40 hover:border-amber-300';
       case 'ai':
-        return 'border-purple-500/30 bg-purple-950/10 hover:border-purple-500/50 ai-glow';
+        return 'border-indigo-200 bg-indigo-50/40 hover:border-indigo-300';
       default:
-        return 'border-slate-800 bg-[#0F172A] hover:border-slate-700';
+        return 'border-slate-200/80 bg-white hover:border-slate-300 shadow-2xs';
     }
   };
 
@@ -44,47 +44,47 @@ export const StatCard: React.FC<StatCardProps> = ({
     if (color) {
       switch (color) {
         case 'emerald':
-          return 'text-emerald-400 bg-emerald-500/10';
+          return 'text-emerald-700 bg-emerald-50 border border-emerald-200';
         case 'amber':
-          return 'text-amber-400 bg-amber-500/10';
+          return 'text-amber-700 bg-amber-50 border border-amber-200';
         case 'rose':
         case 'red':
-          return 'text-rose-400 bg-rose-500/10';
+          return 'text-rose-700 bg-rose-50 border border-rose-200';
         case 'sky':
         case 'blue':
-          return 'text-sky-400 bg-sky-500/10';
+          return 'text-sky-700 bg-sky-50 border border-sky-200';
         case 'teal':
-          return 'text-teal-400 bg-teal-500/10';
+          return 'text-teal-700 bg-teal-50 border border-teal-200';
         case 'indigo':
         case 'purple':
-          return 'text-indigo-400 bg-indigo-500/10';
+          return 'text-indigo-700 bg-indigo-50 border border-indigo-200';
         default:
-          return 'text-slate-400 bg-slate-800';
+          return 'text-slate-600 bg-slate-100 border border-slate-200';
       }
     }
     switch (variant) {
       case 'critical':
-        return 'text-red-400 bg-red-500/10';
+        return 'text-rose-700 bg-rose-50 border border-rose-200';
       case 'warning':
-        return 'text-amber-400 bg-amber-500/10';
+        return 'text-amber-700 bg-amber-50 border border-amber-200';
       case 'ai':
-        return 'text-purple-400 bg-purple-500/10';
+        return 'text-indigo-700 bg-indigo-50 border border-indigo-200';
       default:
-        return 'text-sky-400 bg-sky-500/10';
+        return 'text-sky-700 bg-sky-50 border border-sky-200';
     }
   };
 
   return (
-    <div className={`p-4 rounded-xl border transition-all duration-200 ${getVariantStyles()}`} title={tooltip}>
+    <div className={`p-4 sm:p-5 rounded-2xl border transition-all duration-200 ${getVariantStyles()}`} title={tooltip}>
       <div className="flex items-center justify-between gap-2 mb-3">
-        <span className="text-xs font-medium text-slate-400 tracking-wide uppercase">{title}</span>
-        <div className={`p-2 rounded-lg ${getIconColor()}`}>
+        <span className="text-[11px] font-bold text-slate-500 tracking-wider uppercase font-heading">{title}</span>
+        <div className={`p-2 rounded-xl ${getIconColor()}`}>
           <Icon className="w-4 h-4" />
         </div>
       </div>
       
       <div className="flex items-baseline gap-2">
-        <span className="text-2xl font-bold tracking-tight text-white font-mono">{value}</span>
+        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 font-mono">{value}</span>
         {subtitle && <span className="text-xs text-slate-500 font-sans">{subtitle}</span>}
       </div>
 
@@ -93,27 +93,26 @@ export const StatCard: React.FC<StatCardProps> = ({
           {change.isIncrease ? (
             <TrendingUp
               className={`w-3.5 h-3.5 ${
-                change.isNegativeSentiment ? 'text-red-400' : 'text-emerald-400'
+                change.isNegativeSentiment ? 'text-rose-600' : 'text-emerald-600'
               }`}
             />
           ) : (
             <TrendingDown
               className={`w-3.5 h-3.5 ${
-                change.isNegativeSentiment ? 'text-red-400' : 'text-emerald-400'
+                change.isNegativeSentiment ? 'text-rose-600' : 'text-emerald-600'
               }`}
             />
           )}
           <span
             className={`font-semibold font-mono ${
-              change.isNegativeSentiment ? 'text-red-400' : 'text-emerald-400'
+              change.isNegativeSentiment ? 'text-rose-600' : 'text-emerald-600'
             }`}
           >
             {change.value}
           </span>
-          <span className="text-slate-500">{change.periodText || 'vs historical baseline'}</span>
+          <span className="text-slate-500 text-[11px]">{change.periodText || 'vs historical baseline'}</span>
         </div>
       )}
     </div>
   );
 };
-
