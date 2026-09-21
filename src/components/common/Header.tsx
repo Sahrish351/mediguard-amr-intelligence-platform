@@ -15,6 +15,9 @@ import {
   Settings,
   Check,
   Globe,
+  Search,
+  KeyRound,
+  Sliders,
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
@@ -29,6 +32,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAIAssistant, onToggleSideb
   const { currentOrg, currentUser, currentRole, organizations, switchOrganization, logout } = useAuth();
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [orgDropdownOpen, setOrgDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   const profileRef = useRef<HTMLDivElement>(null);
@@ -53,9 +57,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAIAssistant, onToggleSideb
     navigate('/');
   };
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    // Route to appropriate search result or alert search
+    navigate(`/app/medications?q=${encodeURIComponent(searchQuery)}`);
+  };
+
   return (
     <header className="h-16 border-b border-slate-200/80 bg-white/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between gap-4 sticky top-0 z-30 shadow-2xs">
-      {/* Left: Mobile Toggle & Inline Breadcrumbs */}
+      {/* Left: Mobile Toggle, Breadcrumbs & Global Search */}
       <div className="flex items-center gap-3 min-w-0">
         {onToggleSidebar && (
           <button
@@ -70,6 +81,21 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAIAssistant, onToggleSideb
         <div className="hidden sm:block truncate">
           <Breadcrumbs />
         </div>
+
+        {/* Global Fast Clinical Search */}
+        <form onSubmit={handleSearchSubmit} className="hidden xl:flex items-center relative w-64 ml-2">
+          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 pointer-events-none" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search drugs, specimens..."
+            className="w-full pl-8 pr-10 py-1.5 rounded-xl border border-slate-200 bg-slate-50/70 text-slate-900 text-xs focus:bg-white focus:outline-hidden focus:border-[#0284C7] transition-all"
+          />
+          <kbd className="absolute right-2.5 text-[9px] font-mono text-slate-400 border border-slate-200/80 px-1.5 py-0.5 rounded bg-white">
+            ↵
+          </kbd>
+        </form>
       </div>
 
       {/* Center: Tenant Organization Switcher */}
@@ -126,7 +152,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAIAssistant, onToggleSideb
         {onOpenAIAssistant && (
           <button
             onClick={onOpenAIAssistant}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-indigo-700 border border-indigo-200/80 text-xs font-bold transition-all shadow-2xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-indigo-700 border border-indigo-200/80 text-xs font-bold transition-all shadow-2xs cursor-pointer"
             title="Open Grounded Clinical Copilot"
           >
             <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
@@ -159,7 +185,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAIAssistant, onToggleSideb
         <div className="relative" ref={profileRef}>
           <button
             onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-            className="flex items-center gap-2 p-1 pl-2 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors text-left"
+            className="flex items-center gap-2 p-1 pl-2 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors text-left cursor-pointer"
             aria-label="User Account Menu"
           >
             <div className="flex flex-col text-right hidden md:block">
@@ -194,15 +220,23 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAIAssistant, onToggleSideb
                   className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 transition-colors"
                 >
                   <UserCircle2 className="w-4 h-4 text-slate-400" />
-                  <span>Profile Credentials</span>
+                  <span>Profile Information</span>
+                </Link>
+                <Link
+                  to="/security"
+                  onClick={() => setProfileDropdownOpen(false)}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 transition-colors"
+                >
+                  <KeyRound className="w-4 h-4 text-slate-400" />
+                  <span>Security &amp; RLS Isolation</span>
                 </Link>
                 <Link
                   to="/app/settings"
                   onClick={() => setProfileDropdownOpen(false)}
                   className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 transition-colors"
                 >
-                  <Settings className="w-4 h-4 text-slate-400" />
-                  <span>Workspace Settings</span>
+                  <Sliders className="w-4 h-4 text-slate-400" />
+                  <span>Workspace Preferences</span>
                 </Link>
                 <button
                   onClick={handleLogout}

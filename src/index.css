@@ -4,13 +4,19 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%; /* #F8FAFC */
-    --surface: 0 0% 100%;       /* #FFFFFF */
+    --background: 210 40% 98%;      /* #F7FAFC */
+    --surface: 0 0% 100%;            /* #FFFFFF */
     --surface-elevated: 210 40% 96%; /* #F1F5F9 */
     --surface-muted: 214 32% 91%;    /* #E2E8F0 */
     --border: 214 32% 91%;          /* #E2E8F0 */
-    --text: 222 47% 11%;           /* #0F172A */
-    --text-muted: 215 16% 47%;      /* #64748B */
+    --text-primary: 220 68% 14%;    /* #0B1F3A */
+    --text-secondary: 215 19% 35%;  /* #475569 */
+    --accent-teal: 174 85% 31%;     /* #0D9488 */
+    --accent-blue: 199 89% 40%;     /* #0284C7 */
+    --accent-ai: 239 84% 67%;       /* #6366F1 */
+    --status-success: 142 76% 36%;  /* #16A34A */
+    --status-warning: 38 92% 44%;   /* #D97706 */
+    --status-critical: 0 72% 51%;   /* #DC2626 */
   }
 
   * {
@@ -18,8 +24,8 @@
   }
 
   body {
-    background-color: #F8FAFC;
-    color: #0F172A;
+    background-color: #F7FAFC;
+    color: #0B1F3A;
     font-feature-settings: "rlig" 1, "calt" 1;
     overflow-x: hidden;
   }
@@ -27,6 +33,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
     letter-spacing: -0.02em;
+    color: #0B1F3A;
   }
 }
 
@@ -46,7 +53,7 @@
   background: #94A3B8;
 }
 
-/* Medical Elevation & Focus Styles */
+/* Medical Elevation & Card Surfaces */
 .medical-card {
   background-color: #FFFFFF;
   border: 1px solid #E2E8F0;
@@ -62,7 +69,7 @@
   transform: translateY(-1px);
 }
 
-/* Subtle dot grid for hero and preview panels */
+/* Subtle dot grid for scientific backdrop */
 .bg-medical-grid {
   background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
   background-size: 24px 24px;

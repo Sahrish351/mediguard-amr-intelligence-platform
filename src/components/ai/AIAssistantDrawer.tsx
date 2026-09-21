@@ -74,46 +74,46 @@ I can help explain deterministic safety alerts, calculate resistance rate change
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-200">
       <div className="fixed inset-0" onClick={onClose} />
 
-      <div className="relative w-full max-w-xl bg-[#0F172A] border-l border-slate-800 shadow-2xl flex flex-col h-full z-10 animate-in slide-in-from-right duration-200">
+      <div className="relative w-full max-w-xl bg-white border-l border-slate-200 shadow-2xl flex flex-col h-full z-10 animate-in slide-in-from-right duration-200">
         {/* Header */}
-        <div className="p-4 border-b border-slate-800 bg-[#0B0F19] flex items-center justify-between">
+        <div className="p-4 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400">
+            <div className="w-8 h-8 rounded-xl bg-indigo-100 border border-indigo-200 flex items-center justify-center text-[#6366F1]">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                Grounded AI Surveillance Assistant
-                <span className="text-[10px] font-mono bg-purple-500/10 text-purple-300 px-1.5 py-0.5 rounded border border-purple-500/20">
-                  Gemini 1.5
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 font-heading">
+                Grounded Clinical AI Copilot
+                <span className="text-[10px] font-mono bg-indigo-50 text-[#6366F1] px-1.5 py-0.5 rounded border border-indigo-200 font-bold">
+                  Gemini
                 </span>
               </h3>
-              <p className="text-[11px] text-slate-400">
-                Grounded on authorized data for {currentOrg.name}
+              <p className="text-[11px] text-slate-500 font-mono">
+                Scoped to authorized records for {currentOrg.name}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+            className="p-1.5 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-200/60 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Clinical Safety Disclaimer Bar */}
-        <div className="px-4 py-2 bg-purple-950/20 border-b border-purple-500/20 text-[11px] text-purple-300 flex items-start gap-2">
-          <ShieldAlert className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+        <div className="px-4 py-2.5 bg-indigo-50/70 border-b border-indigo-100 text-[11px] text-indigo-900 flex items-start gap-2">
+          <ShieldAlert className="w-4 h-4 text-[#6366F1] shrink-0 mt-0.5" />
           <span>
-            <strong>Decision-Support Notice:</strong> AI responses reflect authorized surveillance aggregates only. System does not diagnose, prescribe, or verify individual clinical causality.
+            <strong>Surveillance Decision Support:</strong> AI responses reflect authorized surveillance aggregates only. System does not diagnose, prescribe, or replace licensed clinical committees.
           </span>
         </div>
 
         {/* Message Thread */}
-        <div className="flex-1 p-4 overflow-y-auto space-y-4">
+        <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50/30">
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -122,28 +122,28 @@ I can help explain deterministic safety alerts, calculate resistance rate change
               }`}
             >
               {msg.role === 'assistant' && (
-                <div className="w-6 h-6 rounded bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0 mt-0.5">
-                  <Bot className="w-3.5 h-3.5" />
+                <div className="w-7 h-7 rounded-xl bg-indigo-100 border border-indigo-200 flex items-center justify-center text-[#6366F1] shrink-0 mt-0.5 shadow-2xs">
+                  <Bot className="w-4 h-4" />
                 </div>
               )}
 
               <div
-                className={`max-w-[85%] rounded-xl p-3.5 ${
+                className={`max-w-[85%] rounded-2xl p-4 text-xs ${
                   msg.role === 'user'
-                    ? 'bg-sky-600 text-white shadow-md shadow-sky-600/10'
-                    : 'bg-slate-900 border border-slate-800 text-slate-200'
+                    ? 'bg-[#0284C7] text-white shadow-md shadow-sky-600/15'
+                    : 'bg-white border border-slate-200/90 text-slate-800 shadow-2xs'
                 }`}
               >
-                <div className="whitespace-pre-wrap font-sans">{msg.content}</div>
+                <div className="whitespace-pre-wrap font-sans leading-relaxed">{msg.content}</div>
 
                 {/* Data Scope & Grounding Footnote */}
                 {msg.data_scope && (
-                  <div className="mt-3 pt-2.5 border-t border-slate-800 text-[11px] text-slate-400 font-mono space-y-1">
-                    <div className="flex items-center gap-1.5 text-purple-400">
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 text-[11px] text-slate-500 font-mono space-y-1">
+                    <div className="flex items-center gap-1.5 text-[#6366F1] font-semibold">
                       <Database className="w-3 h-3" />
                       <span>Data Scope: {msg.data_scope.scope_description}</span>
                     </div>
-                    <div className="text-slate-500 italic text-[10px]">
+                    <div className="text-slate-400 italic text-[10px]">
                       {msg.data_scope.limitations}
                     </div>
                   </div>
@@ -151,24 +151,24 @@ I can help explain deterministic safety alerts, calculate resistance rate change
               </div>
 
               {msg.role === 'user' && (
-                <div className="w-6 h-6 rounded bg-sky-600/20 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0 mt-0.5">
-                  <User className="w-3.5 h-3.5" />
+                <div className="w-7 h-7 rounded-xl bg-sky-100 border border-sky-200 flex items-center justify-center text-[#0284C7] shrink-0 mt-0.5 shadow-2xs">
+                  <User className="w-4 h-4" />
                 </div>
               )}
             </div>
           ))}
 
           {isLoading && (
-            <div className="flex gap-3 text-xs items-center text-purple-400 bg-purple-950/10 border border-purple-500/20 rounded-xl p-3 animate-pulse">
+            <div className="flex gap-3 text-xs items-center text-[#6366F1] bg-indigo-50/80 border border-indigo-200 rounded-2xl p-3.5 animate-pulse">
               <Bot className="w-4 h-4" />
-              <span>Querying authorized surveillance records & grounding with Gemini...</span>
+              <span>Querying authorized surveillance records &amp; grounding with Gemini...</span>
             </div>
           )}
         </div>
 
         {/* Suggested Prompts Pill Bar */}
-        <div className="p-3 border-t border-slate-800 bg-[#0B0F19]/50">
-          <div className="text-[10px] uppercase font-mono text-slate-500 mb-1.5">
+        <div className="p-3 border-t border-slate-200 bg-white">
+          <div className="text-[10px] uppercase font-mono font-bold text-slate-400 mb-1.5">
             Suggested Surveillance Inquiries:
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -176,7 +176,7 @@ I can help explain deterministic safety alerts, calculate resistance rate change
               <button
                 key={idx}
                 onClick={() => handleSend(sp)}
-                className="text-[11px] px-2.5 py-1 rounded bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 transition-colors text-left"
+                className="text-[11px] px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200 transition-colors text-left font-medium"
               >
                 {sp}
               </button>
@@ -185,7 +185,7 @@ I can help explain deterministic safety alerts, calculate resistance rate change
         </div>
 
         {/* Input Bar */}
-        <div className="p-4 border-t border-slate-800 bg-[#0B0F19]">
+        <div className="p-4 border-t border-slate-200 bg-white">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -198,12 +198,12 @@ I can help explain deterministic safety alerts, calculate resistance rate change
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Ask about alerts, resistance patterns, or AWaRe compliance..."
-              className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500/50"
+              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:bg-white focus:border-[#6366F1] transition-all"
             />
             <button
               type="submit"
               disabled={isLoading || !prompt.trim()}
-              className="p-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-40 disabled:hover:bg-purple-600 text-white transition-colors"
+              className="p-2.5 rounded-xl bg-[#6366F1] hover:bg-indigo-600 disabled:opacity-40 disabled:hover:bg-[#6366F1] text-white transition-colors cursor-pointer shadow-sm"
             >
               <Send className="w-4 h-4" />
             </button>
