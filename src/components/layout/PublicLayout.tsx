@@ -78,7 +78,7 @@ export const PublicLayout: React.FC = () => {
             {isAuthenticated ? (
               <Link
                 to={workspacePath}
-                className="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold shadow-xs hover:shadow-sm transition-all flex items-center gap-1.5"
+                className="px-4 py-2.5 rounded-xl bg-[#0B1F3A] hover:bg-[#142d52] text-white text-xs font-bold shadow-xs hover:shadow-sm transition-all flex items-center gap-1.5"
               >
                 <span>Enter Workspace</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -93,10 +93,10 @@ export const PublicLayout: React.FC = () => {
                 </Link>
                 <Link
                   to="/register"
-                  className="px-4.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-sm transition-all flex items-center gap-1.5 hover:translate-y-[-1px]"
+                  className="px-4.5 py-2.5 rounded-xl bg-[#0D9488] hover:bg-[#0f766e] text-white text-xs font-bold shadow-sm transition-all flex items-center gap-1.5 hover:translate-y-[-1px]"
                 >
-                  <span>Get Started</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Request Demo</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-teal-200" />
                 </Link>
               </>
             )}
@@ -187,10 +187,10 @@ export const PublicLayout: React.FC = () => {
               </div>
             </div>
 
-            {/* Column 1: Product */}
+            {/* Column 1: Platform & Solutions */}
             <div className="space-y-3 text-xs">
               <h4 className="font-heading font-bold text-slate-900 uppercase tracking-wider text-[11px]">
-                Product
+                Platform & Solutions
               </h4>
               <ul className="space-y-2.5">
                 <li>
@@ -199,45 +199,42 @@ export const PublicLayout: React.FC = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/app/amr-heatmap" className="hover:text-sky-600 transition-colors">
-                    AMR Intelligence
+                  <Link to="/solutions" className="hover:text-sky-600 transition-colors">
+                    Clinical Solutions
                   </Link>
                 </li>
                 <li>
-                  <Link to="/app/batches" className="hover:text-sky-600 transition-colors">
-                    Medication Safety
+                  <Link to="/how-it-works" className="hover:text-sky-600 transition-colors">
+                    How It Works
                   </Link>
                 </li>
                 <li>
-                  <Link to="/app/laboratory" className="hover:text-sky-600 transition-colors">
-                    Laboratory AST Console
+                  <Link to="/research" className="hover:text-sky-600 transition-colors">
+                    Research & Methodology
                   </Link>
                 </li>
                 <li>
-                  <Link to="/app/ai-assistant" className="hover:text-sky-600 transition-colors flex items-center gap-1.5">
-                    <span>AI Copilot</span>
-                    <span className="px-1.5 py-0.2 rounded bg-indigo-50 text-indigo-700 font-mono text-[9px] font-bold">
-                      GEMINI
-                    </span>
+                  <Link to="/security" className="hover:text-sky-600 transition-colors">
+                    Security & Compliance
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/resources" className="hover:text-sky-600 transition-colors">
+                    Resources & Standards
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* Column 2: Solutions */}
+            {/* Column 2: Stakeholders */}
             <div className="space-y-3 text-xs">
               <h4 className="font-heading font-bold text-slate-900 uppercase tracking-wider text-[11px]">
-                Solutions
+                For Stakeholders
               </h4>
               <ul className="space-y-2.5">
                 <li>
-                  <Link to="/doctor" className="hover:text-sky-600 transition-colors">
-                    For Prescribers
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/pharmacist" className="hover:text-sky-600 transition-colors">
-                    For Pharmacists
+                  <Link to="/organization" className="hover:text-sky-600 transition-colors">
+                    For Organizations
                   </Link>
                 </li>
                 <li>
@@ -246,47 +243,62 @@ export const PublicLayout: React.FC = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/stewardship" className="hover:text-sky-600 transition-colors">
-                    For Stewardship Leads
+                  <Link to="/pharmacist" className="hover:text-sky-600 transition-colors">
+                    For Pharmacies
                   </Link>
                 </li>
                 <li>
-                  <Link to="/epidemiology" className="hover:text-sky-600 transition-colors">
-                    For Epidemiologists
+                  <Link to="/researcher" className="hover:text-sky-600 transition-colors">
+                    For Researchers
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/doctor" className="hover:text-sky-600 transition-colors">
+                    For Prescribers
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/stewardship" className="hover:text-sky-600 transition-colors">
+                    For Stewardship Leads
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* Column 3: Resources & Governance */}
+            {/* Column 3: Company & Legal */}
             <div className="space-y-3 text-xs">
               <h4 className="font-heading font-bold text-slate-900 uppercase tracking-wider text-[11px]">
-                Resources
+                Company & Legal
               </h4>
               <ul className="space-y-2.5">
                 <li>
-                  <Link to="/research" className="hover:text-sky-600 transition-colors">
-                    Scientific Methodology
+                  <Link to="/resources" className="hover:text-sky-600 transition-colors">
+                    About MediGuard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/resources" className="hover:text-sky-600 transition-colors">
+                    Contact Health Team
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/register" className="hover:text-sky-600 transition-colors">
+                    Request Platform Demo
                   </Link>
                 </li>
                 <li>
                   <Link to="/security" className="hover:text-sky-600 transition-colors">
-                    Security &amp; RLS Architecture
+                    Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link to="/resources" className="hover:text-sky-600 transition-colors">
-                    WHO AWaRe &amp; CLSI Standards
+                  <Link to="/security" className="hover:text-sky-600 transition-colors">
+                    Terms of Service
                   </Link>
                 </li>
                 <li>
-                  <Link to="/resources" className="hover:text-sky-600 transition-colors">
-                    Platform FAQ
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/how-it-works" className="hover:text-sky-600 transition-colors">
-                    Implementation Guide
+                  <Link to="/security" className="hover:text-sky-600 transition-colors">
+                    Data Safety & HIPAA
                   </Link>
                 </li>
               </ul>
@@ -296,9 +308,9 @@ export const PublicLayout: React.FC = () => {
           {/* Bottom Bar */}
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-              <span className="font-medium text-slate-800">© 2026 MediGuard Intelligence</span>
+              <span className="font-medium text-slate-800">© 2026 MediGuard</span>
               <span className="hidden sm:inline text-slate-300">•</span>
-              <span>All rights reserved.</span>
+              <span>Medication Safety & AMR Intelligence</span>
               <span className="hidden sm:inline text-slate-300">•</span>
               <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 font-mono text-[10px] font-bold">
                 SYNTHETIC DEMO TELEMETRY — NOT REAL PATIENT DATA
@@ -311,7 +323,7 @@ export const PublicLayout: React.FC = () => {
               </Link>
               <span>•</span>
               <Link to="/resources" className="hover:text-slate-800">
-                Privacy Policy
+                Data Safety
               </Link>
               <span>•</span>
               <Link to="/login" className="hover:text-slate-800">
