@@ -111,57 +111,67 @@ export const PharmacistWorkspace: React.FC = () => {
         </div>
       </div>
 
-      {/* Operational KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+      {/* Operational 5 KPI Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Pending Queue</span>
-            <div className="p-2 rounded-xl bg-sky-50 text-sky-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Dispensing Volume</span>
+            <div className="p-1.5 rounded-xl bg-sky-50 text-sky-700">
+              <PackageCheck className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">
+            {prescriptions.filter(p => p.status === 'active').length * 3 + 14} Units
+          </div>
+          <div className="text-[10px] text-slate-500">24-hour dispensing load</div>
+        </div>
+
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Medication Inventory</span>
+            <div className="p-1.5 rounded-xl bg-teal-50 text-teal-700">
+              <Pill className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">
+            {batches.reduce((sum, b) => sum + (b.initial_quantity || 100), 0)} Packs
+          </div>
+          <div className="text-[10px] text-teal-700 font-medium">{batches.length} active lots</div>
+        </div>
+
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Expiring Batches</span>
+            <div className="p-1.5 rounded-xl bg-amber-50 text-amber-700">
               <Clock className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">
-            {prescriptions.filter(p => p.status === 'active').length} Orders
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">
+            1 Lot
           </div>
-          <div className="text-[11px] text-slate-500 flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />
-            <span>Ready for pharmacist sign-off</span>
-          </div>
+          <div className="text-[10px] text-amber-700 font-medium">Expires in &lt; 90 days</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Batches Verified</span>
-            <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
-              <ShieldCheck className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">
-            {batches.filter(b => b.verification_status === 'Verified').length} / {batches.length} Lots
-          </div>
-          <div className="text-[11px] text-emerald-600 font-medium">100% GS1 barcode authenticated</div>
-        </div>
-
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Cold Storage (IoT)</span>
-            <div className="p-2 rounded-xl bg-teal-50 text-teal-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Cold-Chain Temp</span>
+            <div className="p-1.5 rounded-xl bg-teal-50 text-teal-700">
               <Thermometer className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">4.2°C (Optimal)</div>
-          <div className="text-[11px] text-emerald-600 font-medium">Within 2°C – 8°C certified band</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">4.2°C</div>
+          <div className="text-[10px] text-emerald-600 font-medium">2°C – 8°C certified band</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2 col-span-2 sm:col-span-1">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Repeat Course Flags</span>
-            <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Repeat Dispensing</span>
+            <div className="p-1.5 rounded-xl bg-rose-50 text-rose-700">
               <RefreshCw className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{alerts.length} Flagged</div>
-          <div className="text-[11px] text-amber-600 font-medium">&lt; 14-day re-prescription barrier</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">{alerts.length} Flags</div>
+          <div className="text-[10px] text-rose-600 font-medium">&lt; 14-day barrier</div>
         </div>
       </div>
 

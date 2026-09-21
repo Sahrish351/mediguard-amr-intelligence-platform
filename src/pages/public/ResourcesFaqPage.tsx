@@ -267,12 +267,40 @@ export const ResourcesFaqPage: React.FC = () => {
               </div>
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-sm transition-all"
+                className="w-full py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
               >
                 Submit Consultation Request
               </button>
             </form>
           )}
+        </div>
+      </section>
+
+      {/* Resources CTA */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="rounded-3xl bg-gradient-to-r from-[#0B5ED7] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 text-center space-y-6 shadow-xl border border-sky-400/30">
+          <div className="max-w-2xl mx-auto space-y-3">
+            <h3 className="text-2xl sm:text-3xl font-extrabold font-heading">
+              Explore the MediGuard Surveillance Platform
+            </h3>
+            <p className="text-xs sm:text-sm text-sky-100">
+              Access real-time clinical workflows, automated CLSI breakpoints, and grounded AI surveillance assistance.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/register"
+              className="px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#0B5ED7] font-bold text-xs shadow-md transition-all cursor-pointer"
+            >
+              Request Institutional Trial
+            </Link>
+            <Link
+              to="/solutions"
+              className="px-6 py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs border border-white/30 transition-all cursor-pointer"
+            >
+              Compare Solutions
+            </Link>
+          </div>
         </div>
       </section>
     </div>

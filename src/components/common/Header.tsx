@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAIAssistant, onToggleSideb
 
   const handleLogout = async () => {
     await logout();
-    navigate('/login');
+    navigate('/');
   };
 
   return (

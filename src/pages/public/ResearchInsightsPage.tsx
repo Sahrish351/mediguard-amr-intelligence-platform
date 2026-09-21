@@ -226,6 +226,34 @@ export const ResearchInsightsPage: React.FC = () => {
           </p>
         </div>
       </section>
+
+      {/* Research CTA */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="rounded-3xl bg-gradient-to-r from-[#0B5ED7] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 text-center space-y-6 shadow-xl border border-sky-400/30">
+          <div className="max-w-2xl mx-auto space-y-3">
+            <h3 className="text-2xl sm:text-3xl font-extrabold font-heading">
+              Access Standardized AMR Surveillance Datasets
+            </h3>
+            <p className="text-xs sm:text-sm text-sky-100">
+              Download CLSI-standardized de-identified research cohorts, inspect methodology whitepapers, or request academic partnership.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/researcher"
+              className="px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#0B5ED7] font-bold text-xs shadow-md transition-all cursor-pointer"
+            >
+              Enter Research Workspace
+            </Link>
+            <Link
+              to="/resources"
+              className="px-6 py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs border border-white/30 transition-all cursor-pointer"
+            >
+              Read Full Methodology
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

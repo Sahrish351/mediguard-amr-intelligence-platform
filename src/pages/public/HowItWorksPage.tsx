@@ -181,18 +181,75 @@ export const HowItWorksPage: React.FC = () => {
         ))}
       </section>
 
+      {/* Architecture & Data Flow Breakdown */}
+      <section className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#0D9488] px-3 py-1 rounded-full bg-teal-50 border border-teal-200">
+            INTEROPERABILITY &amp; PROTOCOLS
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#0B1F3A]">
+            Enterprise Health Data Flow Architecture
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500">
+            Real-time multi-protocol ingestion connecting heterogeneous hospital infrastructure.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+            <div className="w-9 h-9 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center font-mono font-bold text-xs">
+              FHIR
+            </div>
+            <h3 className="font-bold text-slate-900 text-sm">HL7 FHIR R4 Standard</h3>
+            <p className="text-slate-600 leading-relaxed text-[11px]">
+              RESTful ingestion of MedicationRequest, Encounter, and DiagnosticReport resources with automatic schema validation.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+            <div className="w-9 h-9 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center font-mono font-bold text-xs">
+              ASTM
+            </div>
+            <h3 className="font-bold text-slate-900 text-sm">LIMS &amp; AST Brokering</h3>
+            <p className="text-slate-600 leading-relaxed text-[11px]">
+              Direct serial and network integration with automated microbiology analyzers (VITEK, Phoenix, BD MicroScan).
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+            <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center font-mono font-bold text-xs">
+              GS1
+            </div>
+            <h3 className="font-bold text-slate-900 text-sm">GS1 Serialization Radar</h3>
+            <p className="text-slate-600 leading-relaxed text-[11px]">
+              Point-of-dispense 2D DataMatrix barcode verification preventing counterfeit, expired, and quarantined batches.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-mono font-bold text-xs">
+              RLS
+            </div>
+            <h3 className="font-bold text-slate-900 text-sm">PostgreSQL RLS Boundary</h3>
+            <p className="text-slate-600 leading-relaxed text-[11px]">
+              Cryptographic organization segregation at the database layer ensuring cross-tenant leakage is mathematically impossible.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
-      <section className="rounded-3xl bg-[#0B1F3A] text-white p-8 sm:p-12 text-center space-y-4">
+      <section className="rounded-3xl bg-gradient-to-r from-[#0B5ED7] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 text-center space-y-4 border border-sky-400/30 shadow-xl">
         <h2 className="text-2xl sm:text-3xl font-extrabold font-heading">
           Ready to deploy MediGuard across your healthcare network?
         </h2>
-        <p className="text-slate-300 text-xs sm:text-sm max-w-xl mx-auto">
+        <p className="text-sky-100 text-xs sm:text-sm max-w-xl mx-auto">
           Contact our clinical informatics specialists for architecture blueprints, HL7 FHIR connector documentation, and staging sandbox access.
         </p>
         <div className="pt-2">
           <Link
             to="/register"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0D9488] hover:bg-[#0f766e] text-white font-bold text-xs shadow-md transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#0B5ED7] font-bold text-xs shadow-md transition-all cursor-pointer"
           >
             <span>Request Institutional Deployment</span>
             <ArrowRight className="w-4 h-4" />

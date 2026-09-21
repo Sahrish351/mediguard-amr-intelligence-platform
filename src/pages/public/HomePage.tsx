@@ -240,37 +240,53 @@ export const HomePage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Floating Intelligence Card 1: Top Right - AMR Risk & Critical Signals */}
-              <div className="absolute -top-6 -right-3 sm:-right-6 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-xl shadow-slate-900/10 space-y-2 max-w-[200px] animate-in fade-in duration-300">
+              {/* Floating Intelligence Card 1: Top Right - AMR Risk */}
+              <div className="absolute -top-5 -right-2 sm:-right-6 p-3.5 sm:p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-xl shadow-slate-900/10 space-y-1.5 w-44 sm:w-48 z-10 animate-in fade-in duration-300">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono font-bold uppercase text-slate-400">AMR RISK</span>
                   <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
                 </div>
-                <div className="text-2xl font-extrabold text-[#0B1F3A] font-mono">32.8%</div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-[#0B1F3A] font-mono">32.8%</div>
                 <div className="text-[10px] text-rose-600 font-semibold flex items-center gap-1">
-                  <TrendingUp className="w-3 h-3" />
+                  <TrendingUp className="w-3 h-3 shrink-0" />
                   <span>+4.2% regional surge</span>
                 </div>
               </div>
 
-              {/* Floating Intelligence Card 2: Bottom Left - Verified Batches & Critical Signals */}
-              <div className="absolute -bottom-8 -left-3 sm:-left-6 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-xl shadow-slate-900/10 space-y-2 min-w-[220px]">
+              {/* Floating Intelligence Card 2: Bottom Left - Verified Batches */}
+              <div className="absolute -bottom-6 -left-2 sm:-left-6 p-3.5 sm:p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-xl shadow-slate-900/10 space-y-1.5 w-44 sm:w-52 z-10">
                 <div className="flex items-center justify-between text-[10px] font-mono font-bold">
                   <span className="text-slate-400 uppercase">VERIFIED BATCHES</span>
-                  <span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
+                  <span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 text-[9px]">
                     GS1 OK
                   </span>
                 </div>
-                <div className="text-2xl font-extrabold text-[#0B1F3A] font-mono">18,420</div>
-                <div className="grid grid-cols-2 gap-2 pt-1 border-t border-slate-100 text-[10px] font-mono">
-                  <div>
-                    <span className="text-slate-400 block">SIGNALS</span>
-                    <span className="font-bold text-rose-600">07 Critical</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block">SOURCES</span>
-                    <span className="font-bold text-[#0D9488]">124 Feeds</span>
-                  </div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-[#0B1F3A] font-mono">18,420</div>
+                <div className="text-[10px] text-emerald-700 font-medium flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3 shrink-0 text-emerald-600" />
+                  <span>100% counterfeit checked</span>
+                </div>
+              </div>
+
+              {/* Floating Intelligence Card 3: Top Left - Connected Facilities */}
+              <div className="hidden sm:flex absolute top-12 -left-8 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-lg shadow-slate-900/5 items-center gap-3 z-10">
+                <div className="w-9 h-9 rounded-xl bg-sky-50 text-[#0284C7] flex items-center justify-center font-bold">
+                  <Building2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs text-slate-400 font-mono font-semibold uppercase">FACILITIES</div>
+                  <div className="text-lg font-extrabold text-[#0B1F3A] font-mono leading-none">124 <span className="text-[10px] font-sans text-slate-500 font-normal">Active</span></div>
+                </div>
+              </div>
+
+              {/* Floating Intelligence Card 4: Bottom Right - Critical Signals */}
+              <div className="hidden sm:flex absolute -bottom-4 right-8 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-rose-200/80 shadow-lg shadow-rose-900/5 items-center gap-3 z-10">
+                <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold">
+                  <BadgeAlert className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-xs text-slate-400 font-mono font-semibold uppercase">CRITICAL SIGNALS</div>
+                  <div className="text-lg font-extrabold text-rose-600 font-mono leading-none">07 <span className="text-[10px] font-sans text-slate-500 font-normal">Urgent</span></div>
                 </div>
               </div>
             </div>

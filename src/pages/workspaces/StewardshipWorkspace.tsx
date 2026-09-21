@@ -16,6 +16,7 @@ import {
   Stethoscope,
   Building2,
   Calendar,
+  Pill,
 } from 'lucide-react';
 import { AWaReBadge } from '@/components/common/Badge';
 import {
@@ -101,50 +102,61 @@ export const StewardshipWorkspace: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Stewardship KPIs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+      {/* 2. Stewardship 5 KPIs */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Access Antibiotics</span>
-            <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">AWaRe Ratio</span>
+            <div className="p-1.5 rounded-xl bg-emerald-50 text-emerald-700">
               <ShieldCheck className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-[#0B1F3A] font-mono">{awareStats.accessPercentage}%</div>
-          <div className="text-[11px] text-emerald-600 font-medium">Compliant with WHO target (≥60%)</div>
+          <div className="text-xl sm:text-2xl font-extrabold text-[#0B1F3A] font-mono">{awareStats.accessPercentage}% Access</div>
+          <div className="text-[10px] text-emerald-600 font-medium">WHO target: ≥60%</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Watch Antibiotics</span>
-            <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Days of Therapy</span>
+            <div className="p-1.5 rounded-xl bg-sky-50 text-sky-700">
               <Activity className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-[#0B1F3A] font-mono">{awareStats.watchPercentage}%</div>
-          <div className="text-[11px] text-amber-600 font-medium">Under active surveillance</div>
+          <div className="text-xl sm:text-2xl font-extrabold text-[#0B1F3A] font-mono">480 DOT</div>
+          <div className="text-[10px] text-slate-500">Per 1,000 pt-days</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Reserve Antibiotics</span>
-            <div className="p-2 rounded-xl bg-rose-50 text-rose-700">
-              <AlertTriangle className="w-4 h-4" />
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Consumption</span>
+            <div className="p-1.5 rounded-xl bg-teal-50 text-teal-700">
+              <Pill className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-[#0B1F3A] font-mono">{awareStats.reservePercentage}%</div>
-          <div className="text-[11px] text-rose-600 font-medium">Requires infectious disease sign-off</div>
+          <div className="text-xl sm:text-2xl font-extrabold text-[#0B1F3A] font-mono">142 DDD</div>
+          <div className="text-[10px] text-teal-700 font-medium">Defined daily doses</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Active Interventions</span>
-            <div className="p-2 rounded-xl bg-sky-50 text-sky-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Interventions</span>
+            <div className="p-1.5 rounded-xl bg-amber-50 text-amber-700">
               <FileSearch className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-[#0B1F3A] font-mono">{investigations.length} Cases</div>
-          <div className="text-[11px] text-slate-500">Clinical feedback documented</div>
+          <div className="text-xl sm:text-2xl font-extrabold text-[#0B1F3A] font-mono">{investigations.length} Cases</div>
+          <div className="text-[10px] text-amber-700 font-medium">Active audit &amp; feedback</div>
+        </div>
+
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2 col-span-2 sm:col-span-1">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Prescriber Bench</span>
+            <div className="p-1.5 rounded-xl bg-indigo-50 text-indigo-700">
+              <Users className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="text-xl sm:text-2xl font-extrabold text-[#0B1F3A] font-mono">88.4%</div>
+          <div className="text-[10px] text-indigo-700 font-medium">Peer compliance index</div>
         </div>
       </div>
 

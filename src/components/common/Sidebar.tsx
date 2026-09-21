@@ -61,7 +61,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAIAssistant, isOpenMobil
 
   const handleLogout = async () => {
     await logout();
-    navigate('/login');
+    navigate('/');
   };
 
   // Structured Enterprise Navigation per Role

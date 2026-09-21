@@ -102,50 +102,61 @@ export const OrganizationAdminWorkspace: React.FC = () => {
         </div>
       </div>
 
-      {/* Organization KPIs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+      {/* Organization 5 KPIs */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Connected Facilities</span>
-            <div className="p-2 rounded-xl bg-sky-50 text-sky-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Facilities</span>
+            <div className="p-1.5 rounded-xl bg-sky-50 text-sky-700">
               <Building2 className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{facilities.length} Active</div>
-          <div className="text-[11px] text-slate-500">Hospitals, Labs & Pharmacies</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">{facilities.length} Units</div>
+          <div className="text-[10px] text-slate-500">Hospitals, Labs &amp; Rx</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Credentialed Staff</span>
-            <div className="p-2 rounded-xl bg-indigo-50 text-indigo-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Clinicians</span>
+            <div className="p-1.5 rounded-xl bg-indigo-50 text-indigo-700">
               <Users className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{users.length} Users</div>
-          <div className="text-[11px] text-emerald-600 font-medium">100% RBAC permission verified</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">{users.length} Users</div>
+          <div className="text-[10px] text-emerald-600 font-medium">100% RBAC verified</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Data Quality Score</span>
-            <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Lab Perf (TAT)</span>
+            <div className="p-1.5 rounded-xl bg-teal-50 text-teal-700">
+              <Activity className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">36.4h</div>
+          <div className="text-[10px] text-emerald-600 font-medium">-12% vs standard</div>
+        </div>
+
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Medication Usage</span>
+            <div className="p-1.5 rounded-xl bg-emerald-50 text-emerald-700">
               <ShieldCheck className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">98.6%</div>
-          <div className="text-[11px] text-emerald-600 font-medium">WHONET & CLSI conforming</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">92% Target</div>
+          <div className="text-[10px] text-emerald-600 font-medium">AWaRe Access ≥60%</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2 col-span-2 sm:col-span-1">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Active Discrepancies</span>
-            <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Data Quality</span>
+            <div className="p-1.5 rounded-xl bg-amber-50 text-amber-700">
               <AlertTriangle className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{dataQualityIssues.length} Pending</div>
-          <div className="text-[11px] text-amber-600 font-medium">Under QA review</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">98.6%</div>
+          <div className="text-[10px] text-amber-700 font-medium">{dataQualityIssues.length} pending checks</div>
         </div>
       </div>
 

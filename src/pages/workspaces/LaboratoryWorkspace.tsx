@@ -67,16 +67,14 @@ export const LaboratoryWorkspace: React.FC = () => {
       {/* 1. Header Greeting & Clinical Context */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-gradient-to-r from-white via-teal-50/40 to-blue-50/30 p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-2xs">
         <div className="space-y-1.5 max-w-2xl">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-teal-700 px-3 py-1 rounded-full bg-teal-50 border border-teal-200">
-              CLSI M100-ED33 & EUCAST v14.0 BENCH
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-teal-700 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 flex items-center gap-1.5">
+              <Microscope className="w-3.5 h-3.5 text-teal-600" />
+              DIGITAL MICROBIOLOGY BENCH
             </span>
-            <span className="text-xs text-slate-500 font-mono flex items-center gap-1">
-              <Dna className="w-3.5 h-3.5 text-teal-600" />
-              Automated Microdilution & Kirby-Bauer AST
-            </span>
+            <span className="text-xs text-slate-400 font-mono">CLSI M100-ED33 Active</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] font-heading">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 font-heading">
             Microbiology Laboratory — {currentUser?.full_name || 'Lead Microbiologist'}
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -102,16 +100,16 @@ export const LaboratoryWorkspace: React.FC = () => {
         </div>
       </div>
 
-      {/* Lab KPIs */}
+      {/* Lab KPIs: Specimens today, Pending cultures, Positive cultures, Critical AST */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Accession Queue</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Specimens Today</span>
             <div className="p-2 rounded-xl bg-sky-50 text-sky-700">
               <Clock className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{specimens.length} In-Flight</div>
+          <div className="text-2xl font-bold text-slate-900 font-mono">{specimens.length + 12} Total</div>
           <div className="text-[11px] text-emerald-600 font-medium flex items-center gap-1">
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>100% adequate specimen quality</span>
@@ -120,38 +118,35 @@ export const LaboratoryWorkspace: React.FC = () => {
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Critical Isolates (Alert)</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Pending Cultures</span>
+            <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
+              <Clock className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="text-2xl font-bold text-slate-900 font-mono">{specimens.length} In-Flight</div>
+          <div className="text-[11px] text-amber-600 font-medium">Under active 24h/48h incubation</div>
+        </div>
+
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Positive Cultures</span>
+            <div className="p-2 rounded-xl bg-teal-50 text-teal-700">
+              <Activity className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="text-2xl font-bold text-slate-900 font-mono">14 Confirmed</div>
+          <div className="text-[11px] text-teal-600 font-medium">Phenotypic growth isolated</div>
+        </div>
+
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Critical AST</span>
             <div className="p-2 rounded-xl bg-rose-50 text-rose-700">
               <AlertTriangle className="w-4 h-4" />
             </div>
           </div>
           <div className="text-2xl font-bold text-slate-900 font-mono">5 High-Priority</div>
-          <div className="text-[11px] text-rose-600 font-medium">CRE, MRSA & VRE confirmed</div>
-        </div>
-
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Avg Turnaround Time</span>
-            <div className="p-2 rounded-xl bg-teal-50 text-teal-700">
-              <Activity className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">36.4 Hours</div>
-          <div className="text-[11px] text-emerald-600 font-medium flex items-center gap-1">
-            <TrendingDown className="w-3.5 h-3.5" />
-            <span>-12% vs WHO guideline target (48h)</span>
-          </div>
-        </div>
-
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">QC ATCC Verification</span>
-            <div className="p-2 rounded-xl bg-indigo-50 text-indigo-700">
-              <ShieldCheck className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">Pass (100%)</div>
-          <div className="text-[11px] text-emerald-600 font-medium">E. coli ATCC 25922 within range</div>
+          <div className="text-[11px] text-rose-600 font-medium">CRE, MRSA &amp; VRE confirmed</div>
         </div>
       </div>
 

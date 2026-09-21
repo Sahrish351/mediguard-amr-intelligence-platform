@@ -108,22 +108,11 @@ export const SurveillanceWorkspace: React.FC = () => {
         </div>
       </div>
 
-      {/* Surveillance KPIs */}
+      {/* Surveillance KPIs: Critical signals, Open investigations, Resolved signals, High-risk pathogens */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Total Signals</span>
-            <div className="p-2 rounded-xl bg-sky-50 text-sky-700">
-              <Activity className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{alerts.length} Detected</div>
-          <div className="text-[11px] text-slate-500">Continuous rolling baseline</div>
-        </div>
-
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Critical Severity</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Critical Signals</span>
             <div className="p-2 rounded-xl bg-rose-50 text-rose-700">
               <AlertTriangle className="w-4 h-4" />
             </div>
@@ -137,24 +126,35 @@ export const SurveillanceWorkspace: React.FC = () => {
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Active Investigations</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Open Investigations</span>
             <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
               <FileSearch className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{investigations.length} In-Flight</div>
-          <div className="text-[11px] text-slate-500">Collaborative case notes</div>
+          <div className="text-2xl font-bold text-slate-900 font-mono">{investigations.length} Cases Open</div>
+          <div className="text-[11px] text-slate-500">Collaborative triage active</div>
         </div>
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Resolution Ratio</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Resolved Signals</span>
             <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
               <CheckCircle2 className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">85.4%</div>
-          <div className="text-[11px] text-emerald-600 font-medium">Mandatory sign-off logged</div>
+          <div className="text-2xl font-bold text-slate-900 font-mono">48 Resolved</div>
+          <div className="text-[11px] text-emerald-600 font-medium">85.4% resolution ratio</div>
+        </div>
+
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">High-Risk Pathogens</span>
+            <div className="p-2 rounded-xl bg-purple-50 text-purple-700">
+              <Activity className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="text-2xl font-bold text-slate-900 font-mono">4 Strains</div>
+          <div className="text-[11px] text-purple-700 font-medium">CRE, MRSA, VRE, ESBL</div>
         </div>
       </div>
 

@@ -127,50 +127,61 @@ export const ResearcherWorkspace: React.FC = () => {
         </div>
       )}
 
-      {/* Research KPIs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+      {/* Research 5 KPIs */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Research Cohort</span>
-            <div className="p-2 rounded-xl bg-purple-50 text-purple-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Dataset Size</span>
+            <div className="p-1.5 rounded-xl bg-purple-50 text-purple-700">
               <FileSearch className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">2,840 Isolates</div>
-          <div className="text-[11px] text-slate-500">De-duplicated encounters</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">2,840 Isolates</div>
+          <div className="text-[10px] text-slate-500">De-duplicated encounters</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Antibiotics Indexed</span>
-            <div className="p-2 rounded-xl bg-sky-50 text-sky-700">
-              <BarChart3 className="w-4 h-4" />
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Pathogens</span>
+            <div className="p-1.5 rounded-xl bg-sky-50 text-sky-700">
+              <Microscope className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{medicines.length} Molecules</div>
-          <div className="text-[11px] text-slate-500">WHO AWaRe classified</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">{organisms.length} Species</div>
+          <div className="text-[10px] text-sky-700 font-medium">WHO GLASS Tier 1</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Breakpoints Applied</span>
-            <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
-              <ShieldCheck className="w-4 h-4" />
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Resistance Trends</span>
+            <div className="p-1.5 rounded-xl bg-rose-50 text-rose-700">
+              <TrendingUp className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">CLSI M100-ED33</div>
-          <div className="text-[11px] text-emerald-600 font-medium">Standardized MIC tables</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">+1.8% / Yr</div>
+          <div className="text-[10px] text-rose-600 font-medium">Longitudinal surge vector</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Scientific Dossiers</span>
-            <div className="p-2 rounded-xl bg-indigo-50 text-indigo-700">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Study Periods</span>
+            <div className="p-1.5 rounded-xl bg-indigo-50 text-indigo-700">
               <BookOpen className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{reports.length} Reports</div>
-          <div className="text-[11px] text-slate-500">Peer-review formatted</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">2021 – 2026</div>
+          <div className="text-[10px] text-indigo-700 font-medium">5-Year multi-cohort</div>
+        </div>
+
+        <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2 col-span-2 sm:col-span-1">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-slate-500 uppercase font-heading">Data Coverage</span>
+            <div className="p-1.5 rounded-xl bg-emerald-50 text-emerald-700">
+              <ShieldCheck className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 font-mono">98.2%</div>
+          <div className="text-[10px] text-emerald-600 font-medium">CLSI M100 compliant</div>
         </div>
       </div>
 

@@ -109,15 +109,18 @@ export const DoctorWorkspace: React.FC = () => {
             Good morning, Dr. {currentUser?.full_name?.replace(/^Dr\.?\s*/i, '') || 'Sarah'}.
           </h1>
           <p className="text-xs sm:text-sm text-slate-500">
-            Your antimicrobial prescribing overview for today across {currentOrg.name}.
+            Here is your antimicrobial prescribing overview for today.
           </p>
+          <div className="text-[11px] font-mono text-slate-400 pt-0.5">
+            {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' })} • {currentOrg.name}
+          </div>
         </div>
 
         {/* Quick Actions */}
         <div className="flex flex-wrap items-center gap-2">
           <a
             href="#prescription-form"
-            className="px-4 py-2.5 rounded-xl bg-[#0B1F3A] hover:bg-[#142d52] text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>New Prescription</span>
@@ -128,12 +131,6 @@ export const DoctorWorkspace: React.FC = () => {
           >
             Patient History
           </Link>
-          <a
-            href="#medication-search"
-            className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold transition-all shadow-2xs"
-          >
-            Medication Lookup
-          </a>
           <Link
             to="/app/alerts"
             className="px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-all shadow-2xs"
@@ -143,7 +140,7 @@ export const DoctorWorkspace: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. KPIs: Active Prescriptions, Patients Under Care, Antibiotic Orders, Stewardship Score */}
+      {/* 2. KPIs: Active Prescriptions, Patients Today, Stewardship Flags, Pending Reviews */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
@@ -152,13 +149,13 @@ export const DoctorWorkspace: React.FC = () => {
               <Stethoscope className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-slate-900 font-mono">{prescriptions.length} Courses</div>
+          <div className="text-2xl font-extrabold text-slate-900 font-mono">{prescriptions.length} Active</div>
           <div className="text-[11px] text-emerald-600 font-medium">100% tokenized patient privacy</div>
         </div>
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Patients Under Care</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Patients Today</span>
             <div className="p-2 rounded-xl bg-indigo-50 text-indigo-700">
               <User className="w-4 h-4" />
             </div>
@@ -169,24 +166,24 @@ export const DoctorWorkspace: React.FC = () => {
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Antibiotic Orders</span>
-            <div className="p-2 rounded-xl bg-teal-50 text-[#0D9488]">
-              <Pill className="w-4 h-4" />
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Stewardship Flags</span>
+            <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
+              <AlertTriangle className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-slate-900 font-mono">24 Regimens</div>
-          <div className="text-[11px] text-[#0D9488] font-medium">Formulary verified &amp; scoped</div>
+          <div className="text-2xl font-extrabold text-slate-900 font-mono">3 Flags</div>
+          <div className="text-[11px] text-amber-700 font-medium">Watch tier review advisory</div>
         </div>
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Stewardship Score</span>
-            <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Pending Reviews</span>
+            <div className="p-2 rounded-xl bg-teal-50 text-teal-700">
               <ShieldCheck className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-slate-900 font-mono">94 / 100</div>
-          <div className="text-[11px] text-emerald-600 font-medium">≥60% Access target exceeded</div>
+          <div className="text-2xl font-extrabold text-slate-900 font-mono">2 Pending</div>
+          <div className="text-[11px] text-teal-700 font-medium">Culture AST correlation pending</div>
         </div>
       </div>
 
@@ -196,7 +193,7 @@ export const DoctorWorkspace: React.FC = () => {
         <div className="lg:col-span-7 p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-              <h3 className="text-base font-bold text-slate-900 font-heading">7-Day Prescribing Trend</h3>
+              <h3 className="text-base font-bold text-slate-900 font-heading">Antibiotic Prescribing Trend</h3>
               <p className="text-xs text-slate-500">Daily antimicrobial courses stratified by WHO AWaRe tier.</p>
             </div>
             <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">
@@ -212,11 +209,12 @@ export const DoctorWorkspace: React.FC = () => {
                 <YAxis stroke="#94A3B8" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0F172A',
-                    borderColor: '#1E293B',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e2e8f0',
                     borderRadius: '12px',
-                    color: '#FFF',
+                    color: '#0f172a',
                     fontSize: '11px',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 />
                 <Area type="monotone" dataKey="access" name="Access Tier" stackId="1" stroke="#16A34A" fill="#16A34A" fillOpacity={0.6} />
