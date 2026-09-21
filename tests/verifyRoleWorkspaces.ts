@@ -180,3 +180,4 @@ if (failed > 0) {
   console.log('ALL ROLE WORKSPACE & RBAC AUTHORIZATION CHECKS PASSED!\n');
   process.exit(0);
 }
+

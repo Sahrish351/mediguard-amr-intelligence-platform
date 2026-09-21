@@ -197,6 +197,46 @@ export const LaboratoryWorkspace: React.FC = () => {
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
+
+          {/* Quantitative MIC Distribution Visual */}
+          <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 font-heading flex items-center gap-2">
+              <BarChart3 className="w-4 h-4 text-indigo-600" />
+              <span>Quantitative MIC Titer Distribution</span>
+            </h3>
+            <div className="space-y-2 text-xs">
+              <div>
+                <div className="flex items-center justify-between text-[11px] mb-1">
+                  <span className="font-semibold text-slate-700">Meropenem vs K. pneumoniae</span>
+                  <span className="font-mono font-bold text-rose-600">MIC &gt; 16 mg/L (R)</span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div className="h-full bg-rose-500 rounded-full w-[85%]" />
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between text-[11px] mb-1">
+                  <span className="font-semibold text-slate-700">Ciprofloxacin vs E. coli</span>
+                  <span className="font-mono font-bold text-rose-600">MIC &gt; 4 mg/L (R)</span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div className="h-full bg-rose-500 rounded-full w-[65%]" />
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between text-[11px] mb-1">
+                  <span className="font-semibold text-slate-700">Vancomycin vs S. aureus</span>
+                  <span className="font-mono font-bold text-emerald-600">MIC 1.0 mg/L (S)</span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div className="h-full bg-emerald-500 rounded-full w-[25%]" />
+                </div>
+              </div>
+            </div>
+            <p className="text-[10px] text-slate-400 font-mono pt-1">
+              Broth microdilution automated telemetry • Validated against CLSI M100 QC strain ATCC 25922
+            </p>
+          </div>
         </div>
       </div>
     </div>

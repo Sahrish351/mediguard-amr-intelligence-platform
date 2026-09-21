@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
+import { MediGuardLogo } from '@/components/common/MediGuardLogo';
 import {
   LayoutDashboard,
   Activity,
@@ -258,19 +259,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenAIAssistant, isOpenMobil
     <div className="flex flex-col h-full bg-white border-r border-slate-200 text-slate-700">
       {/* Brand Header */}
       <div className="p-4 border-b border-slate-200/80 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-sky-600 flex items-center justify-center text-white shadow-xs">
-            <Shield className="w-4 h-4" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-sm text-slate-900 font-heading leading-tight">
-              MediGuard
-            </span>
-            <span className="text-[10px] text-slate-500 font-medium truncate max-w-[130px]">
-              {currentOrg?.name}
-            </span>
-          </div>
-        </Link>
+        <MediGuardLogo size="sm" showTagline={false} to="/" />
       </div>
 
       {/* Role Badge Indicator */}

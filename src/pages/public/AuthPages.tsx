@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import {
-  Shield,
   Lock,
   Mail,
   User,
@@ -18,8 +17,13 @@ import {
   ShieldCheck,
   KeyRound,
   AlertCircle,
+  Shield,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import { UserRoleSlug } from '@/types';
+import { MediGuardLogo } from '@/components/common/MediGuardLogo';
+import { CLINICAL_IMAGES } from '@/lib/clinicalImages';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,7 +32,10 @@ export const LoginPage: React.FC = () => {
 
   const [email, setEmail] = useState('sarah.doc@mediguard.org');
   const [password, setPassword] = useState('clinical-secure-2026');
+  const [rememberMe, setRememberMe] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [showDemoPersonas, setShowDemoPersonas] = useState(true);
 
   const fromPath = (location.state as any)?.from?.pathname;
@@ -36,19 +43,29 @@ export const LoginPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
-    const result = await login(email, password);
-    if (result.success) {
-      navigate(fromPath || result.workspacePath, { replace: true });
-    } else {
-      setErrorMessage(result.error || 'Invalid credentials or unassigned role.');
+    setSubmitting(true);
+    try {
+      const result = await login(email, password);
+      if (result.success) {
+        navigate(fromPath || result.workspacePath, { replace: true });
+      } else {
+        setErrorMessage(result.error || 'Invalid institutional credentials or unassigned role.');
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
 
   const handleLaunchPersona = async (roleSlug: UserRoleSlug) => {
     setErrorMessage(null);
-    const result = await loginAsPersona(roleSlug);
-    if (result.success) {
-      navigate(result.workspacePath, { replace: true });
+    setSubmitting(true);
+    try {
+      const result = await loginAsPersona(roleSlug);
+      if (result.success) {
+        navigate(result.workspacePath, { replace: true });
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -65,72 +82,74 @@ export const LoginPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center p-4 sm:p-6 lg:p-10">
+    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-slate-50">
       <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 rounded-3xl bg-white border border-slate-200/90 shadow-2xl shadow-slate-900/5 overflow-hidden">
-        {/* Left Column: Scientific Healthcare Intelligence Brand & Quotes */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 p-8 sm:p-10 text-white flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute inset-0 bg-medical-grid opacity-10 pointer-events-none" />
+        {/* Left Column: Clinical Hero Visual with Gradient Overlay */}
+        <div className="lg:col-span-5 relative bg-slate-900 p-8 sm:p-10 text-white flex flex-col justify-between overflow-hidden min-h-[380px] lg:min-h-full">
+          {/* Background Clinical Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-luminosity scale-105"
+            style={{ backgroundImage: `url(${CLINICAL_IMAGES.doctorTabletConsultation})` }}
+          />
+          {/* Deep Navy/Sky Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900/95 to-sky-950/85" />
 
-          <div className="relative space-y-6">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-sky-600 flex items-center justify-center text-white shadow-md">
-                <Shield className="w-5 h-5" />
-              </div>
-              <span className="font-bold text-lg tracking-tight font-heading">MediGuard</span>
-            </div>
+          {/* Top Brand */}
+          <div className="relative z-10 space-y-6">
+            <MediGuardLogo variant="white" size="md" showTagline={false} />
 
-            <div className="space-y-2">
-              <span className="text-[11px] font-mono text-sky-400 font-semibold uppercase tracking-wider">
+            <div className="space-y-2 pt-4">
+              <span className="text-[11px] font-mono text-sky-400 font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-900/40 border border-sky-700/50 inline-block">
                 CLINICAL AUTHENTICATION
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold font-heading leading-snug">
                 Securing Medication Decisions Across Global Networks.
               </h2>
               <p className="text-xs text-slate-300 leading-relaxed pt-1">
-                Authenticate with institutional credentials to access your designated healthcare workspace, active telemetry, and surveillance alerts.
+                Enter authorized institutional credentials to load your role workspace, facility telemetry, and real-time surveillance alerts.
               </p>
             </div>
           </div>
 
-          <div className="relative pt-8 space-y-4 border-t border-slate-800/80">
-            <div className="grid grid-cols-2 gap-3 text-[11px] text-slate-400">
+          {/* Bottom Trust Indicators */}
+          <div className="relative z-10 pt-8 space-y-4 border-t border-slate-800/80">
+            <div className="grid grid-cols-2 gap-3 text-[11px] text-slate-300 font-mono">
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <span>PostgreSQL RLS</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>CLSI M100 AST</span>
+                <span>9 Role Workspaces</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>WHO AWaRe 3-Tier</span>
+                <span>Audit Monitored</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Encrypted Transit</span>
+                <span>CLSI M100 Ready</span>
               </div>
             </div>
-
-            <p className="text-[10px] text-slate-500 font-mono">
-              Aligned with ISO 27001 Controls & FHIR R4 Standards.
+            <p className="text-[10px] text-slate-400 italic">
+              "Unified surveillance prevents resistance before it spreads."
             </p>
           </div>
         </div>
 
         {/* Right Column: Clean Authentication Form */}
-        <div className="lg:col-span-7 p-8 sm:p-10 space-y-6 bg-white">
+        <div className="lg:col-span-7 p-8 sm:p-10 space-y-6 bg-white text-left">
           <div className="space-y-1">
             <h1 className="text-2xl font-bold text-slate-900 font-heading">
               Sign In to Your Workspace
             </h1>
             <p className="text-xs text-slate-500">
-              Enter your credentials or test with predefined clinical roles.
+              Access your specialized clinical console with institutional credentials.
             </p>
           </div>
 
           {errorMessage && (
-            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2 animate-in fade-in duration-150">
               <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
               <span>{errorMessage}</span>
             </div>
@@ -138,15 +157,15 @@ export const LoginPage: React.FC = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4 text-xs">
             <div>
-              <label className="block text-slate-700 font-semibold mb-1">Institutional Email</label>
+              <label className="block text-slate-700 font-semibold mb-1">Institutional Work Email</label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 focus:bg-white text-xs transition-colors"
-                  placeholder="name@hospital.org"
+                  className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 focus:bg-white text-xs transition-colors"
+                  placeholder="doctor@hospital.org"
                   required
                 />
               </div>
@@ -160,33 +179,58 @@ export const LoginPage: React.FC = () => {
                 </Link>
               </div>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 focus:bg-white text-xs transition-colors"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 focus:bg-white text-xs transition-colors"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-3 text-slate-400 hover:text-slate-600"
+                  aria-label="Toggle password visibility"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-1">
+              <label className="flex items-center gap-2 cursor-pointer text-slate-600 text-xs">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+                />
+                <span>Remember this terminal</span>
+              </label>
             </div>
 
             <button
               type="submit"
-              disabled={isLoading}
-              className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs shadow-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              disabled={submitting}
+              className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-60"
             >
-              <span>{isLoading ? 'Verifying...' : 'Sign In to Workspace'}</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>{submitting ? 'Verifying Credentials...' : 'Sign In to Workspace'}</span>
+              <ArrowRight className="w-4 h-4 text-sky-400" />
             </button>
           </form>
 
-          {/* Quick Demo Persona Launcher Strip */}
+          {/* Quick Demo Persona Launcher */}
           <div className="pt-4 border-t border-slate-200/80 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-heading">
-                Demo Persona Quick Access
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 font-heading">
+                  Quick Demo Personas
+                </span>
+                <span className="px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 font-mono text-[9px] font-bold">
+                  9 ROLES
+                </span>
+              </div>
               <button
                 type="button"
                 onClick={() => setShowDemoPersonas(!showDemoPersonas)}
@@ -215,7 +259,7 @@ export const LoginPage: React.FC = () => {
               </div>
             )}
             <p className="text-[10px] text-slate-400 text-center">
-              DEMO / SYNTHETIC DATA — Selecting a persona authenticates that clinical user session.
+              DEMO / SYNTHETIC DATA — Selecting a persona loads an authorized role session.
             </p>
           </div>
         </div>
@@ -226,34 +270,46 @@ export const LoginPage: React.FC = () => {
 
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
-  const { register, organizations, isLoading } = useAuth();
-
+  const { register } = useAuth();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [roleSlug, setRoleSlug] = useState<UserRoleSlug>('doctor');
-  const [orgId, setOrgId] = useState(organizations[0]?.id || 'org-1');
+  const [orgId, setOrgId] = useState('org-1');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setErrorMsg('Passwords do not match.');
+      return;
+    }
+    if (password.length < 8) {
+      setErrorMsg('Password must be at least 8 characters long.');
+      return;
+    }
     setErrorMsg(null);
-    const res = await register(email, password, fullName, roleSlug, orgId);
-    if (res.success) {
-      navigate(res.workspacePath);
-    } else {
-      setErrorMsg(res.error || 'Registration failed.');
+    setSubmitting(true);
+    try {
+      const res = await register(email, password, fullName, roleSlug, orgId);
+      if (res.success) {
+        navigate(res.workspacePath);
+      } else {
+        setErrorMsg(res.error || 'Registration failed. Check network or server status.');
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center p-4 sm:p-6 lg:p-10">
-      <div className="max-w-md w-full bg-white rounded-3xl border border-slate-200 shadow-xl p-8 space-y-6">
+    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-slate-50">
+      <div className="max-w-md w-full bg-white rounded-3xl border border-slate-200 shadow-xl p-8 space-y-6 text-left">
         <div className="text-center space-y-1">
-          <div className="w-10 h-10 rounded-xl bg-sky-600 flex items-center justify-center text-white mx-auto shadow-sm">
-            <Shield className="w-5 h-5" />
-          </div>
-          <h1 className="text-2xl font-bold text-slate-900 font-heading">Register Organization Account</h1>
+          <MediGuardLogo size="md" showTagline={false} className="justify-center mx-auto" />
+          <h1 className="text-2xl font-bold text-slate-900 font-heading pt-2">Institutional Registration</h1>
           <p className="text-xs text-slate-500">
             Join the MediGuard healthcare intelligence surveillance network
           </p>
@@ -265,87 +321,105 @@ export const RegisterPage: React.FC = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+        <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Full Name & Credential</label>
-            <input
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="Dr. Jane Doe, MD"
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-xs focus:outline-hidden focus:border-sky-500"
-              required
-            />
+            <label className="block text-slate-700 font-semibold mb-1">Full Name &amp; Title</label>
+            <div className="relative">
+              <User className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Dr. Jane Doe, MD"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 text-xs"
+                required
+              />
+            </div>
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Work Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="jane.doe@hospital.org"
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-xs focus:outline-hidden focus:border-sky-500"
-              required
-            />
+            <label className="block text-slate-700 font-semibold mb-1">Institutional Email</label>
+            <div className="relative">
+              <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="jane.doe@hospital.org"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 text-xs"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-slate-700 font-semibold mb-1">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 text-xs"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-slate-700 font-semibold mb-1">Confirm</label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 text-xs"
+                required
+              />
+            </div>
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-xs focus:outline-hidden focus:border-sky-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-slate-700 font-semibold mb-1">Professional Clinical Role</label>
+            <label className="block text-slate-700 font-semibold mb-1">Assigned Healthcare Role</label>
             <select
               value={roleSlug}
               onChange={(e) => setRoleSlug(e.target.value as UserRoleSlug)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-xs focus:outline-hidden focus:border-sky-500"
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 text-xs"
             >
-              <option value="doctor">Doctor / Prescribing Physician</option>
+              <option value="doctor">Doctor / Prescriber</option>
               <option value="pharmacist">Clinical Pharmacist</option>
-              <option value="lab-scientist">Microbiology Laboratory Scientist</option>
-              <option value="stewardship-lead">Infection Control / Stewardship Lead</option>
-              <option value="epidemiologist">Epidemiology Analyst</option>
-              <option value="surveillance-officer">Clinical Surveillance Officer</option>
+              <option value="lab-scientist">Laboratory Microbiologist</option>
+              <option value="stewardship-lead">Stewardship Lead</option>
+              <option value="epidemiologist">Epidemiologist</option>
+              <option value="surveillance-officer">Surveillance Officer</option>
               <option value="org-admin">Organization Administrator</option>
-              <option value="read-only">Health Systems Researcher</option>
+              <option value="read-only">Scientific Researcher (Read-Only)</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Healthcare Organization</label>
+            <label className="block text-slate-700 font-semibold mb-1">Parent Health Network</label>
             <select
               value={orgId}
               onChange={(e) => setOrgId(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-xs focus:outline-hidden focus:border-sky-500"
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 text-xs"
             >
-              {organizations.map((o) => (
-                <option key={o.id} value={o.id}>
-                  {o.name}
-                </option>
-              ))}
+              <option value="org-1">MediGuard National Surveillance Network</option>
+              <option value="org-2">CityCare Healthcare System (Isolated Tenant)</option>
             </select>
           </div>
 
           <button
             type="submit"
-            disabled={isLoading}
-            className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs shadow-sm transition-all"
+            disabled={submitting}
+            className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-1.5 disabled:opacity-60 pt-2"
           >
-            {isLoading ? 'Creating Account...' : 'Complete Institutional Registration'}
+            <span>{submitting ? 'Creating Profile...' : 'Complete Registration'}</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </form>
 
-        <div className="text-center text-xs text-slate-500">
+        <div className="pt-2 text-center text-xs text-slate-500">
           Already have an account?{' '}
-          <Link to="/login" className="text-sky-600 hover:text-sky-500 font-semibold">
+          <Link to="/login" className="font-semibold text-sky-600 hover:text-sky-500">
             Sign In
           </Link>
         </div>
@@ -364,11 +438,9 @@ export const ForgotPasswordPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center p-4 sm:p-6 lg:p-10">
+    <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-slate-50">
       <div className="max-w-md w-full bg-white rounded-3xl border border-slate-200 shadow-xl p-8 space-y-6 text-center">
-        <div className="w-10 h-10 rounded-xl bg-sky-600 flex items-center justify-center text-white mx-auto shadow-sm">
-          <KeyRound className="w-5 h-5" />
-        </div>
+        <MediGuardLogo size="md" showTagline={false} className="justify-center mx-auto" />
         <div className="space-y-1">
           <h1 className="text-2xl font-bold text-slate-900 font-heading">Password Recovery</h1>
           <p className="text-xs text-slate-500">

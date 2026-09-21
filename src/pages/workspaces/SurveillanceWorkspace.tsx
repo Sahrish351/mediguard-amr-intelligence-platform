@@ -177,3 +177,4 @@ export const SurveillanceWorkspace: React.FC = () => {
     </div>
   );
 };
+

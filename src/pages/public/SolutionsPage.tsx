@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Building2, Microscope, Pill, Stethoscope, Globe, CheckCircle2, ArrowRight, ShieldCheck, Activity, LineChart, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { CLINICAL_IMAGES } from '@/lib/clinicalImages';
 
 export const SolutionsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'hospitals' | 'laboratories' | 'pharmacies' | 'doctors' | 'stewardship' | 'public_health'>('hospitals');
@@ -13,6 +14,7 @@ export const SolutionsPage: React.FC = () => {
       badge: 'Institutional Governance',
       role: 'Chief Medical Officers & Quality Directors',
       workspacePath: '/organization',
+      image: CLINICAL_IMAGES.heroHospitalCommand,
       overview: 'Transform isolated hospital departmental logs into a synchronized surveillance network capable of intercepting outbreaks before patient transmission multiplies.',
       points: [
         'Real-time cumulative hospital antibiograms updated automatically as microbiological cultures finalize.',
@@ -33,6 +35,7 @@ export const SolutionsPage: React.FC = () => {
       badge: 'Diagnostics & AST',
       role: 'Principal Microbiologists & Lab Scientists',
       workspacePath: '/laboratory',
+      image: CLINICAL_IMAGES.microbiologyLab,
       overview: 'Accelerate AST turnaround from specimen accessioning to clinician notification while upholding strict CLSI M100 and EUCAST breakpoint interpretations.',
       points: [
         'Quantitative Minimum Inhibitory Concentration (MIC) entry with automatic S/I/R rule execution.',
@@ -53,6 +56,7 @@ export const SolutionsPage: React.FC = () => {
       badge: 'Medication Safety',
       role: 'Directors of Pharmacy & Clinical Pharmacists',
       workspacePath: '/pharmacist',
+      image: CLINICAL_IMAGES.pharmacyDispensing,
       overview: 'Protect patients against counterfeit, degraded, or recalled antibiotic lots while actively monitoring repeat dispensing anomalies across hospital outpatient pharmacies.',
       points: [
         'Real-time batch authenticity and expiration checks prior to medication dispensing.',
@@ -73,6 +77,7 @@ export const SolutionsPage: React.FC = () => {
       badge: 'Clinical Prescribing',
       role: 'Attending Physicians & Intensivists',
       workspacePath: '/doctor',
+      image: CLINICAL_IMAGES.doctorTabletConsultation,
       overview: 'Empower clinicians with immediate, ward-specific antimicrobial susceptibility context when prescribing empiric therapy for acute infections.',
       points: [
         'Immediate visibility into ward-specific pathogen resistance rates to guide evidence-based empiric therapy.',
@@ -93,6 +98,7 @@ export const SolutionsPage: React.FC = () => {
       badge: 'Antimicrobial Stewardship',
       role: 'Infection Preventionists & Stewardship Leads',
       workspacePath: '/stewardship',
+      image: CLINICAL_IMAGES.stewardshipReview,
       overview: 'Drive sustainable behavior change and preserve therapeutic efficacy through granular antimicrobial consumption analytics and targeted intervention tracking.',
       points: [
         'Automated calculation of Days of Therapy (DOT) and Defined Daily Doses (DDD) across clinical departments.',
@@ -113,6 +119,7 @@ export const SolutionsPage: React.FC = () => {
       badge: 'Population Surveillance',
       role: 'Surveillance Epidemiologists & Health Ministries',
       workspacePath: '/epidemiology',
+      image: CLINICAL_IMAGES.epidemiologyMonitoringCenter,
       overview: 'Synthesize multi-institutional surveillance data into actionable regional intelligence conforming to WHO GLASS standards.',
       points: [
         'Geospatial AMR heatmap tracking regional resistance shifts across urban and rural healthcare catchment zones.',
@@ -218,8 +225,20 @@ export const SolutionsPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Metrics Column */}
+            {/* Metrics & Visual Preview Column */}
             <div className="lg:col-span-4 space-y-4">
+              <div className="h-44 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shadow-2xs relative">
+                <img
+                  src={activeSolution.image}
+                  alt={activeSolution.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                <div className="absolute bottom-2.5 left-3 text-[10px] font-mono font-bold text-white uppercase tracking-wider">
+                  {activeSolution.badge}
+                </div>
+              </div>
+
               <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">
                 Key Performance Indicators
               </h4>
