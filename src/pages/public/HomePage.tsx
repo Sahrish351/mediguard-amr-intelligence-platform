@@ -42,7 +42,7 @@ import {
 } from 'lucide-react';
 import { AWaReBadge } from '@/components/common/Badge';
 import { CLINICAL_IMAGES } from '@/data/clinicalImages';
-import { Button, SectionHeader, Metric } from '@/components/design-system';
+import { Metric } from '@/components/design-system';
 
 export const HomePage: React.FC = () => {
   // Interactive Product Showcase state (6 tabs)
@@ -50,132 +50,178 @@ export const HomePage: React.FC = () => {
     'command' | 'meds' | 'lab' | 'amr' | 'investigation' | 'ai'
   >('command');
 
-  // Interactive Global Intelligence Region state
-  const [selectedRegion, setSelectedRegion] = useState<'pakistan' | 'southAsia' | 'global'>('pakistan');
+  // Interactive Microbiology Pathogen state
+  const [selectedPathogen, setSelectedPathogen] = useState<'kp' | 'ab' | 'pa' | 'sa'>('kp');
 
-  // 9 Dedicated Healthcare Roles Data with Categorized Clinical Photography
+  // 9 Dedicated Healthcare Roles Data with Editorial Clinical Photography
   const roleCards = [
     {
       role: 'Doctor / Prescriber',
       icon: Stethoscope,
-      accent: 'border-sky-200 hover:border-sky-400 bg-sky-50/40',
       tag: 'Clinical Prescribing',
       path: '/doctor',
       image: CLINICAL_IMAGES.doctor,
-      whatTheySee: 'EHR prescription entries, patient antimicrobial history, AWaRe classification, bed-level AST advisories.',
-      whatTheyCanDo: 'Generate rapid evidence-based prescriptions, verify formulary dosing, view prior antibiotic exposure.',
-      previewText: 'Active prescribing workstation with automated formulary safety checks.',
+      whatTheySee: 'EHR prescription entries, patient antimicrobial history, WHO AWaRe classification, bed-level AST advisories.',
+      whatTheyCanDo: 'Generate evidence-based prescriptions, verify formulary dosing, view prior antibiotic exposure.',
+      whyItMatters: 'Prevents empiric Reserve antibiotic overuse before microbiology susceptibility cultures finalize.',
     },
     {
       role: 'Clinical Pharmacist',
       icon: Pill,
-      accent: 'border-teal-200 hover:border-teal-400 bg-teal-50/40',
       tag: 'Medication Safety',
       path: '/pharmacist',
       image: CLINICAL_IMAGES.pharmacist,
       whatTheySee: 'Live dispensing queue, GS1 serial numbers, cold-chain temperature deviations, stock floor alerts.',
       whatTheyCanDo: 'Scan & verify medicine batches, intercept 14-day repeat dispensing, trigger immediate recall quarantines.',
-      previewText: 'Closed-loop dispensing queue with GS1 DataMatrix anti-counterfeit scanning.',
+      whyItMatters: 'Guarantees authenticated batches reach patients and prevents dangerous multi-pharmacy duplicate therapy.',
     },
     {
       role: 'Laboratory Scientist',
       icon: Microscope,
-      accent: 'border-indigo-200 hover:border-indigo-400 bg-indigo-50/40',
       tag: 'Diagnostics & AST',
       path: '/laboratory',
       image: CLINICAL_IMAGES.laboratory,
       whatTheySee: 'Specimen accessioning queue, Gram-stain morphology, disk diffusion zone diameters, E-test MIC titers.',
       whatTheyCanDo: 'Log phenotypic AST results, apply automated CLSI M100 / EUCAST rules, escalate critical pathogen isolates.',
-      previewText: 'Digital microbiology bench with quantitative broth microdilution interpretation.',
+      whyItMatters: 'Transforms raw culture isolates into structured susceptibility data within minutes of incubation.',
     },
     {
       role: 'Stewardship Lead',
       icon: Shield,
-      accent: 'border-emerald-200 hover:border-emerald-400 bg-emerald-50/40',
       tag: 'WHO AWaRe Oversight',
       path: '/stewardship',
       image: CLINICAL_IMAGES.doctorTeam,
       whatTheySee: 'Hospital-wide AWaRe 60% Access target, Days of Therapy (DOT), Prescriber compliance benchmarking.',
       whatTheyCanDo: 'Issue closed-loop audit & feedback advisories, restrict Reserve-tier agents, track institutional interventions.',
-      previewText: 'Antimicrobial stewardship dashboard benchmarked against WHO 2024 targets.',
+      whyItMatters: 'Aligns institutional consumption with WHO benchmarks and slows selective antimicrobial pressure.',
     },
     {
       role: 'Epidemiologist',
       icon: LineChart,
-      accent: 'border-cyan-200 hover:border-cyan-400 bg-cyan-50/40',
       tag: 'Population Health',
       path: '/epidemiology',
       image: CLINICAL_IMAGES.epidemiology,
       whatTheySee: 'Regional geospatial heatmaps, multi-center resistance curves, emerging pathogen cluster alerts.',
       whatTheyCanDo: 'Model 90-day predictive surge trajectories, isolate outbreak clusters, export GLASS-compatible dossiers.',
-      previewText: 'Catchment zone macro-surveillance with denominator-disciplined resistance math.',
+      whyItMatters: 'Provides denominator-disciplined resistance math to detect community-wide transmission waves early.',
     },
     {
       role: 'Surveillance Officer',
       icon: Activity,
-      accent: 'border-amber-200 hover:border-amber-400 bg-amber-50/40',
       tag: 'Signal Center',
       path: '/surveillance',
       image: CLINICAL_IMAGES.publicHealth,
       whatTheySee: 'Real-time safety signals, deterministic alarm triggers, triage urgency scores, pending investigations.',
       whatTheyCanDo: 'Triage clinical signals, assign multidisciplinary investigation teams, enforce mandatory dismissal justification.',
-      previewText: 'Incident-response investigation workspace with deterministic telemetry rules.',
+      whyItMatters: 'Ensures zero critical clinical alarms are swept aside without documented clinical accountability.',
     },
     {
       role: 'Organization Admin',
       icon: Building2,
-      accent: 'border-blue-200 hover:border-blue-400 bg-blue-50/40',
       tag: 'Governance',
       path: '/organization',
       image: CLINICAL_IMAGES.heroLab,
       whatTheySee: 'Connected hospital facilities, staff credentialing directory, WHONET / CLSI data quality audits.',
       whatTheyCanDo: 'Manage facility network onboarding, assign role-based credentials, configure tenant governance policies.',
-      previewText: 'Multi-facility healthcare governance hub with cryptographic tenant isolation.',
+      whyItMatters: 'Maintains strict tenant privacy and multi-facility compliance across distributed healthcare systems.',
     },
     {
       role: 'Platform Administrator',
       icon: Server,
-      accent: 'border-slate-300 hover:border-slate-500 bg-slate-100/60',
       tag: 'Enterprise Command',
       path: '/admin',
       image: CLINICAL_IMAGES.aiTelemetry,
       whatTheySee: 'Multi-tenant database engine, HL7 FHIR connectors, background ETL jobs, immutable audit logs.',
       whatTheyCanDo: 'Monitor platform uptime, verify cryptographic audit logs, inspect serverless AI proxy execution.',
-      previewText: 'Global infrastructure console with monotonic PostgreSQL audit log verification.',
+      whyItMatters: 'Guarantees zero-trust database security and cryptographic accountability for enterprise health IT.',
     },
     {
       role: 'Scientific Researcher',
       icon: FileSearch,
-      accent: 'border-purple-200 hover:border-purple-400 bg-purple-50/40',
       tag: 'Evidence & Discovery',
       path: '/researcher',
       image: CLINICAL_IMAGES.microbiology,
       whatTheySee: 'Pseudonymized longitudinal AST datasets, multicenter isolate cohorts, CLSI M39-A4 antibiograms.',
       whatTheyCanDo: 'Analyze non-human-identifiable resistance trends, download standardized research CSVs, inspect methodology.',
-      previewText: 'De-identified scientific AMR data portal with read-only cryptographic integrity.',
+      whyItMatters: 'Empowers academic and clinical researchers with clean, standardized, non-PHI antimicrobial data.',
     },
   ];
 
+  // Microbiology pathogen data
+  const pathogenDetails = {
+    kp: {
+      name: 'Klebsiella pneumoniae',
+      classification: 'WHO Critical Priority (Carbapenem-Resistant / ESBL)',
+      mechanism: 'Plasmid-mediated KPC & NDM-1 Carbapenemases',
+      isolates: 342,
+      susceptibilities: [
+        { drug: 'Meropenem', status: 'Resistant', mic: '> 16 μg/mL', rate: '41.8% Resistant', color: 'text-rose-600' },
+        { drug: 'Ceftriaxone', status: 'Resistant', mic: '> 64 μg/mL', rate: '68.4% Resistant', color: 'text-rose-600' },
+        { drug: 'Amikacin', status: 'Intermediate', mic: '16 μg/mL', rate: '18.2% Intermediate', color: 'text-amber-600' },
+        { drug: 'Colistin', status: 'Susceptible', mic: '0.5 μg/mL', rate: '94.6% Susceptible', color: 'text-emerald-600' },
+      ],
+      stewardshipAction: 'Reserve-tier escalation restricted; initiate patient contact precautions and rectal screening.',
+    },
+    ab: {
+      name: 'Acinetobacter baumannii',
+      classification: 'WHO Critical Priority (CRAB)',
+      mechanism: 'OXA-23 and OXA-51-like β-Lactamases + Porin Loss',
+      isolates: 218,
+      susceptibilities: [
+        { drug: 'Meropenem', status: 'Resistant', mic: '> 32 μg/mL', rate: '64.2% Resistant', color: 'text-rose-600' },
+        { drug: 'Imipenem', status: 'Resistant', mic: '> 32 μg/mL', rate: '61.5% Resistant', color: 'text-rose-600' },
+        { drug: 'Tigecycline', status: 'Intermediate', mic: '4 μg/mL', rate: '22.0% Intermediate', color: 'text-amber-600' },
+        { drug: 'Polymyxin B', status: 'Susceptible', mic: '1 μg/mL', rate: '91.8% Susceptible', color: 'text-emerald-600' },
+      ],
+      stewardshipAction: 'Environmental swabbing in ICU; mandatory cohort isolation and antimicrobial audit.',
+    },
+    pa: {
+      name: 'Pseudomonas aeruginosa',
+      classification: 'WHO High Priority (Difficult-to-Treat Resistance)',
+      mechanism: 'AmpC Overexpression + OprD Porin Deficiency + Efflux Pumps',
+      isolates: 189,
+      susceptibilities: [
+        { drug: 'Piperacillin-Tazobactam', status: 'Resistant', mic: '> 64 μg/mL', rate: '38.6% Resistant', color: 'text-rose-600' },
+        { drug: 'Ceftazidime', status: 'Intermediate', mic: '16 μg/mL', rate: '24.1% Intermediate', color: 'text-amber-600' },
+        { drug: 'Cefepime', status: 'Resistant', mic: '> 32 μg/mL', rate: '35.4% Resistant', color: 'text-rose-600' },
+        { drug: 'Ceftolozane-Tazobactam', status: 'Susceptible', mic: '2 μg/mL', rate: '88.3% Susceptible', color: 'text-emerald-600' },
+      ],
+      stewardshipAction: 'Infection prevention plumbing review; confirm susceptibility before definitive therapy.',
+    },
+    sa: {
+      name: 'Staphylococcus aureus (MRSA)',
+      classification: 'WHO High Priority (Methicillin-Resistant)',
+      mechanism: 'mecA Gene Encoding PBP2a with Low β-Lactam Affinity',
+      isolates: 412,
+      susceptibilities: [
+        { drug: 'Oxacillin', status: 'Resistant', mic: '> 4 μg/mL', rate: '32.1% Resistant', color: 'text-rose-600' },
+        { drug: 'Cefoxitin Screen', status: 'Positive', mic: 'Zone ≤ 21mm', rate: '100% Concordant', color: 'text-rose-600' },
+        { drug: 'Vancomycin', status: 'Susceptible', mic: '1.5 μg/mL', rate: '99.2% Susceptible', color: 'text-emerald-600' },
+        { drug: 'Linezolid', status: 'Susceptible', mic: '2 μg/mL', rate: '99.8% Susceptible', color: 'text-emerald-600' },
+      ],
+      stewardshipAction: 'Screen nasal colonization on admission; de-escalate vancomycin once MSSA confirmed.',
+    },
+  };
+
   return (
-    <div className="space-y-24 sm:space-y-32 py-4 text-left">
+    <div className="space-y-24 sm:space-y-32 py-4 text-left font-sans">
       {/* ========================================================================= */}
-      {/* 1. HERO SECTION                                                          */}
+      {/* 1. HERO SECTION (Editorial, Sophisticated Layered Composition)             */}
       {/* ========================================================================= */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 pb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Core Positioning & Headline */}
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          {/* Left Column: Core Editorial Positioning */}
           <div className="lg:col-span-6 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-sky-800 text-xs font-mono font-semibold shadow-2xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-sky-900 text-xs font-mono font-semibold">
               <span className="w-2 h-2 rounded-full bg-[#0D9488] animate-pulse" />
-              <span>GLOBAL MEDICATION SAFETY + AMR INTELLIGENCE</span>
+              <span>MEDICATION SAFETY + ANTIMICROBIAL RESISTANCE INTELLIGENCE</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-heading text-[#0B1F3A] tracking-tight leading-[1.12]">
-              See medication risk.{' '}
+              See medication risk clearly.<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0284C7] via-[#0D9488] to-[#0B1F3A]">
-                Understand resistance.
-              </span>{' '}
-              Act before it spreads.
+                Understand resistance earlier.
+              </span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
@@ -183,24 +229,23 @@ export const HomePage: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-              <Link
-                to="/solutions"
+              <a
+                href="#platform-showcase"
                 className="px-6 py-3.5 rounded-2xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-sm shadow-md shadow-sky-600/25 hover:shadow-lg transition-all flex items-center justify-center gap-2 text-center"
               >
-                <span>Explore the Platform</span>
+                <span>Explore MediGuard</span>
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </a>
 
               <Link
-                to="/register"
-                className="px-6 py-3.5 rounded-2xl bg-[#0B1F3A] hover:bg-[#142d52] text-white font-bold text-sm shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 text-center"
+                to="/how-it-works"
+                className="px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-[#0B1F3A] border border-slate-300 font-bold text-sm shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 text-center"
               >
-                <Lock className="w-4 h-4 text-sky-400" />
-                <span>Request a Demo</span>
+                <span>See How It Works</span>
               </Link>
             </div>
 
-            {/* Quick Micro-Certifications */}
+            {/* Credibility Micro-Badges */}
             <div className="pt-4 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-slate-500 font-mono">
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -217,91 +262,77 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Large Editorial Healthcare Image with Overlay Floating Intelligence Cards */}
+          {/* Right Column: Layered Visual Healthcare Composition (NO FLOATING NUMERIC CARDS) */}
           <div className="lg:col-span-6 relative">
             <div className="relative mx-auto max-w-lg lg:max-w-none">
-              {/* Decorative gradient glow */}
-              <div className="absolute -top-10 -right-10 w-72 h-72 bg-sky-200/50 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-10 -left-10 w-72 h-72 bg-teal-200/40 rounded-full blur-3xl pointer-events-none" />
+              {/* Subtle decorative background gradient */}
+              <div className="absolute -top-12 -right-12 w-80 h-80 bg-sky-200/40 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-12 -left-12 w-80 h-80 bg-teal-200/30 rounded-full blur-3xl pointer-events-none" />
+
+              {/* Thin scientific coordinate grid outline */}
+              <div className="absolute inset-0 -m-3 border border-dashed border-slate-200/90 rounded-3xl pointer-events-none" />
 
               {/* Main Clinical Hospital Image Container */}
-              <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-2xl shadow-sky-900/5 bg-slate-100 aspect-[4/3]">
+              <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-2xl bg-slate-100 aspect-[4/3]">
                 <img
                   src={CLINICAL_IMAGES.hero}
                   alt="Doctor reviewing clinical surveillance telemetry"
-                  className="w-full h-full object-cover opacity-95 hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/20" />
 
-                {/* Live Telemetry Pulse Tag */}
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-mono font-bold text-slate-800 border border-white/40 shadow-xs flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#0D9488] animate-ping" />
-                  <span>Real-Time Surveillance Stream • Active</span>
+                {/* Top Glass Telemetry Bar */}
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between px-3.5 py-2 rounded-2xl bg-white/90 backdrop-blur-md border border-white/60 text-slate-800 text-xs font-mono shadow-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+                    <span className="font-bold">CLINICAL SURVEILLANCE NODE</span>
+                  </div>
+                  <span className="text-[11px] text-slate-500 hidden sm:inline">CLSI M100 • EUCAST 2024</span>
                 </div>
-              </div>
 
-              {/* Floating Intelligence Card 1: Top Right - AMR Risk */}
-              <div className="absolute -top-5 -right-2 sm:-right-6 p-3.5 sm:p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-xl shadow-slate-900/10 space-y-1.5 w-44 sm:w-48 z-10 animate-in fade-in duration-300">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono font-bold uppercase text-slate-400">AMR RISK</span>
-                  <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-                </div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-[#0B1F3A] font-mono">32.8%</div>
-                <div className="text-[10px] text-rose-600 font-semibold flex items-center gap-1">
-                  <TrendingUp className="w-3 h-3 shrink-0" />
-                  <span>+4.2% regional surge</span>
-                </div>
-              </div>
-
-              {/* Floating Intelligence Card 2: Bottom Left - Verified Batches */}
-              <div className="absolute -bottom-6 -left-2 sm:-left-6 p-3.5 sm:p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-xl shadow-slate-900/10 space-y-1.5 w-44 sm:w-52 z-10">
-                <div className="flex items-center justify-between text-[10px] font-mono font-bold">
-                  <span className="text-slate-400 uppercase">VERIFIED BATCHES</span>
-                  <span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 text-[9px]">
-                    GS1 OK
-                  </span>
-                </div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-[#0B1F3A] font-mono">18,420</div>
-                <div className="text-[10px] text-emerald-700 font-medium flex items-center gap-1">
-                  <CheckCircle2 className="w-3 h-3 shrink-0 text-emerald-600" />
-                  <span>100% counterfeit checked</span>
-                </div>
-              </div>
-
-              {/* Floating Intelligence Card 3: Top Left - Connected Facilities */}
-              <div className="hidden sm:flex absolute top-12 -left-8 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-lg shadow-slate-900/5 items-center gap-3 z-10">
-                <div className="w-9 h-9 rounded-xl bg-sky-50 text-[#0284C7] flex items-center justify-center font-bold">
-                  <Building2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-xs text-slate-400 font-mono font-semibold uppercase">FACILITIES</div>
-                  <div className="text-lg font-extrabold text-[#0B1F3A] font-mono leading-none">124 <span className="text-[10px] font-sans text-slate-500 font-normal">Active</span></div>
-                </div>
-              </div>
-
-              {/* Floating Intelligence Card 4: Bottom Right - Critical Signals */}
-              <div className="hidden sm:flex absolute -bottom-4 right-8 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-rose-200/80 shadow-lg shadow-rose-900/5 items-center gap-3 z-10">
-                <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold">
-                  <BadgeAlert className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-xs text-slate-400 font-mono font-semibold uppercase">CRITICAL SIGNALS</div>
-                  <div className="text-lg font-extrabold text-rose-600 font-mono leading-none">07 <span className="text-[10px] font-sans text-slate-500 font-normal">Urgent</span></div>
+                {/* Bottom Glass Telemetry Ribbon with animated pulse & flow */}
+                <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl bg-white/90 backdrop-blur-md border border-white/60 shadow-lg text-slate-800 space-y-2">
+                  <div className="flex items-center justify-between text-[11px] font-mono font-semibold">
+                    <span className="text-[#0D9488] flex items-center gap-1.5">
+                      <Activity className="w-3.5 h-3.5 animate-pulse text-[#0D9488]" />
+                      Closed-Loop Telemetry Stream
+                    </span>
+                    <span className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 text-[10px]">
+                      Active Interoperability
+                    </span>
+                  </div>
+                  {/* Pipeline flow vector */}
+                  <div className="grid grid-cols-3 gap-2 text-[10px] font-mono text-slate-600 pt-1 border-t border-slate-200/60">
+                    <div className="flex items-center gap-1 truncate">
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-500 shrink-0" />
+                      <span>EHR Prescriptions</span>
+                    </div>
+                    <div className="flex items-center gap-1 truncate">
+                      <span className="w-1.5 h-1.5 rounded-full bg-teal-500 shrink-0" />
+                      <span>GS1 Dispensing</span>
+                    </div>
+                    <div className="flex items-center gap-1 truncate">
+                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
+                      <span>Microdilution AST</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Below Hero: "Designed for / Trusted by" Strip */}
+        {/* ======================================================================= */}
+        {/* 2. TRUST / CREDIBILITY STRIP                                            */}
+        {/* ======================================================================= */}
         <div className="pt-16 pb-4 text-center border-t border-slate-200/80 mt-12">
           <p className="text-xs font-mono uppercase tracking-widest text-slate-400 pb-6 font-bold">
             DESIGNED FOR &amp; DEPLOYED ACROSS
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 text-xs sm:text-sm font-bold text-slate-600 font-heading">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm font-bold text-slate-700 font-heading">
             <div className="flex items-center gap-2">
               <Building2 className="w-4 h-4 text-[#0284C7]" />
-              <span>Hospitals &amp; Health Systems</span>
+              <span>Hospitals</span>
             </div>
             <div className="flex items-center gap-2">
               <Microscope className="w-4 h-4 text-[#0D9488]" />
@@ -309,11 +340,15 @@ export const HomePage: React.FC = () => {
             </div>
             <div className="flex items-center gap-2">
               <Pill className="w-4 h-4 text-[#0284C7]" />
-              <span>Hospital &amp; Retail Pharmacies</span>
+              <span>Pharmacies</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>Antimicrobial Stewardship Teams</span>
             </div>
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-[#6366F1]" />
-              <span>Public Health Authorities</span>
+              <span>Public Health Programs</span>
             </div>
             <div className="flex items-center gap-2">
               <FileSearch className="w-4 h-4 text-purple-600" />
@@ -324,7 +359,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. THE PROBLEM                                                            */}
+      {/* 3. THE PROBLEM (Large Editorial Visual Storytelling Blocks)                */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto space-y-4 pb-12">
@@ -332,91 +367,144 @@ export const HomePage: React.FC = () => {
             THE CRITICAL HEALTHCARE GAP
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-[#0B1F3A] tracking-tight leading-tight">
-            Healthcare data is everywhere.<br />
-            Healthcare intelligence is not.
+            Healthcare data is connected.<br />
+            Healthcare decisions often aren't.
           </h2>
           <p className="text-base text-slate-600 leading-relaxed">
-            Hospitals generate millions of prescription logs, dispensing records, and laboratory cultures. But because systems operate in isolation, clinicians cannot see emerging resistance surges in time.
+            Hospitals generate millions of prescription logs, dispensing records, and laboratory cultures. But because clinical systems operate in isolation, clinicians cannot see emerging resistance surges in time.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Problem Block 1: Medication Safety */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md transition-all space-y-4 flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 border border-rose-100 flex items-center justify-center">
-                <Pill className="w-6 h-6" />
+        {/* 4 Large Editorial Storytelling Blocks */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Block 1: Medication Safety */}
+          <div className="rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col justify-between">
+            <div className="relative h-56 sm:h-64 overflow-hidden bg-slate-100">
+              <img
+                src={CLINICAL_IMAGES.pharmacy}
+                alt="Medication batches awaiting serial verification"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+              <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-slate-900">
+                BATCH INTEGRITY &amp; DISPENSING
               </div>
-              <h3 className="text-lg font-bold text-[#0B1F3A] font-heading">Medication Safety</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Counterfeit and degraded antibiotic batches bypass verification, while repeat dispensing within 14 days goes undetected across pharmacies.
-              </p>
+              <div className="absolute bottom-4 left-4 right-4 text-white">
+                <h3 className="text-xl font-bold font-heading">Substandard Batches &amp; Unmonitored Dispensing</h3>
+              </div>
             </div>
-            <div className="pt-4 border-t border-slate-100">
-              <div className="text-[11px] font-mono text-slate-400">IMPACT METRIC</div>
-              <div className="text-xl font-bold font-mono text-rose-600">1 in 10</div>
-              <div className="text-[11px] text-slate-500">Medical products substandard in developing nations (WHO)</div>
+            <div className="p-6 sm:p-8 space-y-4 flex-1 flex flex-col justify-between">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Counterfeit, degraded, or cold-chain-deviated antibiotic batches enter circulation without GS1 serialized verification. Meanwhile, repeat dispensing within 14 days goes undetected across siloed retail pharmacies.
+              </p>
+              <div className="p-4 rounded-2xl bg-rose-50/80 border border-rose-200 text-xs space-y-1">
+                <span className="font-mono font-bold text-rose-700 uppercase tracking-wider text-[10px] block">
+                  REAL-WORLD CONSEQUENCE
+                </span>
+                <p className="text-rose-900 font-medium">
+                  Substandard medicines fail to eradicate bacterial infections, accelerating selective pressure for resistant mutations and exposing patients to preventable toxicity.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Problem Block 2: Antibiotic Resistance */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md transition-all space-y-4 flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 border border-amber-100 flex items-center justify-center">
-                <AlertTriangle className="w-6 h-6" />
+          {/* Block 2: Antibiotic Resistance */}
+          <div className="rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col justify-between">
+            <div className="relative h-56 sm:h-64 overflow-hidden bg-slate-100">
+              <img
+                src={CLINICAL_IMAGES.microbiology}
+                alt="Petri dish showing antibiotic resistance inhibition zones"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+              <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-slate-900">
+                ANTIMICROBIAL RESISTANCE
               </div>
-              <h3 className="text-lg font-bold text-[#0B1F3A] font-heading">Antibiotic Resistance</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Empiric overuse of Reserve-tier antimicrobials breeds Carbapenem-Resistant Enterobacterales (CRE) and MRSA without stewardship oversight.
-              </p>
+              <div className="absolute bottom-4 left-4 right-4 text-white">
+                <h3 className="text-xl font-bold font-heading">Empiric Overuse Breeds Pan-Drug Resistance</h3>
+              </div>
             </div>
-            <div className="pt-4 border-t border-slate-100">
-              <div className="text-[11px] font-mono text-slate-400">IMPACT METRIC</div>
-              <div className="text-xl font-bold font-mono text-amber-600">1.27M</div>
-              <div className="text-[11px] text-slate-500">Direct global deaths attributable to bacterial AMR annually</div>
+            <div className="p-6 sm:p-8 space-y-4 flex-1 flex flex-col justify-between">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Empiric overuse of broad-spectrum Reserve-tier antimicrobials breeds Carbapenem-Resistant Enterobacterales (CRE) and MRSA without stewardship oversight or rapid sensitivity guidance.
+              </p>
+              <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs space-y-1">
+                <span className="font-mono font-bold text-amber-700 uppercase tracking-wider text-[10px] block">
+                  REAL-WORLD CONSEQUENCE
+                </span>
+                <p className="text-amber-900 font-medium">
+                  1.27 million direct global deaths annually are attributable to bacterial AMR. Critical pathogens become untreatable with standard empiric hospital formularies.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Problem Block 3: Fragmented Data */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md transition-all space-y-4 flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 border border-sky-100 flex items-center justify-center">
-                <Database className="w-6 h-6" />
+          {/* Block 3: Fragmented Clinical Data */}
+          <div className="rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col justify-between">
+            <div className="relative h-56 sm:h-64 overflow-hidden bg-slate-100">
+              <img
+                src={CLINICAL_IMAGES.doctor}
+                alt="Doctor reviewing electronic health records without AST data"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+              <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-slate-900">
+                SYSTEM SILOES
               </div>
-              <h3 className="text-lg font-bold text-[#0B1F3A] font-heading">Fragmented Data</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                EHR prescriptions, pharmacy ERP stocks, and microbiology LIS instruments remain locked in disconnected, incompatible database silos.
-              </p>
+              <div className="absolute bottom-4 left-4 right-4 text-white">
+                <h3 className="text-xl font-bold font-heading">Prescribing Disconnected from Laboratory AST</h3>
+              </div>
             </div>
-            <div className="pt-4 border-t border-slate-100">
-              <div className="text-[11px] font-mono text-slate-400">IMPACT METRIC</div>
-              <div className="text-xl font-bold font-mono text-[#0284C7]">72 Hours</div>
-              <div className="text-[11px] text-slate-500">Average time lag between culture isolate and clinician review</div>
+            <div className="p-6 sm:p-8 space-y-4 flex-1 flex flex-col justify-between">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                EHR prescriptions, pharmacy dispensing registries, and microbiology lab bench instruments operate on disconnected databases, with zero bidirectional feedback loops between clinicians and microbiologists.
+              </p>
+              <div className="p-4 rounded-2xl bg-sky-50/80 border border-sky-200 text-xs space-y-1">
+                <span className="font-mono font-bold text-[#0284C7] uppercase tracking-wider text-[10px] block">
+                  REAL-WORLD CONSEQUENCE
+                </span>
+                <p className="text-sky-900 font-medium">
+                  Clinicians make critical antimicrobial therapy choices in an informational vacuum, while AST susceptibility findings take 48 to 72 hours to reach bedside decision-makers.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Problem Block 4: Delayed Detection */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md transition-all space-y-4 flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
-                <AlertOctagon className="w-6 h-6" />
+          {/* Block 4: Delayed Detection */}
+          <div className="rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col justify-between">
+            <div className="relative h-56 sm:h-64 overflow-hidden bg-slate-100">
+              <img
+                src={CLINICAL_IMAGES.publicHealth}
+                alt="Public health surveillance operations center"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+              <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-slate-900">
+                OUTBREAK SURVEILLANCE
               </div>
-              <h3 className="text-lg font-bold text-[#0B1F3A] font-heading">Delayed Detection</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Hospital outbreak signals are discovered weeks late during manual retrospective reviews, rather than through live deterministic telemetry.
-              </p>
+              <div className="absolute bottom-4 left-4 right-4 text-white">
+                <h3 className="text-xl font-bold font-heading">Outbreaks Discovered in Retrospective Audits</h3>
+              </div>
             </div>
-            <div className="pt-4 border-t border-slate-100">
-              <div className="text-[11px] font-mono text-slate-400">IMPACT METRIC</div>
-              <div className="text-xl font-bold font-mono text-[#6366F1]">0 Warnings</div>
-              <div className="text-[11px] text-slate-500">Proactive real-time alerts provided by legacy hospital software</div>
+            <div className="p-6 sm:p-8 space-y-4 flex-1 flex flex-col justify-between">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Hospital outbreak signals and emerging ward clusters are identified weeks late through retrospective paper audits, rather than through real-time deterministic surveillance alarms.
+              </p>
+              <div className="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200 text-xs space-y-1">
+                <span className="font-mono font-bold text-[#6366F1] uppercase tracking-wider text-[10px] block">
+                  REAL-WORLD CONSEQUENCE
+                </span>
+                <p className="text-indigo-900 font-medium">
+                  Nosocomial cross-transmission in intensive care units spreads undetected across wards until multiple patient casualties have already occurred.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. MEDIGUARD SOLUTION: HORIZONTAL LIFECYCLE                               */}
+      {/* 4. WHAT MEDIGUARD ACTUALLY DOES (Visual 7-Stage Lifecycle)                 */}
       {/* ========================================================================= */}
       <section className="bg-gradient-to-b from-teal-50/40 via-white to-sky-50/30 text-slate-900 py-20 relative overflow-hidden border-y border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
@@ -425,36 +513,76 @@ export const HomePage: React.FC = () => {
               CLOSED-LOOP ARCHITECTURE
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading tracking-tight text-[#0B1F3A]">
-              One intelligence layer across the entire medication lifecycle.
+              Understand the entire platform in 10 seconds.
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              From the clinician’s initial electronic order to regional epidemiological reporting, every milestone is verified in real time.
+              Seven interconnected milestones ensure that every prescription, dispensed vial, and microbiology isolate is verified in real time.
             </p>
           </div>
 
-          {/* Horizontal Lifecycle Connected Chain */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-center">
+          {/* Connected Horizontal Pipeline: PRESCRIBE -> DISPENSE -> VERIFY -> TEST -> DETECT -> INVESTIGATE -> ACT */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3">
             {[
-              { step: '01', title: 'Prescription', icon: Stethoscope, tag: 'EHR / CPOE' },
-              { step: '02', title: 'Dispensing', icon: Pill, tag: 'Pharmacy Queue' },
-              { step: '03', title: 'Batch Verification', icon: QrCode, tag: 'GS1 Serialization' },
-              { step: '04', title: 'Laboratory', icon: Microscope, tag: 'Culture & AST' },
-              { step: '05', title: 'Resistance Detection', icon: BarChart3, tag: 'CLSI M100' },
-              { step: '06', title: 'Investigation', icon: FileSearch, tag: 'Triage & Notes' },
-              { step: '07', title: 'Public Health', icon: Globe, tag: 'Macro-Surveillance' },
-            ].map((s, idx) => (
-              <div
-                key={idx}
-                className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2 hover:border-[#0D9488] hover:shadow-md transition-all group relative"
-              >
-                <div className="text-[10px] font-mono text-[#0D9488] font-bold">STAGE {s.step}</div>
-                <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 mx-auto flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <s.icon className="w-5 h-5" />
+              {
+                step: '01',
+                title: 'PRESCRIBE',
+                icon: Stethoscope,
+                desc: 'Physician enters electronic order with automatic WHO AWaRe tier checks.',
+              },
+              {
+                step: '02',
+                title: 'DISPENSE',
+                icon: Pill,
+                desc: 'Pharmacy matches order backed by non-negative inventory floor protection.',
+              },
+              {
+                step: '03',
+                title: 'VERIFY',
+                icon: QrCode,
+                desc: 'GS1 DataMatrix scanning checks lot serialization & cold-chain status.',
+              },
+              {
+                step: '04',
+                title: 'TEST',
+                icon: Microscope,
+                desc: 'Microbiology bench accessions culture isolate with quantitative broth microdilution.',
+              },
+              {
+                step: '05',
+                title: 'DETECT',
+                icon: Activity,
+                desc: 'Automated CLSI M100 / EUCAST rules trigger instant alerts for resistance (CRE, MRSA).',
+              },
+              {
+                step: '06',
+                title: 'INVESTIGATE',
+                icon: FileSearch,
+                desc: 'Multidisciplinary team evaluates clinical signals with mandatory justification.',
+              },
+              {
+                step: '07',
+                title: 'ACT',
+                icon: ShieldCheck,
+                desc: 'Stewardship lead de-escalates to targeted therapy or initiates patient isolation.',
+              },
+            ].map((s, idx) => {
+              const Icon = s.icon;
+              return (
+                <div
+                  key={idx}
+                  className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3 hover:border-[#0D9488] hover:shadow-md transition-all group flex flex-col justify-between"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[#0D9488] font-bold">STAGE {s.step}</span>
+                    <Icon className="w-4 h-4 text-slate-400 group-hover:text-[#0D9488] transition-colors" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs sm:text-sm text-slate-900 font-heading">{s.title}</h4>
+                    <p className="text-[11px] text-slate-600 leading-relaxed pt-1">{s.desc}</p>
+                  </div>
                 </div>
-                <div className="font-bold text-xs text-slate-900 font-heading">{s.title}</div>
-                <div className="text-[10px] text-slate-500 font-mono">{s.tag}</div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600">
@@ -468,16 +596,16 @@ export const HomePage: React.FC = () => {
               to="/how-it-works"
               className="px-5 py-2.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-semibold text-xs shrink-0 transition-colors"
             >
-              Explore 7-Stage Pipeline
+              Explore Pipeline Architecture
             </Link>
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. PLATFORM SHOWCASE (6 Tabs)                                             */}
+      {/* 5. PLATFORM EXPERIENCE (Product Showcase with 6 Interactive Tabs)          */}
       {/* ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="platform-showcase" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
         <div className="text-center max-w-2xl mx-auto space-y-3 pb-8">
           <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#0284C7] px-3 py-1 rounded-full bg-sky-50 border border-sky-200 inline-block">
             PLATFORM SHOWCASE
@@ -493,11 +621,11 @@ export const HomePage: React.FC = () => {
         {/* 6 Tabs Navigation */}
         <div className="flex flex-wrap justify-center gap-2 pb-6">
           {[
-            { id: 'command', label: 'Clinical Command Center', icon: Activity },
+            { id: 'command', label: 'Clinical Intelligence', icon: Activity },
             { id: 'meds', label: 'Medication Safety', icon: Pill },
-            { id: 'lab', label: 'Microbiology Laboratory', icon: Microscope },
-            { id: 'amr', label: 'AMR Intelligence', icon: BarChart3 },
-            { id: 'investigation', label: 'Investigation Workspace', icon: FileSearch },
+            { id: 'lab', label: 'Microbiology', icon: Microscope },
+            { id: 'amr', label: 'AMR Surveillance', icon: BarChart3 },
+            { id: 'investigation', label: 'Investigation', icon: FileSearch },
             { id: 'ai', label: 'AI Copilot', icon: Sparkles },
           ].map((tab) => {
             const Icon = tab.icon;
@@ -534,7 +662,7 @@ export const HomePage: React.FC = () => {
             </div>
             <div className="hidden sm:flex items-center gap-2 font-mono text-[11px]">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Multi-Tenant RLS Secure • Mayo Memorial Hospital</span>
+              <span>Multi-Tenant RLS Secure • MediGuard Network</span>
             </div>
           </div>
 
@@ -619,7 +747,7 @@ export const HomePage: React.FC = () => {
                   <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                     <div className="text-[11px] font-mono text-slate-400">AST BREAKPOINT INTERPRETATION</div>
                     <div className="font-bold text-rose-700 text-sm">Meropenem: Resistant (R)</div>
-                    <div className="text-slate-600 text-xs font-mono">MIC &gt; 16 &mu;g/mL (CLSI M100-ED33)</div>
+                    <div className="text-slate-600 text-xs font-mono">MIC &gt; 16 μg/mL (CLSI M100-ED33)</div>
                   </div>
                   <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                     <div className="text-[11px] font-mono text-slate-400">WHO GLASS CLASSIFICATION</div>
@@ -711,7 +839,7 @@ export const HomePage: React.FC = () => {
                 <div className="space-y-2.5">
                   <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700">
                     <span className="text-slate-400 text-[10px] font-mono block">USER QUERY:</span>
-                    <span className="font-semibold text-slate-100">"Why did resistance to ceftriaxone increase this quarter?"</span>
+                    <span className="font-semibold text-slate-100">"Why did ceftriaxone resistance increase this quarter?"</span>
                   </div>
                   <div className="p-4 rounded-xl bg-indigo-900/60 border border-indigo-700/80 space-y-2">
                     <div className="flex items-center justify-between text-[10px] font-mono text-indigo-300">
@@ -730,7 +858,173 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 5. DEDICATED AI COPILOT SECTION                                           */}
+      {/* 6. CLINICAL INTELLIGENCE SECTION (Editorial Narrative & Flow Diagram)       */}
+      {/* ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left Narrative */}
+          <div className="lg:col-span-5 space-y-6">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#0284C7] px-3 py-1 rounded-full bg-sky-50 border border-sky-200 inline-block">
+              INTELLIGENCE SYNTHESIS
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold font-heading text-[#0B1F3A] tracking-tight leading-tight">
+              From fragmented hospital data to clinical intelligence.
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              Traditional hospital software records transactions; MediGuard synthesizes them. By linking prescription orders directly with pharmacy dispense records and microbiology culture sensitivities, the platform creates an unbroken epidemiological intelligence thread.
+            </p>
+
+            <div className="space-y-3 pt-2 text-xs text-slate-600">
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span><strong>Instant Cross-Departmental Visibility:</strong> Clinicians see lab AST sensitivities the moment cultures finish incubation.</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span><strong>Closed-Loop Feedback:</strong> Pharmacists and stewardship leads can intercept unsafe empiric therapy before it spreads.</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span><strong>Zero Cross-Tenant Leakage:</strong> Enforced through PostgreSQL Row-Level Security at the database kernel level.</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Visual Data Flow Timeline */}
+          <div className="lg:col-span-7">
+            <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-lg space-y-6">
+              <div className="flex items-center justify-between text-xs font-mono border-b border-slate-100 pb-3">
+                <span className="font-bold text-slate-700">CONTINUOUS SURVEILLANCE PIPELINE</span>
+                <span className="text-[#0D9488] flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-[#0D9488] animate-ping" />
+                  Live Sync Active
+                </span>
+              </div>
+
+              {/* Data Flow Timeline Items */}
+              <div className="space-y-3 text-xs">
+                {[
+                  { step: '1', title: 'Prescription Created', detail: 'Physician enters electronic antimicrobial order with WHO AWaRe classification.', icon: Stethoscope, color: 'text-sky-600 bg-sky-50' },
+                  { step: '2', title: 'Pharmacy Verification', detail: 'GS1 batch scanning verifies serial numbers, cold-chain status & non-negative stock floor.', icon: Pill, color: 'text-teal-600 bg-teal-50' },
+                  { step: '3', title: 'Laboratory AST Bench', detail: 'Specimen processed via disk diffusion and microdilution; MIC breakpoints interpreted.', icon: Microscope, color: 'text-indigo-600 bg-indigo-50' },
+                  { step: '4', title: 'Deterministic AMR Signal', detail: 'CLSI M100 rules detect resistant phenotype (e.g. CRE, MRSA) and trigger triage alarm.', icon: Activity, color: 'text-rose-600 bg-rose-50' },
+                  { step: '5', title: 'Multidisciplinary Investigation', detail: 'Stewardship committee audits case, reviews timeline, and logs mandatory notes.', icon: FileSearch, color: 'text-amber-600 bg-amber-50' },
+                  { step: '6', title: 'Targeted Intervention & Action', detail: 'Therapy de-escalated to narrow-spectrum agent; patient isolated to halt transmission.', icon: ShieldCheck, color: 'text-emerald-600 bg-emerald-50' },
+                ].map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={idx} className="p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80 flex items-start gap-3.5 hover:bg-slate-50 transition-colors">
+                      <div className={`w-8 h-8 rounded-xl ${item.color} flex items-center justify-center shrink-0 font-bold font-mono text-xs`}>
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <div className="space-y-0.5 flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-slate-900 text-xs font-heading">{item.title}</span>
+                          <span className="text-[10px] font-mono text-slate-400">Node 0{item.step}</span>
+                        </div>
+                        <p className="text-slate-600 text-[11px] leading-relaxed">{item.detail}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 7. MICROBIOLOGY & AMR INTELLIGENCE SECTION                                */}
+      {/* ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xl p-8 sm:p-12 space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+            <div>
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#0D9488] px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-200">
+                SCIENTIFIC MICROBIOLOGY BENCH
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B1F3A] font-heading mt-2">
+                Quantitative Antimicrobial Susceptibility Testing (AST)
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500">
+                Conforms strictly to CLSI M100-ED33 and EUCAST 2024 interpretive breakpoint standards.
+              </p>
+            </div>
+
+            {/* Pathogen Selector */}
+            <div className="flex flex-wrap gap-1.5 p-1 bg-slate-100 rounded-2xl border border-slate-200/60 self-start sm:self-auto text-xs">
+              {[
+                { id: 'kp', label: 'K. pneumoniae' },
+                { id: 'ab', label: 'A. baumannii' },
+                { id: 'pa', label: 'P. aeruginosa' },
+                { id: 'sa', label: 'S. aureus (MRSA)' },
+              ].map((p) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => setSelectedPathogen(p.id as any)}
+                  className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
+                    selectedPathogen === p.id ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600'
+                  }`}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Active Pathogen Deep Dive Display */}
+          {(() => {
+            const current = pathogenDetails[selectedPathogen];
+            return (
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 font-heading italic">{current.name}</h3>
+                    <p className="text-xs text-rose-700 font-semibold">{current.classification}</p>
+                  </div>
+                  <div className="text-right text-xs font-mono">
+                    <span className="text-slate-400 block">MECHANISM</span>
+                    <span className="text-slate-800 font-semibold">{current.mechanism}</span>
+                  </div>
+                </div>
+
+                {/* Susceptibility Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {current.susceptibilities.map((s, idx) => (
+                    <div key={idx} className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-bold text-slate-900">{s.drug}</span>
+                        <span className={`font-mono font-bold text-[11px] ${s.color}`}>{s.status}</span>
+                      </div>
+                      <div className="text-xl font-extrabold text-[#0B1F3A] font-mono">{s.mic}</div>
+                      <div className="text-[11px] text-slate-500 font-mono border-t border-slate-100 pt-1.5">
+                        {s.rate}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Stewardship Action Advisory */}
+                <div className="p-4 rounded-2xl bg-teal-50/80 border border-teal-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <ShieldCheck className="w-5 h-5 text-[#0D9488] shrink-0" />
+                    <span className="text-teal-900 font-medium">
+                      <strong>Recommended Stewardship Protocol:</strong> {current.stewardshipAction}
+                    </span>
+                  </div>
+                  <Link to="/laboratory" className="px-4 py-2 rounded-xl bg-[#0D9488] text-white font-bold text-xs shrink-0 text-center">
+                    Open Digital Bench
+                  </Link>
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 8. AI COPILOT (Dedicated Grounded AI Section)                             */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-gradient-to-br from-[#1E1B4B] via-[#0F172A] to-[#020617] text-white p-8 sm:p-12 lg:p-16 border border-indigo-900/60 shadow-2xl relative overflow-hidden text-left">
@@ -767,14 +1061,14 @@ export const HomePage: React.FC = () => {
               </div>
 
               {/* Disclaimer */}
-              <div className="p-3 rounded-xl bg-indigo-50 border border-indigo-200 text-[11px] text-indigo-900">
+              <div className="p-3.5 rounded-2xl bg-indigo-950/80 border border-indigo-700/80 text-[11px] text-indigo-200">
                 <strong>Surveillance Notice:</strong> AI provides surveillance decision support and does not diagnose patients or replace licensed clinical antimicrobial stewardship committees.
               </div>
             </div>
 
             {/* Example Conversation Box */}
             <div className="lg:col-span-6 space-y-3">
-              <div className="p-5 rounded-3xl bg-white border border-indigo-200/90 shadow-md space-y-4 text-xs">
+              <div className="p-6 rounded-3xl bg-white border border-indigo-200/90 shadow-xl space-y-4 text-xs text-slate-900">
                 {/* User Message */}
                 <div className="flex gap-2.5 items-start justify-end">
                   <div className="p-3.5 rounded-2xl rounded-tr-xs bg-[#0B5ED7] text-white max-w-sm text-xs font-medium shadow-xs">
@@ -811,7 +1105,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 6. ROLE ECOSYSTEM (9 Dedicated Role Cards)                                */}
+      {/* 9. ROLE ECOSYSTEM (9 Dedicated Role Cards with Imagery)                     */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto space-y-3 pb-12">
@@ -853,14 +1147,18 @@ export const HomePage: React.FC = () => {
 
                 {/* Content Body */}
                 <div className="p-5 space-y-4 flex-1 flex flex-col justify-between">
-                  <div className="space-y-2 text-xs">
+                  <div className="space-y-2.5 text-xs">
                     <div>
                       <span className="font-bold text-[#0B1F3A] block">What They See:</span>
                       <p className="text-slate-600 leading-relaxed">{r.whatTheySee}</p>
                     </div>
-                    <div className="pt-1">
+                    <div>
                       <span className="font-bold text-[#0B1F3A] block">What They Can Do:</span>
                       <p className="text-slate-600 leading-relaxed">{r.whatTheyCanDo}</p>
+                    </div>
+                    <div>
+                      <span className="font-bold text-[#0B1F3A] block">Why It Matters:</span>
+                      <p className="text-teal-800 leading-relaxed font-medium">{r.whyItMatters}</p>
                     </div>
                   </div>
 
@@ -879,99 +1177,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 7. GLOBAL INTELLIGENCE & SURVEILLANCE RADAR                               */}
-      {/* ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200/90 shadow-lg space-y-8 text-left">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
-            <div>
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#0D9488] px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-200">
-                REGIONAL SURVEILLANCE INTELLIGENCE
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B1F3A] font-heading mt-2">
-                Geospatial Resistance Surveillance Radar
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-500">
-                Cross-facility pathogen concentration indicators mapped across surveillance catchments.
-              </p>
-            </div>
-
-            {/* Region Switcher */}
-            <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-2xl border border-slate-200/60 self-start sm:self-auto">
-              <button
-                type="button"
-                onClick={() => setSelectedRegion('pakistan')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  selectedRegion === 'pakistan' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600'
-                }`}
-              >
-                Pakistan
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedRegion('southAsia')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  selectedRegion === 'southAsia' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600'
-                }`}
-              >
-                South Asia
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedRegion('global')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  selectedRegion === 'global' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600'
-                }`}
-              >
-                Global GLASS
-              </button>
-            </div>
-          </div>
-
-          {/* Radar Metrics Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-              <div className="flex items-center justify-between text-xs text-slate-500 font-mono">
-                <span>PUNJAB CENTRAL ZONE</span>
-                <span className="text-rose-600 font-bold">HIGH RISK</span>
-              </div>
-              <div className="text-2xl font-bold text-[#0B1F3A] font-mono">31.4% CRE</div>
-              <p className="text-xs text-slate-600">8 Connected Tertiary Hospitals • 1,240 Isolates Tested</p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-              <div className="flex items-center justify-between text-xs text-slate-500 font-mono">
-                <span>SINDH COASTAL CORRIDOR</span>
-                <span className="text-amber-600 font-bold">ELEVATED</span>
-              </div>
-              <div className="text-2xl font-bold text-[#0B1F3A] font-mono">24.8% MRSA</div>
-              <p className="text-xs text-slate-600">5 Diagnostic Laboratories • 890 Isolates Tested</p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-              <div className="flex items-center justify-between text-xs text-slate-500 font-mono">
-                <span>FEDERAL CAPITAL DISTRICT</span>
-                <span className="text-emerald-600 font-bold">STABLE</span>
-              </div>
-              <div className="text-2xl font-bold text-[#0B1F3A] font-mono">14.2% VRE</div>
-              <p className="text-xs text-slate-600">4 Clinical Centers • 510 Isolates Tested</p>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center justify-between">
-            <div className="flex items-center gap-2 font-mono">
-              <span className="font-bold">DEMO / SYNTHETIC DATA:</span>
-              <span>All displayed figures represent synthetic surveillance metrics designed for platform demonstration.</span>
-            </div>
-            <Link to="/epidemiology" className="font-bold text-amber-900 underline shrink-0 pl-2">
-              Explore Surveillance Heatmap
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 8. ENTERPRISE CYBERSECURITY & RLS ARCHITECTURE                            */}
+      {/* 10. SECURITY & TENANT ARCHITECTURE (Visual Architecture Flow)             */}
       {/* ========================================================================= */}
       <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/20 text-slate-900 py-16 border-y border-slate-200/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -987,35 +1193,41 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          {/* Architecture Visualization Chain */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-6">
+          {/* Architecture Visualization Flow: User -> Auth -> RBAC -> Boundary -> RLS -> Audit */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-6">
             <div className="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider text-center">
               END-TO-END SECURITY BOUNDARY FLOW
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center text-xs">
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                <div className="font-bold text-sky-700 font-mono">USER</div>
-                <div className="text-slate-500 text-[11px]">OAuth / Email</div>
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <div className="font-bold text-sky-700 font-mono">1. USER</div>
+                <div className="text-slate-700 font-semibold text-xs">Credentialed</div>
+                <div className="text-slate-400 text-[10px]">Institutional ID</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                <div className="font-bold text-indigo-700 font-mono">AUTH</div>
-                <div className="text-slate-500 text-[11px]">JWT Session</div>
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <div className="font-bold text-indigo-700 font-mono">2. AUTH</div>
+                <div className="text-slate-700 font-semibold text-xs">JWT Session</div>
+                <div className="text-slate-400 text-[10px]">Signed Token</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                <div className="font-bold text-teal-700 font-mono">RBAC</div>
-                <div className="text-slate-500 text-[11px]">9 Role Guards</div>
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <div className="font-bold text-teal-700 font-mono">3. RBAC</div>
+                <div className="text-slate-700 font-semibold text-xs">9 Role Guards</div>
+                <div className="text-slate-400 text-[10px]">Strict Route Fence</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                <div className="font-bold text-emerald-700 font-mono">TENANCY</div>
-                <div className="text-slate-500 text-[11px]">Org Boundary</div>
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <div className="font-bold text-emerald-700 font-mono">4. TENANCY</div>
+                <div className="text-slate-700 font-semibold text-xs">Org Boundary</div>
+                <div className="text-slate-400 text-[10px]">Isolated Schema</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                <div className="font-bold text-amber-700 font-mono">POSTGRES RLS</div>
-                <div className="text-slate-500 text-[11px]">Engine Filter</div>
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <div className="font-bold text-amber-700 font-mono">5. RLS</div>
+                <div className="text-slate-700 font-semibold text-xs">PostgreSQL RLS</div>
+                <div className="text-slate-400 text-[10px]">Database Kernel</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                <div className="font-bold text-purple-700 font-mono">AUDIT LOG</div>
-                <div className="text-slate-500 text-[11px]">Append-Only</div>
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <div className="font-bold text-purple-700 font-mono">6. AUDIT</div>
+                <div className="text-slate-700 font-semibold text-xs">Immutable Trail</div>
+                <div className="text-slate-400 text-[10px]">Append-Only Log</div>
               </div>
             </div>
           </div>
@@ -1044,7 +1256,66 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 9. FINAL CALL TO ACTION                                                   */}
+      {/* 11. RESEARCH & SCIENTIFIC FOUNDATION                                      */}
+      {/* ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200/90 shadow-md space-y-6 text-left">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+            <div>
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-purple-700 px-2.5 py-0.5 rounded-full bg-purple-50 border border-purple-200">
+                SCIENTIFIC METHODOLOGY &amp; STANDARDS
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0B1F3A] font-heading mt-2">
+                Built on Established Global Standards
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500">
+                MediGuard applies peer-reviewed epidemiological methodologies and recognized antimicrobial classifications.
+              </p>
+            </div>
+
+            <Link
+              to="/research"
+              className="px-5 py-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs border border-purple-200 transition-colors self-start sm:self-auto"
+            >
+              Explore Research Dossiers &rarr;
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+              <div className="font-mono font-bold text-purple-700 text-sm">CLSI M100-ED33</div>
+              <div className="font-bold text-slate-900">Clinical Laboratory Standards</div>
+              <p className="text-slate-600 text-[11px]">Millimeter disk diffusion calipers and microdilution broth interpretation rules.</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+              <div className="font-mono font-bold text-purple-700 text-sm">EUCAST 2024</div>
+              <div className="font-bold text-slate-900">European Susceptibility Testing</div>
+              <p className="text-slate-600 text-[11px]">Harmonized clinical breakpoints and pharmacokinetic/pharmacodynamic dosing indices.</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+              <div className="font-mono font-bold text-purple-700 text-sm">WHO AWaRe</div>
+              <div className="font-bold text-slate-900">Access, Watch &amp; Reserve</div>
+              <p className="text-slate-600 text-[11px]">Formulary categorization enforcing institutional targets for 60% Access-tier utilization.</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+              <div className="font-mono font-bold text-purple-700 text-sm">WHO GLASS</div>
+              <div className="font-bold text-slate-900">Global Surveillance System</div>
+              <p className="text-slate-600 text-[11px]">Standardized pathogen surveillance data structures compatible with international reporting.</p>
+            </div>
+          </div>
+
+          {/* Synthetic Data Notice */}
+          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center justify-between">
+            <div className="flex items-center gap-2 font-mono">
+              <span className="font-bold">DEMO / SYNTHETIC DATA NOTICE:</span>
+              <span>Patient records, hospital names, and AST isolates presented in this platform demo are synthetic models designed for operational validation.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 12. FINAL CALL TO ACTION                                                  */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div className="rounded-3xl bg-gradient-to-r from-[#0B5ED7] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 lg:p-16 border border-sky-400/30 shadow-xl text-center space-y-6 relative overflow-hidden">
@@ -1059,16 +1330,16 @@ export const HomePage: React.FC = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 relative z-10 pt-4">
             <Link
-              to="/register"
+              to="/solutions"
               className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-[#0B5ED7] font-bold text-sm shadow-md transition-all cursor-pointer"
             >
-              Request a Demo
+              Explore MediGuard
             </Link>
             <Link
-              to="/solutions"
+              to="/register"
               className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-sm border border-white/30 transition-all cursor-pointer"
             >
-              Explore MediGuard
+              Request a Demo
             </Link>
           </div>
 
