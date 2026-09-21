@@ -64,52 +64,41 @@ export const LaboratoryWorkspace: React.FC = () => {
 
   return (
     <div className="space-y-6 text-left">
-      {/* Header Banner with Clinical Photography */}
-      <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-sm bg-slate-900 text-white">
-        <div className="absolute inset-0 z-0">
-          <img
-            src={CLINICAL_IMAGES.petriDishCulture}
-            alt="Microbiology Culture"
-            className="w-full h-full object-cover object-center opacity-25"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/95 to-slate-900/80" />
+      {/* 1. Header Greeting & Clinical Context */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-gradient-to-r from-white via-teal-50/40 to-blue-50/30 p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-2xs">
+        <div className="space-y-1.5 max-w-2xl">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-teal-700 px-3 py-1 rounded-full bg-teal-50 border border-teal-200">
+              CLSI M100-ED33 & EUCAST v14.0 BENCH
+            </span>
+            <span className="text-xs text-slate-500 font-mono flex items-center gap-1">
+              <Dna className="w-3.5 h-3.5 text-teal-600" />
+              Automated Microdilution & Kirby-Bauer AST
+            </span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] font-heading">
+            Microbiology Laboratory — {currentUser?.full_name || 'Lead Microbiologist'}
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Real-time specimen accessioning, broth microdilution quantitative MIC titration, and antimicrobial resistance phenotype reporting with algorithmic de-duplication.
+          </p>
         </div>
 
-        <div className="relative z-10 p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2 max-w-2xl">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-teal-300 px-3 py-1 rounded-full bg-teal-950/70 border border-teal-500/40">
-                CLSI M100-ED33 & EUCAST v14.0 ACTIVE
-              </span>
-              <span className="text-xs text-slate-300 font-mono flex items-center gap-1">
-                <Dna className="w-3.5 h-3.5 text-teal-400" />
-                Automated Microdilution & Kirby-Bauer Bench
-              </span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white font-heading">
-              Microbiology Laboratory — {currentUser?.full_name}
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Real-time specimen accessioning, broth microdilution quantitative MIC titration, and antimicrobial resistance phenotype reporting with algorithmic de-duplication.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3 shrink-0">
-            <Link
-              to="/app/laboratory"
-              className="px-4 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs transition-colors flex items-center gap-2 shadow-lg"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Accession New Specimen</span>
-            </Link>
-            <Link
-              to="/app/antibiogram"
-              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs border border-white/15 transition-colors flex items-center gap-1.5"
-            >
-              <span>Antibiogram Table</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+        <div className="flex items-center gap-3 shrink-0">
+          <Link
+            to="/app/laboratory"
+            className="px-5 py-2.5 rounded-xl bg-[#0D9488] hover:bg-[#0f766e] text-white font-bold text-xs transition-colors flex items-center gap-2 shadow-sm shadow-teal-700/20"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Accession New Specimen</span>
+          </Link>
+          <Link
+            to="/app/antibiogram-explorer"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold transition-all shadow-2xs flex items-center gap-1.5"
+          >
+            <span>Antibiogram Table</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </div>
 
@@ -191,7 +180,7 @@ export const LaboratoryWorkspace: React.FC = () => {
                 <XAxis dataKey="day" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '11px' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '11px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
                 <Bar dataKey="blood" name="Blood Culture" fill="#0284c7" stackId="a" radius={[0, 0, 0, 0]} />
@@ -226,7 +215,7 @@ export const LaboratoryWorkspace: React.FC = () => {
                 <XAxis type="number" stroke="#94a3b8" fontSize={10} domain={[0, 100]} />
                 <YAxis dataKey="drug" type="category" stroke="#475569" fontSize={10} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '11px' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '11px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '4px' }} />
                 <Bar dataKey="susceptible" name="Susceptible (%)" fill="#10b981" stackId="s" />
@@ -327,7 +316,7 @@ export const LaboratoryWorkspace: React.FC = () => {
               ))}
             </div>
             <Link
-              to="/app/antibiogram"
+              to="/app/antibiogram-explorer"
               className="w-full py-2.5 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5"
             >
               <span>Explore Antibiogram Matrix</span>
@@ -335,18 +324,18 @@ export const LaboratoryWorkspace: React.FC = () => {
             </Link>
           </div>
 
-          {/* Microdilution QC Card */}
-          <div className="p-5 rounded-3xl bg-gradient-to-br from-slate-900 to-teal-950 text-white border border-slate-800 shadow-sm space-y-3">
+          {/* Microdilution QC Card - Pristine Light Healthcare Card */}
+          <div className="p-5 rounded-3xl bg-gradient-to-br from-teal-50/50 to-blue-50/40 border border-teal-200/80 shadow-2xs space-y-3 text-slate-800">
             <div className="flex items-center gap-2">
-              <FlaskConical className="w-4 h-4 text-teal-400" />
-              <span className="text-xs font-bold uppercase tracking-wider text-teal-300 font-mono">
+              <FlaskConical className="w-4 h-4 text-teal-600" />
+              <span className="text-xs font-bold uppercase tracking-wider text-teal-900 font-mono">
                 CLSI Quality Control Protocol
               </span>
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               Standardized against CLSI M100 reference strains (ATCC 25922, ATCC 27853, ATCC 29213). All MIC titer wells verified prior to clinical EHR dissemination.
             </p>
-            <div className="text-[10px] font-mono text-teal-300/80 pt-1">
+            <div className="text-[11px] font-mono text-teal-700 pt-1 font-medium">
               Automated LIMS Bridge: HealthLevel7 FHIR DiagnosticReport Active
             </div>
           </div>

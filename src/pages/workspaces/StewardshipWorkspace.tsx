@@ -174,11 +174,12 @@ export const StewardshipWorkspace: React.FC = () => {
                 <YAxis stroke="#94A3B8" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0F172A',
-                    borderColor: '#1E293B',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e2e8f0',
                     borderRadius: '12px',
-                    color: '#FFF',
+                    color: '#0f172a',
                     fontSize: '11px',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 />
                 <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
@@ -214,11 +215,12 @@ export const StewardshipWorkspace: React.FC = () => {
                 <YAxis stroke="#94A3B8" fontSize={11} tickLine={false} unit="%" />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0F172A',
-                    borderColor: '#1E293B',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e2e8f0',
                     borderRadius: '12px',
-                    color: '#FFF',
+                    color: '#0f172a',
                     fontSize: '11px',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 />
                 <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
@@ -305,7 +307,7 @@ export const StewardshipWorkspace: React.FC = () => {
             </div>
             <Link
               to="/app/investigations"
-              className="w-full py-2.5 rounded-xl bg-[#0B1F3A] hover:bg-[#142d52] text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-xs"
+              className="w-full py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-xs"
             >
               <span>Manage Stewardship Cases</span>
               <ArrowRight className="w-3.5 h-3.5" />

@@ -113,7 +113,7 @@ export const PlatformAdminWorkspace: React.FC = () => {
           </Link>
           <Link
             to="/app/audit"
-            className="px-4 py-2.5 rounded-xl bg-[#0B1F3A] hover:bg-[#142d52] text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
           >
             <Lock className="w-3.5 h-3.5" />
             <span>View Audit Trail</span>
@@ -255,11 +255,12 @@ export const PlatformAdminWorkspace: React.FC = () => {
                 <YAxis stroke="#94A3B8" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0F172A',
-                    borderColor: '#1E293B',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e2e8f0',
                     borderRadius: '12px',
-                    color: '#FFF',
+                    color: '#0f172a',
                     fontSize: '11px',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 />
                 <Area type="monotone" dataKey="requests" name="Requests / Hr" stroke="#0284C7" strokeWidth={2} fillOpacity={1} fill="url(#colorRequests)" />
@@ -292,11 +293,12 @@ export const PlatformAdminWorkspace: React.FC = () => {
                 <YAxis stroke="#94A3B8" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0F172A',
-                    borderColor: '#1E293B',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#e2e8f0',
                     borderRadius: '12px',
-                    color: '#FFF',
+                    color: '#0f172a',
                     fontSize: '11px',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                   }}
                 />
                 <Bar dataKey="facilities" name="Connected Facilities" fill="#0D9488" radius={[4, 4, 0, 0]} />
@@ -481,7 +483,7 @@ export const PlatformAdminWorkspace: React.FC = () => {
 
             <Link
               to="/app/audit"
-              className="w-full py-2.5 rounded-xl bg-[#0B1F3A] hover:bg-[#142d52] text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-xs"
+              className="w-full py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-xs"
             >
               <span>Inspect Full Audit Trail</span>
               <ArrowRight className="w-3.5 h-3.5" />

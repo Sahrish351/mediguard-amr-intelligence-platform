@@ -225,13 +225,13 @@ export const HomePage: React.FC = () => {
               <div className="absolute -bottom-10 -left-10 w-72 h-72 bg-teal-200/40 rounded-full blur-3xl pointer-events-none" />
 
               {/* Main Clinical Hospital Image Container */}
-              <div className="relative rounded-3xl overflow-hidden border border-slate-200/80 shadow-2xl shadow-slate-900/10 bg-slate-900 aspect-[4/3]">
+              <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-2xl shadow-sky-900/5 bg-slate-100 aspect-[4/3]">
                 <img
                   src={CLINICAL_IMAGES.hero}
                   alt="Doctor reviewing clinical surveillance telemetry"
-                  className="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover opacity-95 hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
 
                 {/* Live Telemetry Pulse Tag */}
                 <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-mono font-bold text-slate-800 border border-white/40 shadow-xs flex items-center gap-1.5">
@@ -402,17 +402,16 @@ export const HomePage: React.FC = () => {
       {/* ========================================================================= */}
       {/* 3. MEDIGUARD SOLUTION: HORIZONTAL LIFECYCLE                               */}
       {/* ========================================================================= */}
-      <section className="bg-slate-900 text-white py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-medical-grid opacity-10 pointer-events-none" />
+      <section className="bg-gradient-to-b from-teal-50/40 via-white to-sky-50/30 text-slate-900 py-20 relative overflow-hidden border-y border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="text-[11px] font-mono text-[#0D9488] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-teal-950/60 border border-teal-800">
+            <span className="text-[11px] font-mono text-[#0D9488] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-teal-50 border border-teal-200">
               CLOSED-LOOP ARCHITECTURE
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading tracking-tight text-[#0B1F3A]">
               One intelligence layer across the entire medication lifecycle.
             </h2>
-            <p className="text-sm sm:text-base text-slate-300">
+            <p className="text-sm sm:text-base text-slate-600">
               From the clinician’s initial electronic order to regional epidemiological reporting, every milestone is verified in real time.
             </p>
           </div>
@@ -430,19 +429,19 @@ export const HomePage: React.FC = () => {
             ].map((s, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 space-y-2 hover:border-[#0D9488] transition-all group relative"
+                className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2 hover:border-[#0D9488] hover:shadow-md transition-all group relative"
               >
                 <div className="text-[10px] font-mono text-[#0D9488] font-bold">STAGE {s.step}</div>
-                <div className="w-10 h-10 rounded-xl bg-slate-700/60 text-sky-400 mx-auto flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 mx-auto flex items-center justify-center group-hover:scale-110 transition-transform">
                   <s.icon className="w-5 h-5" />
                 </div>
-                <div className="font-bold text-xs text-white font-heading">{s.title}</div>
-                <div className="text-[10px] text-slate-400 font-mono">{s.tag}</div>
+                <div className="font-bold text-xs text-slate-900 font-heading">{s.title}</div>
+                <div className="text-[10px] text-slate-500 font-mono">{s.tag}</div>
               </div>
             ))}
           </div>
 
-          <div className="p-6 rounded-3xl bg-slate-800/50 border border-slate-700/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300">
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600">
             <div className="flex items-center gap-3">
               <CheckCircle2 className="w-5 h-5 text-[#0D9488] shrink-0" />
               <span>
@@ -752,17 +751,17 @@ export const HomePage: React.FC = () => {
               </div>
 
               {/* Disclaimer */}
-              <div className="p-3 rounded-xl bg-indigo-950/80 border border-indigo-800/80 text-[11px] text-indigo-200">
+              <div className="p-3 rounded-xl bg-indigo-50 border border-indigo-200 text-[11px] text-indigo-900">
                 <strong>Surveillance Notice:</strong> AI provides surveillance decision support and does not diagnose patients or replace licensed clinical antimicrobial stewardship committees.
               </div>
             </div>
 
             {/* Example Conversation Box */}
             <div className="lg:col-span-6 space-y-3">
-              <div className="p-5 rounded-3xl bg-slate-900/90 border border-indigo-800/60 backdrop-blur-md shadow-2xl space-y-4 text-xs">
+              <div className="p-5 rounded-3xl bg-white border border-indigo-200/90 shadow-md space-y-4 text-xs">
                 {/* User Message */}
                 <div className="flex gap-2.5 items-start justify-end">
-                  <div className="p-3.5 rounded-2xl rounded-tr-xs bg-[#0284C7] text-white max-w-sm text-xs font-medium">
+                  <div className="p-3.5 rounded-2xl rounded-tr-xs bg-[#0B5ED7] text-white max-w-sm text-xs font-medium shadow-xs">
                     "Why did resistance to ceftriaxone increase this quarter?"
                   </div>
                 </div>
@@ -772,17 +771,17 @@ export const HomePage: React.FC = () => {
                   <div className="w-8 h-8 rounded-xl bg-[#6366F1] flex items-center justify-center text-white shrink-0 shadow-xs">
                     <Sparkles className="w-4 h-4" />
                   </div>
-                  <div className="p-5 rounded-2xl rounded-tl-xs bg-slate-800/90 border border-slate-700 text-slate-200 space-y-3 max-w-md">
-                    <div className="text-[10px] font-mono text-indigo-300 flex items-center justify-between border-b border-slate-700 pb-2">
+                  <div className="p-5 rounded-2xl rounded-tl-xs bg-indigo-50/40 border border-indigo-100 text-slate-800 space-y-3 max-w-md">
+                    <div className="text-[10px] font-mono text-indigo-700 flex items-center justify-between border-b border-indigo-100 pb-2">
                       <span>DATA SCOPE: 4 FACILITIES (N=124 ISOLATES)</span>
-                      <span className="text-emerald-400 font-bold">CONFIDENCE: 94%</span>
+                      <span className="text-emerald-700 font-bold">CONFIDENCE: 94%</span>
                     </div>
 
-                    <p className="text-xs leading-relaxed text-slate-100">
+                    <p className="text-xs leading-relaxed text-slate-900">
                       Resistance to ceftriaxone increased from <strong>21.4% to 31.8%</strong> across 4 reporting facilities.
                     </p>
 
-                    <div className="space-y-1 text-[11px] text-slate-300">
+                    <div className="space-y-1 text-[11px] text-slate-600">
                       <div><strong>Primary Driver:</strong> Plasmid-mediated CTX-M ESBL production in <em>E. coli</em>.</div>
                       <div><strong>Temporal Trend:</strong> Consistent upward vector (+2.6% monthly average).</div>
                       <div><strong>Suggested Action:</strong> Audit empiric cephalosporin orders in surgical triage and evaluate amoxicillin-clavulanate alternatives.</div>
@@ -958,69 +957,69 @@ export const HomePage: React.FC = () => {
       {/* ========================================================================= */}
       {/* 8. ENTERPRISE CYBERSECURITY & RLS ARCHITECTURE                            */}
       {/* ========================================================================= */}
-      <section className="bg-slate-900 text-white py-16">
+      <section className="bg-gradient-to-b from-slate-50 via-white to-blue-50/20 text-slate-900 py-16 border-y border-slate-200/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="text-[11px] font-mono text-emerald-400 font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-950/70 border border-emerald-800">
+            <span className="text-[11px] font-mono text-emerald-800 font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
               HEALTHCARE-GRADE CYBERSECURITY
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-[#0B1F3A]">
               Cryptographic Tenant Isolation &amp; Auditability
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
               Designed from the ground up for strict regulatory compliance, zero data leakage, and immutable forensic accountability.
             </p>
           </div>
 
           {/* Architecture Visualization Chain */}
-          <div className="p-6 rounded-3xl bg-slate-800/60 border border-slate-700/80 space-y-6">
-            <div className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider text-center">
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-6">
+            <div className="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider text-center">
               END-TO-END SECURITY BOUNDARY FLOW
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center text-xs">
-              <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700">
-                <div className="font-bold text-sky-400 font-mono">USER</div>
-                <div className="text-slate-400 text-[11px]">OAuth / Email</div>
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="font-bold text-sky-700 font-mono">USER</div>
+                <div className="text-slate-500 text-[11px]">OAuth / Email</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700">
-                <div className="font-bold text-indigo-400 font-mono">AUTH</div>
-                <div className="text-slate-400 text-[11px]">JWT Session</div>
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="font-bold text-indigo-700 font-mono">AUTH</div>
+                <div className="text-slate-500 text-[11px]">JWT Session</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700">
-                <div className="font-bold text-teal-400 font-mono">RBAC</div>
-                <div className="text-slate-400 text-[11px]">9 Role Guards</div>
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="font-bold text-teal-700 font-mono">RBAC</div>
+                <div className="text-slate-500 text-[11px]">9 Role Guards</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700">
-                <div className="font-bold text-emerald-400 font-mono">TENANCY</div>
-                <div className="text-slate-400 text-[11px]">Org Boundary</div>
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="font-bold text-emerald-700 font-mono">TENANCY</div>
+                <div className="text-slate-500 text-[11px]">Org Boundary</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700">
-                <div className="font-bold text-amber-400 font-mono">POSTGRES RLS</div>
-                <div className="text-slate-400 text-[11px]">Engine Filter</div>
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="font-bold text-amber-700 font-mono">POSTGRES RLS</div>
+                <div className="text-slate-500 text-[11px]">Engine Filter</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700">
-                <div className="font-bold text-purple-400 font-mono">AUDIT LOG</div>
-                <div className="text-slate-400 text-[11px]">Append-Only</div>
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="font-bold text-purple-700 font-mono">AUDIT LOG</div>
+                <div className="text-slate-500 text-[11px]">Append-Only</div>
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
-            <div className="p-6 rounded-3xl bg-slate-800/40 border border-slate-700/80 space-y-2">
-              <h3 className="font-bold text-white text-sm">PostgreSQL Row-Level Security</h3>
-              <p className="text-slate-300 leading-relaxed">
+            <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+              <h3 className="font-bold text-slate-900 text-sm">PostgreSQL Row-Level Security</h3>
+              <p className="text-slate-600 leading-relaxed">
                 Database queries are cryptographically restricted to the authenticated organization's tenancy. Cross-tenant leakage is mathematically impossible at the database engine level.
               </p>
             </div>
-            <div className="p-6 rounded-3xl bg-slate-800/40 border border-slate-700/80 space-y-2">
-              <h3 className="font-bold text-white text-sm">Role-Based Access Control (RBAC)</h3>
-              <p className="text-slate-300 leading-relaxed">
+            <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+              <h3 className="font-bold text-slate-900 text-sm">Role-Based Access Control (RBAC)</h3>
+              <p className="text-slate-600 leading-relaxed">
                 Prescribers cannot view administrative telemetry, pharmacists are restricted to dispensing registries, and lab scientists access specimen consoles exclusively.
               </p>
             </div>
-            <div className="p-6 rounded-3xl bg-slate-800/40 border border-slate-700/80 space-y-2">
-              <h3 className="font-bold text-white text-sm">Serverless Gemini Edge Proxy</h3>
-              <p className="text-slate-300 leading-relaxed">
+            <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+              <h3 className="font-bold text-slate-900 text-sm">Serverless Gemini Edge Proxy</h3>
+              <p className="text-slate-600 leading-relaxed">
                 AI queries execute strictly through server-side serverless endpoints (`/api/ai/chat`). Client-side bundles contain zero private API keys or service tokens.
               </p>
             </div>
@@ -1032,14 +1031,12 @@ export const HomePage: React.FC = () => {
       {/* 9. FINAL CALL TO ACTION                                                   */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="rounded-3xl bg-[#0B1F3A] text-white p-8 sm:p-12 lg:p-16 border border-slate-800 shadow-2xl text-center space-y-6 relative overflow-hidden">
-          <div className="absolute inset-0 bg-medical-grid opacity-10 pointer-events-none" />
-
+        <div className="rounded-3xl bg-gradient-to-r from-[#0B5ED7] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 lg:p-16 border border-sky-400/30 shadow-xl text-center space-y-6 relative overflow-hidden">
           <div className="max-w-3xl mx-auto space-y-4 relative z-10">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading tracking-tight leading-tight">
               Turn fragmented healthcare data into actionable intelligence.
             </h2>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-sky-100 leading-relaxed max-w-xl mx-auto">
               Join healthcare systems, regional microbiology laboratories, and antimicrobial stewardship programs operating with real-time MediGuard telemetry.
             </p>
           </div>
@@ -1047,19 +1044,19 @@ export const HomePage: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 relative z-10 pt-4">
             <Link
               to="/register"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-[#0D9488] hover:bg-[#0f766e] text-white font-bold text-sm shadow-md transition-all cursor-pointer"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-[#0B5ED7] font-bold text-sm shadow-md transition-all cursor-pointer"
             >
               Request a Demo
             </Link>
             <Link
               to="/solutions"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-all cursor-pointer"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-sm border border-white/30 transition-all cursor-pointer"
             >
               Explore MediGuard
             </Link>
           </div>
 
-          <div className="pt-4 text-[11px] text-slate-400 font-mono relative z-10">
+          <div className="pt-4 text-[11px] text-sky-200 font-mono relative z-10">
             Compliant with WHO AWaRe • Real PostgreSQL RLS • 9 Dedicated Roles • © 2026 MediGuard
           </div>
         </div>

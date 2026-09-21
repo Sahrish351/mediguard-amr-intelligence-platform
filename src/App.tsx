@@ -66,7 +66,7 @@ export function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          {/* Public Portal Routes */}
+          {/* Public Portal Routes with Sticky Header and Footer */}
           <Route element={<PublicLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
@@ -76,10 +76,12 @@ export function App() {
             <Route path="/security" element={<SecurityPrivacyPage />} />
             <Route path="/resources" element={<ResourcesFaqPage />} />
             <Route path="/faq" element={<ResourcesFaqPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           </Route>
+
+          {/* Standalone Authentication Experiences (No Public Navbar/Footer) */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
           {/* Access Denied Privilege Boundary */}
           <Route path="/access-denied" element={<AccessDeniedPage />} />

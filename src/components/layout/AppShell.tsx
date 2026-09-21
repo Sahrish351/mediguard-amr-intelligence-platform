@@ -16,7 +16,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased font-sans">
+    <div className="h-screen flex flex-col bg-[#F7FAFC] text-slate-900 antialiased font-sans overflow-hidden">
       {/* Required Synthetic Demo Data Disclaimer Banner */}
       <DemoBanner />
 

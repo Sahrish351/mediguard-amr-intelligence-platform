@@ -60,32 +60,31 @@ export const SurveillanceWorkspace: React.FC = () => {
 
   return (
     <div className="space-y-6 text-left">
-      {/* Header Banner with Command Center Photography */}
-      <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-sm bg-slate-900 text-white">
-        <div className="absolute inset-0 z-0">
+      {/* Header Banner */}
+      <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-2xs bg-gradient-to-r from-white via-rose-50/40 to-slate-50 text-slate-900">
+        <div className="absolute top-0 right-0 w-96 h-full opacity-10 pointer-events-none overflow-hidden">
           <img
             src={CLINICAL_IMAGES.commandCenter}
             alt="Surveillance Command Center"
-            className="w-full h-full object-cover object-center opacity-25"
+            className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/95 to-slate-900/80" />
         </div>
 
         <div className="relative z-10 p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-rose-300 px-3 py-1 rounded-full bg-rose-950/70 border border-rose-500/40 flex items-center gap-1.5">
-                <Radio className="w-3 h-3 text-rose-400 animate-pulse" />
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-rose-700 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 flex items-center gap-1.5">
+                <Radio className="w-3 h-3 text-rose-600 animate-pulse" />
                 REAL-TIME CLINICAL SURVEILLANCE RADAR
               </span>
-              <span className="text-xs text-slate-300 font-mono">
+              <span className="text-xs text-slate-500 font-mono">
                 Deterministic Alert Engine • 30-Day Baselines Active
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white font-heading">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 font-heading">
               Surveillance Incident Desk — {currentUser?.full_name}
             </h1>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
               Continuous multi-facility surveillance combining microbiology isolate phenotyping, antibiotic prescription velocity surges, and contaminated batch lot anomaly signals.
             </p>
           </div>
@@ -93,14 +92,14 @@ export const SurveillanceWorkspace: React.FC = () => {
           <div className="flex items-center gap-3 shrink-0">
             <Link
               to="/app/alerts"
-              className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition-colors flex items-center gap-2 shadow-lg"
+              className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition-colors flex items-center gap-2 shadow-sm"
             >
               <ShieldAlert className="w-4 h-4" />
               <span>Triage Active Alerts</span>
             </Link>
             <Link
               to="/app/investigations"
-              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs border border-white/15 transition-colors flex items-center gap-1.5"
+              className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs border border-slate-200 transition-colors flex items-center gap-1.5 shadow-2xs"
             >
               <span>Investigation Cases</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -194,7 +193,7 @@ export const SurveillanceWorkspace: React.FC = () => {
                 <XAxis dataKey="day" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '11px' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '11px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
                 <Area type="monotone" dataKey="detected" name="Signals Detected" stroke="#ef4444" strokeWidth={2} fillOpacity={1} fill="url(#colorDetected)" />
@@ -228,7 +227,7 @@ export const SurveillanceWorkspace: React.FC = () => {
                 <XAxis type="number" stroke="#94a3b8" fontSize={10} />
                 <YAxis dataKey="category" type="category" stroke="#475569" fontSize={10} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '11px' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '11px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Bar dataKey="count" name="Active Signals" radius={[0, 6, 6, 0]}>
                   {alertCategoryData.map((entry, index) => (
@@ -313,14 +312,14 @@ export const SurveillanceWorkspace: React.FC = () => {
           </div>
 
           {/* Audit Disclaimer Card */}
-          <div className="p-5 rounded-3xl bg-slate-900 text-white border border-slate-800 shadow-sm space-y-2 text-xs">
+          <div className="p-5 rounded-3xl bg-gradient-to-br from-emerald-50/60 to-teal-50/50 text-slate-800 border border-emerald-200/80 shadow-2xs space-y-2 text-xs">
             <div className="flex items-center gap-2">
-              <UserCheck className="w-4 h-4 text-emerald-400" />
-              <span className="font-bold font-mono text-[11px] uppercase tracking-wider text-emerald-300">
+              <UserCheck className="w-4 h-4 text-emerald-700" />
+              <span className="font-bold font-mono text-[11px] uppercase tracking-wider text-emerald-900">
                 Audited Decision Flow
               </span>
             </div>
-            <p className="text-slate-300 leading-relaxed text-[11px]">
+            <p className="text-slate-600 leading-relaxed text-[11px]">
               All dismissals, escalations, and interventions require cryptographic identity confirmation and written clinical rationale per ISO 15189 governance.
             </p>
           </div>

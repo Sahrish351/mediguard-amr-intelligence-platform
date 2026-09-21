@@ -155,7 +155,7 @@ export const PublicLayout: React.FC = () => {
                   </Link>
                   <Link
                     to="/register"
-                    className="w-full py-2.5 rounded-xl bg-slate-900 text-white text-center text-sm font-bold shadow-xs"
+                    className="w-full py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white text-center text-sm font-bold shadow-xs"
                   >
                     Get Started with MediGuard
                   </Link>

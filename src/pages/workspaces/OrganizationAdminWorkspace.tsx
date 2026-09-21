@@ -54,32 +54,31 @@ export const OrganizationAdminWorkspace: React.FC = () => {
 
   return (
     <div className="space-y-6 text-left">
-      {/* Header Banner with Clinical Photography */}
-      <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-sm bg-slate-900 text-white">
-        <div className="absolute inset-0 z-0">
+      {/* Header Banner */}
+      <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-2xs bg-gradient-to-r from-white via-sky-50/40 to-blue-50/30 text-slate-900">
+        <div className="absolute top-0 right-0 w-96 h-full opacity-10 pointer-events-none overflow-hidden">
           <img
             src={CLINICAL_IMAGES.doctorConsultation}
             alt="Healthcare Administration"
-            className="w-full h-full object-cover object-center opacity-25"
+            className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/95 to-slate-900/80" />
         </div>
 
         <div className="relative z-10 p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-sky-300 px-3 py-1 rounded-full bg-sky-950/70 border border-sky-500/40 flex items-center gap-1.5">
-                <Landmark className="w-3.5 h-3.5 text-sky-400" />
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-sky-700 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 flex items-center gap-1.5">
+                <Landmark className="w-3.5 h-3.5 text-sky-600" />
                 INSTITUTIONAL GOVERNANCE & MULTI-FACILITY OVERSIGHT
               </span>
-              <span className="text-xs text-slate-300 font-mono">
+              <span className="text-xs text-slate-500 font-mono">
                 Tenant: {currentOrg.id} • RLS Boundary Active
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white font-heading">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 font-heading">
               {currentOrg.name} — Administrative Command
             </h1>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
               Consolidated institutional administration across hospitals, microbiology reference laboratories, and clinical pharmacies with automated WHONET data quality and RBAC credentialing.
             </p>
           </div>
@@ -87,14 +86,14 @@ export const OrganizationAdminWorkspace: React.FC = () => {
           <div className="flex items-center gap-3 shrink-0">
             <Link
               to="/app/settings"
-              className="px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition-colors flex items-center gap-2 shadow-lg"
+              className="px-4 py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white font-bold text-xs transition-colors flex items-center gap-2 shadow-xs"
             >
               <Settings className="w-4 h-4" />
               <span>Tenant Settings</span>
             </Link>
             <Link
               to="/app/data-quality"
-              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs border border-white/15 transition-colors flex items-center gap-1.5"
+              className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs border border-slate-200 transition-colors flex items-center gap-1.5 shadow-2xs"
             >
               <span>Data Quality</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -175,7 +174,7 @@ export const OrganizationAdminWorkspace: React.FC = () => {
                 <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis domain={[0, 100]} stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '11px' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '11px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
                 <Bar dataKey="compliance" name="Stewardship Compliance (%)" fill="#0284c7" radius={[4, 4, 0, 0]} />
@@ -211,7 +210,7 @@ export const OrganizationAdminWorkspace: React.FC = () => {
                 <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '11px' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '11px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
                 <Area type="monotone" dataKey="encounters" name="Monthly Encounters" stroke="#0284c7" strokeWidth={2.5} fillOpacity={1} fill="url(#colorEnc)" />

@@ -33,6 +33,15 @@ const ROUTE_MAP: Record<string, RouteMeta> = {
   '/app/jobs': { group: 'Data & Platform', label: 'Background Surveillance Automation' },
   '/app/audit': { group: 'Data & Platform', label: 'Immutable Audit Trail' },
   '/app/settings': { group: 'Data & Platform', label: 'Institutional Settings & Governance' },
+  '/doctor': { group: 'Clinical Workstation', label: 'Doctor Prescribing Overview' },
+  '/pharmacist': { group: 'Clinical Workstation', label: 'Pharmacy Safety & Dispensing' },
+  '/laboratory': { group: 'Clinical Workstation', label: 'Microbiology Bench' },
+  '/stewardship': { group: 'Clinical Workstation', label: 'Infection Prevention & Stewardship' },
+  '/epidemiology': { group: 'Clinical Workstation', label: 'Population Health & Epidemiology' },
+  '/surveillance': { group: 'Clinical Workstation', label: 'Surveillance & Alert Triage' },
+  '/organization': { group: 'Governance Workstation', label: 'Organization Administration' },
+  '/admin': { group: 'Governance Workstation', label: 'Platform Global Administration' },
+  '/researcher': { group: 'Research Workstation', label: 'Surveillance Research Workspace' },
 };
 
 export const Breadcrumbs: React.FC = () => {

@@ -72,32 +72,31 @@ export const ResearcherWorkspace: React.FC = () => {
 
   return (
     <div className="space-y-6 text-left">
-      {/* Header Banner with Scientific Photography */}
-      <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-sm bg-slate-900 text-white">
-        <div className="absolute inset-0 z-0">
+      {/* Header Banner */}
+      <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-2xs bg-gradient-to-r from-white via-purple-50/40 to-blue-50/30 text-slate-900">
+        <div className="absolute top-0 right-0 w-96 h-full opacity-10 pointer-events-none overflow-hidden">
           <img
             src={CLINICAL_IMAGES.microscopeIsolate}
             alt="Microbiology Research"
-            className="w-full h-full object-cover object-center opacity-25"
+            className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/95 to-slate-900/80" />
         </div>
 
         <div className="relative z-10 p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-purple-300 px-3 py-1 rounded-full bg-purple-950/70 border border-purple-500/40 flex items-center gap-1.5">
-                <Dna className="w-3.5 h-3.5 text-purple-400" />
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-purple-700 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 flex items-center gap-1.5">
+                <Dna className="w-3.5 h-3.5 text-purple-600" />
                 LONGITUDINAL EPIDEMIOLOGICAL COHORT STUDY
               </span>
-              <span className="text-xs text-slate-300 font-mono">
+              <span className="text-xs text-slate-500 font-mono">
                 CLSI M39-A4 De-duplication Protocol Active
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white font-heading">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 font-heading">
               AMR Research Laboratory — {currentUser?.full_name}
             </h1>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
               Pseudonymized longitudinal antimicrobial resistance dataset with verifiable tested denominators, quantitative MIC distributions, and CLSI/EUCAST breakpoint versions.
             </p>
           </div>
@@ -105,14 +104,14 @@ export const ResearcherWorkspace: React.FC = () => {
           <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={handleExportCSV}
-              className="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition-colors flex items-center gap-2 shadow-lg"
+              className="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition-colors flex items-center gap-2 shadow-xs cursor-pointer"
             >
               <Download className="w-4 h-4" />
               <span>Export Cohort CSV</span>
             </button>
             <Link
               to="/app/amr-heatmap"
-              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs border border-white/15 transition-colors flex items-center gap-1.5"
+              className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs border border-slate-200 transition-colors flex items-center gap-1.5 shadow-2xs"
             >
               <span>Heatmap Explorer</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -200,7 +199,7 @@ export const ResearcherWorkspace: React.FC = () => {
                 <XAxis dataKey="year" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis unit="%" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '11px' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '11px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
                 <Line type="monotone" dataKey="mrsa" name="MRSA (%)" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 3 }} />
@@ -236,7 +235,7 @@ export const ResearcherWorkspace: React.FC = () => {
                 <XAxis type="number" stroke="#94a3b8" fontSize={10} />
                 <YAxis dataKey="source" type="category" stroke="#475569" fontSize={10} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '11px' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '11px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Bar dataKey="count" name="Verified Isolates" radius={[0, 6, 6, 0]}>
                   {anatomicCohortData.map((entry, index) => (
