@@ -5,48 +5,73 @@ import { api } from '@/services/api';
 import {
   Stethoscope,
   Pill,
-  AlertTriangle,
-  CheckCircle2,
-  Clock,
-  Search,
-  Plus,
-  ArrowRight,
   ShieldCheck,
+  AlertTriangle,
+  Clock,
+  Sparkles,
+  Search,
+  CheckCircle2,
+  ArrowRight,
+  TrendingUp,
   FileText,
   User,
-  Info,
-  Calendar,
   Activity,
-  Sparkles,
-  TrendingUp,
-  Check,
+  Plus,
 } from 'lucide-react';
 import { AWaReBadge } from '@/components/common/Badge';
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+} from 'recharts';
 
 export const DoctorWorkspace: React.FC = () => {
   const { currentOrg, currentUser } = useAuth();
-  const [searchMed, setSearchMed] = useState('');
-  const [patientRef, setPatientRef] = useState('PAT-90823-X');
-  const [selectedIndication, setSelectedIndication] = useState('Community-Acquired Pneumonia (CAP)');
-  const [selectedMedId, setSelectedMedId] = useState('med-1');
-  const [orderCreatedNotice, setOrderCreatedNotice] = useState(false);
-
   const prescriptions = api.getPrescriptions(currentOrg.id);
   const medicines = api.getMedicines();
-  const alerts = api.getAlerts(currentOrg.id).filter(a => a.severity === 'Critical' || a.severity === 'High');
+  const alerts = api.getAlerts(currentOrg.id);
 
-  // Filtered medication reference search
-  const filteredMeds = medicines.filter(m =>
-    m.generic_name.toLowerCase().includes(searchMed.toLowerCase()) ||
-    m.brand_name.toLowerCase().includes(searchMed.toLowerCase())
-  ).slice(0, 5);
+  const [selectedIndication, setSelectedIndication] = useState('Sepsis / Septic Shock');
+  const [patientRef, setPatientRef] = useState('PAT-88192-X');
+  const [selectedMedId, setSelectedMedId] = useState(medicines[0]?.id || '');
+  const [orderCreatedNotice, setOrderCreatedNotice] = useState(false);
+  const [searchMed, setSearchMed] = useState('');
+
+  // 7-day prescribing trend data
+  const prescribingTrendData = [
+    { day: 'Mon', access: 14, watch: 6, reserve: 2 },
+    { day: 'Tue', access: 18, watch: 5, reserve: 1 },
+    { day: 'Wed', access: 16, watch: 7, reserve: 3 },
+    { day: 'Thu', access: 21, watch: 4, reserve: 1 },
+    { day: 'Fri', access: 19, watch: 8, reserve: 2 },
+    { day: 'Sat', access: 12, watch: 3, reserve: 0 },
+    { day: 'Sun', access: 15, watch: 4, reserve: 1 },
+  ];
+
+  const awareDistributionData = [
+    { category: 'Access (Target ≥60%)', percentage: 72, fill: '#16A34A' },
+    { category: 'Watch (Surveillance)', percentage: 22, fill: '#D97706' },
+    { category: 'Reserve (Restricted)', percentage: 6, fill: '#DC2626' },
+  ];
+
+  const filteredMeds = medicines.filter(
+    (m) =>
+      m.brand_name.toLowerCase().includes(searchMed.toLowerCase()) ||
+      m.generic_name.toLowerCase().includes(searchMed.toLowerCase())
+  );
 
   const handleCreateFastOrder = (e: React.FormEvent) => {
     e.preventDefault();
-    const med = medicines.find(m => m.id === selectedMedId) || medicines[0];
+    const med = medicines.find((m) => m.id === selectedMedId) || medicines[0];
     api.createPrescription(currentOrg.id, {
       facility_id: 'fac-1',
-      prescriber_id: currentUser.id,
+      prescriber_id: currentUser?.id || 'usr-1',
       patient_reference: patientRef,
       encounter_reference: `ENC-${Date.now().toString().slice(-4)}`,
       clinical_indication: selectedIndication,
@@ -72,85 +97,173 @@ export const DoctorWorkspace: React.FC = () => {
   return (
     <div className="space-y-6 text-left">
       {/* 1. Header Greeting & Status */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/90 shadow-2xs">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-2xs">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-sky-700 px-2.5 py-0.5 rounded-full bg-sky-50 border border-sky-200">
-              CLINICAL PRESCRIBING WORKSTATION
+              CLINICAL PRESCRIBING WORKSPACE
             </span>
             <span className="text-xs text-slate-400 font-mono">• Point-of-Care Surveillance</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 font-heading">
-            Good morning, {currentUser?.full_name?.startsWith('Dr') ? currentUser.full_name : `Dr. ${currentUser.full_name}`}
+            Good morning, Dr. {currentUser?.full_name?.replace(/^Dr\.?\s*/i, '') || 'Sarah'}.
           </h1>
           <p className="text-xs sm:text-sm text-slate-500">
-            Active Facility: {currentOrg.name} • CLSI M100 Guidance Active • Non-diagnostic decision support
+            Your antimicrobial prescribing overview for today across {currentOrg.name}.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Link
-            to="/app/ai-assistant"
-            className="px-4 py-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-semibold text-xs transition-colors flex items-center gap-2 shadow-2xs"
+        {/* Quick Actions */}
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href="#prescription-form"
+            className="px-4 py-2.5 rounded-xl bg-[#0B1F3A] hover:bg-[#142d52] text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5"
           >
-            <Sparkles className="w-4 h-4 text-indigo-600" />
-            <span>Consult AI Copilot</span>
+            <Plus className="w-3.5 h-3.5" />
+            <span>New Prescription</span>
+          </a>
+          <Link
+            to="/app/prescriptions"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold transition-all shadow-2xs"
+          >
+            Patient History
+          </Link>
+          <a
+            href="#medication-search"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold transition-all shadow-2xs"
+          >
+            Medication Lookup
+          </a>
+          <Link
+            to="/app/alerts"
+            className="px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-all shadow-2xs"
+          >
+            Review Alerts
           </Link>
         </div>
       </div>
 
-      {/* 2. KPIs: Today's Prescriptions, Pending Reviews, Stewardship Signals, Recent Activity */}
+      {/* 2. KPIs: Active Prescriptions, Patients Under Care, Antibiotic Orders, Stewardship Score */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Today's Prescriptions</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Active Prescriptions</span>
             <div className="p-2 rounded-xl bg-sky-50 text-sky-700">
               <Stethoscope className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{prescriptions.length} Courses</div>
-          <div className="text-[11px] text-emerald-600 font-medium">100% with pseudonymous IDs</div>
+          <div className="text-2xl font-extrabold text-slate-900 font-mono">{prescriptions.length} Courses</div>
+          <div className="text-[11px] text-emerald-600 font-medium">100% tokenized patient privacy</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Pending Culture Reviews</span>
-            <div className="p-2 rounded-xl bg-cyan-50 text-cyan-700">
-              <Clock className="w-4 h-4" />
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Patients Under Care</span>
+            <div className="p-2 rounded-xl bg-indigo-50 text-indigo-700">
+              <User className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">3 Awaiting AST</div>
-          <div className="text-[11px] text-cyan-700 font-medium">Microbiology lab accessioning</div>
+          <div className="text-2xl font-extrabold text-slate-900 font-mono">18 Inpatients</div>
+          <div className="text-[11px] text-slate-500">ICU &amp; General Medical Wards</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Stewardship Signals</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Antibiotic Orders</span>
+            <div className="p-2 rounded-xl bg-teal-50 text-[#0D9488]">
+              <Pill className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="text-2xl font-extrabold text-slate-900 font-mono">24 Regimens</div>
+          <div className="text-[11px] text-[#0D9488] font-medium">Formulary verified &amp; scoped</div>
+        </div>
+
+        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Stewardship Score</span>
             <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
               <ShieldCheck className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">72.4% Access</div>
-          <div className="text-[11px] text-emerald-600 font-medium">&gt; 60% WHO Target Compliant</div>
-        </div>
-
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Recent Alert Intercepts</span>
-            <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
-              <AlertTriangle className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{alerts.length} Signals</div>
-          <div className="text-[11px] text-amber-600 font-medium">Repeat fill / reserve alerts</div>
+          <div className="text-2xl font-extrabold text-slate-900 font-mono">94 / 100</div>
+          <div className="text-[11px] text-emerald-600 font-medium">≥60% Access target exceeded</div>
         </div>
       </div>
 
+      {/* 3. Charts: 7-Day Prescribing Trend & AWaRe Distribution */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left 8 Cols: Prescription Workspace, Medication Search & Recent Prescriptions */}
+        {/* 7-Day Prescribing Trend */}
+        <div className="lg:col-span-7 p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <h3 className="text-base font-bold text-slate-900 font-heading">7-Day Prescribing Trend</h3>
+              <p className="text-xs text-slate-500">Daily antimicrobial courses stratified by WHO AWaRe tier.</p>
+            </div>
+            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">
+              Weekly Volume
+            </span>
+          </div>
+
+          <div className="h-56 w-full pt-2">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={prescribingTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" />
+                <XAxis dataKey="day" stroke="#94A3B8" fontSize={11} tickLine={false} />
+                <YAxis stroke="#94A3B8" fontSize={11} tickLine={false} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#0F172A',
+                    borderColor: '#1E293B',
+                    borderRadius: '12px',
+                    color: '#FFF',
+                    fontSize: '11px',
+                  }}
+                />
+                <Area type="monotone" dataKey="access" name="Access Tier" stackId="1" stroke="#16A34A" fill="#16A34A" fillOpacity={0.6} />
+                <Area type="monotone" dataKey="watch" name="Watch Tier" stackId="1" stroke="#D97706" fill="#D97706" fillOpacity={0.6} />
+                <Area type="monotone" dataKey="reserve" name="Reserve Tier" stackId="1" stroke="#DC2626" fill="#DC2626" fillOpacity={0.6} />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* AWaRe Distribution & Guidance */}
+        <div className="lg:col-span-5 p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <h3 className="text-base font-bold text-slate-900 font-heading">AWaRe Distribution</h3>
+              <p className="text-xs text-slate-500">WHO target: Maintain ≥60% in Access category.</p>
+            </div>
+            <span className="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+              COMPLIANT
+            </span>
+          </div>
+
+          <div className="space-y-3 pt-2">
+            {awareDistributionData.map((item, idx) => (
+              <div key={idx} className="space-y-1">
+                <div className="flex items-center justify-between text-xs font-semibold">
+                  <span className="text-slate-700">{item.category}</span>
+                  <span className="font-mono font-bold text-slate-900">{item.percentage}%</span>
+                </div>
+                <div className="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all duration-500"
+                    style={{ width: `${item.percentage}%`, backgroundColor: item.fill }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 4. Main Workflows: Create Prescription & Medication Search */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left 8 Cols: Prescription Form & Recent Prescriptions */}
         <div className="lg:col-span-8 space-y-6">
           {/* Quick Prescription Order Workspace */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-4">
+          <div id="prescription-form" className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-4">
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <h3 className="text-base font-bold text-slate-900 font-heading flex items-center gap-2">
@@ -181,9 +294,9 @@ export const DoctorWorkspace: React.FC = () => {
                     type="text"
                     value={patientRef}
                     onChange={(e) => setPatientRef(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 font-mono text-xs focus:outline-hidden focus:border-sky-500"
-                    placeholder="PAT-90823-X"
                     required
+                    placeholder="PAT-90823-X"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono text-slate-900 focus:outline-hidden focus:border-sky-500"
                   />
                 </div>
 
@@ -192,89 +305,46 @@ export const DoctorWorkspace: React.FC = () => {
                   <select
                     value={selectedIndication}
                     onChange={(e) => setSelectedIndication(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-xs focus:outline-hidden focus:border-sky-500"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-slate-900 focus:outline-hidden focus:border-sky-500"
                   >
-                    <option value="Community-Acquired Pneumonia (CAP)">Community-Acquired Pneumonia (CAP)</option>
-                    <option value="Hospital-Acquired Pneumonia (HAP/VAP)">Hospital-Acquired Pneumonia (HAP/VAP)</option>
-                    <option value="Complicated Urinary Tract Infection">Complicated Urinary Tract Infection</option>
-                    <option value="Skin & Soft Tissue Infection (SSTI)">Skin &amp; Soft Tissue Infection (SSTI)</option>
-                    <option value="Severe Sepsis / Septic Shock">Severe Sepsis / Septic Shock</option>
-                    <option value="Empiric Febrile Neutropenia">Empiric Febrile Neutropenia</option>
+                    <option>Sepsis / Septic Shock</option>
+                    <option>Hospital-Acquired Pneumonia (HAP/VAP)</option>
+                    <option>Complicated Intra-Abdominal Infection</option>
+                    <option>Complicated Urinary Tract Infection</option>
+                    <option>Skin and Soft Tissue Infection (SSTI)</option>
+                    <option>Surgical Prophylaxis</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Select Antimicrobial Agent</label>
+                  <label className="block text-slate-700 font-semibold mb-1">Select Antimicrobial</label>
                   <select
                     value={selectedMedId}
                     onChange={(e) => setSelectedMedId(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 text-xs focus:outline-hidden focus:border-sky-500 font-medium"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-slate-900 focus:outline-hidden focus:border-sky-500"
                   >
                     {medicines.map((m) => (
                       <option key={m.id} value={m.id}>
-                        {m.brand_name} ({m.generic_name}) — {m.strength}
+                        {m.brand_name} ({m.generic_name}) - {m.strength}
                       </option>
                     ))}
                   </select>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-1">
-                <div className="text-[11px] text-slate-500 flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Audit logging &amp; non-negative stock check applied at pharmacy dispensing.</span>
-                </div>
+              <div className="flex items-center justify-between pt-2">
+                <span className="text-[11px] text-slate-500">
+                  Includes automatic 14-day duplicate prescription and inventory stock floor safeguards.
+                </span>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5"
+                  className="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Sign &amp; Order Prescription</span>
                 </button>
               </div>
             </form>
-          </div>
-
-          {/* Quick Drug Formulary & Medication Search */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 font-heading">
-                  Antimicrobial Reference &amp; AWaRe Formulary
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Search by generic name or brand to verify spectrum, route, and stewardship category.
-                </p>
-              </div>
-            </div>
-
-            <div className="relative">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
-              <input
-                type="text"
-                value={searchMed}
-                onChange={(e) => setSearchMed(e.target.value)}
-                placeholder="Search formulary (e.g. Meropenem, Augmentin, Amikacin)..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-xs text-slate-900 focus:outline-hidden focus:border-sky-500 focus:bg-white transition-colors"
-              />
-            </div>
-
-            <div className="space-y-2 pt-1">
-              {filteredMeds.map((med) => (
-                <div key={med.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs hover:bg-slate-100/60 transition-colors">
-                  <div className="space-y-0.5">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-slate-900">{med.brand_name}</span>
-                      <span className="text-slate-500">({med.generic_name})</span>
-                    </div>
-                    <span className="text-[11px] text-slate-500">{med.strength} • {med.dosage_form} • {med.route}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <AWaReBadge category={med.awarre_category as any} />
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Recent Active Prescriptions Table */}
@@ -327,9 +397,43 @@ export const DoctorWorkspace: React.FC = () => {
           </div>
         </div>
 
-        {/* Right 4 Cols: Stewardship Advisory, Prescription Trends & Alerts */}
+        {/* Right 4 Cols: Medication Lookup & Stewardship Guidance */}
         <div className="lg:col-span-4 space-y-6">
-          {/* Stewardship Feedback Card */}
+          {/* Medication Formulary Search */}
+          <div id="medication-search" className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-4">
+            <h3 className="text-sm font-bold text-slate-900 font-heading flex items-center gap-2">
+              <Search className="w-4 h-4 text-sky-600" />
+              <span>Medication Formulary Search</span>
+            </h3>
+
+            <div className="relative">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+              <input
+                type="text"
+                value={searchMed}
+                onChange={(e) => setSearchMed(e.target.value)}
+                placeholder="Search formulary (e.g. Meropenem, Ciprofloxacin)..."
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-xs text-slate-900 focus:outline-hidden focus:border-sky-500 focus:bg-white transition-colors"
+              />
+            </div>
+
+            <div className="space-y-2 pt-1 max-h-64 overflow-y-auto">
+              {filteredMeds.slice(0, 6).map((med) => (
+                <div key={med.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs hover:bg-slate-100/60 transition-colors">
+                  <div className="space-y-0.5">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-slate-900">{med.brand_name}</span>
+                      <span className="text-slate-500">({med.generic_name})</span>
+                    </div>
+                    <span className="text-[11px] text-slate-500">{med.strength} • {med.dosage_form}</span>
+                  </div>
+                  <AWaReBadge category={med.awarre_category as any} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Stewardship Insights & Alerts */}
           <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-4">
             <div className="flex items-center gap-2 text-sky-700">
               <ShieldCheck className="w-5 h-5" />
@@ -338,61 +442,14 @@ export const DoctorWorkspace: React.FC = () => {
               </h3>
             </div>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Your hospital ICU is currently experiencing increased <em>K. pneumoniae</em> resistance to 3rd-generation cephalosporins.
+              Your hospital ICU is currently monitoring <em>K. pneumoniae</em> resistance to 3rd-generation cephalosporins.
             </p>
             <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 space-y-1">
               <strong>Clinical Practice Guidance:</strong>
-              <p>Consider requesting automated blood culture prior to initiating empiric Carbapenem therapy in febrile neutropenic patients.</p>
+              <p>Consider requesting automated blood culture prior to initiating empiric Carbapenem therapy in febrile patients.</p>
             </div>
             <div className="text-[10px] text-slate-400 font-mono">
               Issued by Antimicrobial Stewardship Committee • Dr. Tariq Mehmood
-            </div>
-          </div>
-
-          {/* Prescription Trends Insight */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-slate-900 font-heading flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-sky-600" />
-                <span>Prescription Trends (30d)</span>
-              </h3>
-              <span className="text-[10px] font-mono text-emerald-600 font-bold">+6.2% Access</span>
-            </div>
-            <div className="space-y-2 text-xs">
-              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-                <span>Access Antibiotics (Amoxicillin, etc.)</span>
-                <span className="font-mono font-bold text-emerald-700">72.4%</span>
-              </div>
-              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-                <span>Watch Antibiotics (Ceftriaxone, etc.)</span>
-                <span className="font-mono font-bold text-amber-700">21.8%</span>
-              </div>
-              <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-                <span>Reserve Antibiotics (Meropenem, etc.)</span>
-                <span className="font-mono font-bold text-rose-700">5.8%</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Active Clinical Prescribing Alerts */}
-          <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-slate-900 font-heading flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-amber-600" />
-                <span>Prescribing Alerts</span>
-              </h3>
-              <span className="text-[11px] font-mono text-slate-400">{alerts.length} Total</span>
-            </div>
-            <div className="space-y-2">
-              {alerts.slice(0, 3).map((a) => (
-                <div key={a.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1 text-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900 truncate">{a.title}</span>
-                    <span className="text-[10px] font-mono font-bold text-rose-600">{a.severity}</span>
-                  </div>
-                  <p className="text-[11px] text-slate-500 leading-normal line-clamp-2">{a.description}</p>
-                </div>
-              ))}
             </div>
           </div>
         </div>

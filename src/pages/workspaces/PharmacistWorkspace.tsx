@@ -16,8 +16,45 @@ import {
   ArrowRight,
   RefreshCw,
   Layers,
+  Sparkles,
+  Barcode,
+  Truck,
 } from 'lucide-react';
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  LineChart,
+  Line,
+  ReferenceLine,
+} from 'recharts';
 import { BatchBadge, AWaReBadge } from '@/components/common/Badge';
+import { CLINICAL_IMAGES } from '@/data/clinicalImages';
+
+const dispensingTrendData = [
+  { day: 'Mon', access: 142, watch: 68, reserve: 9 },
+  { day: 'Tue', access: 156, watch: 74, reserve: 12 },
+  { day: 'Wed', access: 139, watch: 62, reserve: 8 },
+  { day: 'Thu', access: 168, watch: 81, reserve: 14 },
+  { day: 'Fri', access: 175, watch: 88, reserve: 11 },
+  { day: 'Sat', access: 98, watch: 45, reserve: 5 },
+  { day: 'Sun', access: 82, watch: 38, reserve: 4 },
+];
+
+const coldChainHourlyData = [
+  { time: '00:00', temp: 4.1 },
+  { time: '04:00', temp: 4.3 },
+  { time: '08:00', temp: 4.6 },
+  { time: '12:00', temp: 4.8 },
+  { time: '16:00', temp: 4.4 },
+  { time: '20:00', temp: 4.2 },
+  { time: 'Now', temp: 4.2 },
+];
 
 export const PharmacistWorkspace: React.FC = () => {
   const { currentOrg, currentUser } = useAuth();
@@ -36,31 +73,52 @@ export const PharmacistWorkspace: React.FC = () => {
 
   return (
     <div className="space-y-6 text-left">
-      {/* Workspace Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/90 shadow-2xs">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-teal-700 px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-200">
-              MEDICATION SAFETY & DISPENSING CENTER
-            </span>
-            <span className="text-xs text-slate-400 font-mono">• Clinical Pharmacy Hub</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 font-heading">
-            Pharmacy Workspace — {currentUser?.full_name}
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-500">
-            Dispensing Station: Regional Pharmacy Hub 01 • Cold-Chain Sensor Network (2-8°C Active)
-          </p>
+      {/* Header Banner with Clinical Photography */}
+      <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-sm bg-slate-900 text-white">
+        <div className="absolute inset-0 z-0">
+          <img
+            src={CLINICAL_IMAGES.pharmacyDispense}
+            alt="Clinical Pharmacy Cleanroom"
+            className="w-full h-full object-cover object-center opacity-25"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/95 to-slate-900/80" />
         </div>
 
-        <div className="flex items-center gap-3">
-          <Link
-            to="/app/dispensing"
-            className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs transition-colors flex items-center gap-2 shadow-xs"
-          >
-            <PackageCheck className="w-4 h-4" />
-            <span>Process Dispensing Queue</span>
-          </Link>
+        <div className="relative z-10 p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-teal-300 px-3 py-1 rounded-full bg-teal-950/70 border border-teal-500/40">
+                GS1 DATA MATRIX & COLD-CHAIN TELEMETRY
+              </span>
+              <span className="text-xs text-slate-300 font-mono flex items-center gap-1">
+                <Barcode className="w-3.5 h-3.5 text-teal-400" />
+                Serial Verification Active
+              </span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white font-heading">
+              Pharmacy Station — {currentUser?.full_name}
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Real-time antimicrobial dispensing verification, counterfeit batch screening with GS1 barcode verification, cold-chain IoT temperature tracking, and 14-day repeat dispensing guards.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <Link
+              to="/app/dispensing"
+              className="px-4 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs transition-colors flex items-center gap-2 shadow-lg"
+            >
+              <PackageCheck className="w-4 h-4" />
+              <span>Process Dispensing Queue</span>
+            </Link>
+            <Link
+              to="/app/prescriptions"
+              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs border border-white/15 transition-colors flex items-center gap-1.5"
+            >
+              <span>Prescription Orders</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -68,15 +126,18 @@ export const PharmacistWorkspace: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Pending Orders</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Pending Queue</span>
             <div className="p-2 rounded-xl bg-sky-50 text-sky-700">
               <Clock className="w-4 h-4" />
             </div>
           </div>
           <div className="text-2xl font-bold text-slate-900 font-mono">
-            {prescriptions.filter(p => p.status === 'active').length} Active
+            {prescriptions.filter(p => p.status === 'active').length} Orders
           </div>
-          <div className="text-[11px] text-slate-500">Ready for verification</div>
+          <div className="text-[11px] text-slate-500 flex items-center gap-1">
+            <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />
+            <span>Ready for pharmacist sign-off</span>
+          </div>
         </div>
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
@@ -87,31 +148,109 @@ export const PharmacistWorkspace: React.FC = () => {
             </div>
           </div>
           <div className="text-2xl font-bold text-slate-900 font-mono">
-            {batches.filter(b => b.verification_status === 'Verified').length} / {batches.length}
+            {batches.filter(b => b.verification_status === 'Verified').length} / {batches.length} Lots
           </div>
-          <div className="text-[11px] text-emerald-600 font-medium">100% GS1 Barcode Match</div>
+          <div className="text-[11px] text-emerald-600 font-medium">100% GS1 barcode authenticated</div>
         </div>
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Cold-Chain Status</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Cold Storage (IoT)</span>
             <div className="p-2 rounded-xl bg-teal-50 text-teal-700">
               <Thermometer className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-slate-900 font-mono">4.2°C</div>
-          <div className="text-[11px] text-emerald-600 font-medium">Optimal Storage Range (2-8°C)</div>
+          <div className="text-2xl font-bold text-slate-900 font-mono">4.2°C (Optimal)</div>
+          <div className="text-[11px] text-emerald-600 font-medium">Within 2°C – 8°C certified band</div>
         </div>
 
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Repeat Fill Radar</span>
+            <span className="text-xs font-bold text-slate-500 uppercase font-heading">Repeat Course Flags</span>
             <div className="p-2 rounded-xl bg-amber-50 text-amber-700">
               <RefreshCw className="w-4 h-4" />
             </div>
           </div>
           <div className="text-2xl font-bold text-slate-900 font-mono">{alerts.length} Flagged</div>
-          <div className="text-[11px] text-amber-600 font-medium">&lt; 14 days interval threshold</div>
+          <div className="text-[11px] text-amber-600 font-medium">&lt; 14-day re-prescription barrier</div>
+        </div>
+      </div>
+
+      {/* Analytics Row: 7-Day Dispensing AWaRe Distribution & 24h Cold Chain Telemetry */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Dispensing by AWaRe Category */}
+        <div className="lg:col-span-7 bg-white p-6 rounded-3xl border border-slate-200 shadow-2xs space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-base font-bold text-slate-900 font-heading">
+                7-Day Dispensing Volume by WHO AWaRe Category
+              </h3>
+              <p className="text-xs text-slate-500">
+                Tracking daily unit consumption between Access, Watch, and Reserve antimicrobials.
+              </p>
+            </div>
+            <span className="text-[11px] font-mono text-slate-400 bg-slate-50 px-2 py-1 rounded-md border border-slate-200">
+              Units Dispensed
+            </span>
+          </div>
+
+          <div className="h-64 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={dispensingTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <XAxis dataKey="day" stroke="#94a3b8" fontSize={11} tickLine={false} />
+                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '11px' }}
+                />
+                <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
+                <Bar dataKey="access" name="Access (Green)" fill="#10b981" stackId="aw" radius={[0, 0, 0, 0]} />
+                <Bar dataKey="watch" name="Watch (Amber)" fill="#f59e0b" stackId="aw" radius={[0, 0, 0, 0]} />
+                <Bar dataKey="reserve" name="Reserve (Red)" fill="#ef4444" stackId="aw" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* 24-Hour IoT Temperature Telemetry Line Chart */}
+        <div className="lg:col-span-5 bg-white p-6 rounded-3xl border border-slate-200 shadow-2xs space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-base font-bold text-slate-900 font-heading">
+                Cold-Chain 24h Sensor Telemetry
+              </h3>
+              <p className="text-xs text-slate-500">
+                Chamber SENS-COLD-01 (Target: 2.0°C to 8.0°C).
+              </p>
+            </div>
+            <span className="text-[11px] font-mono text-teal-700 bg-teal-50 px-2 py-1 rounded-md border border-teal-200 font-bold">
+              4.2°C NOW
+            </span>
+          </div>
+
+          <div className="h-64 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={coldChainHourlyData} margin={{ top: 10, right: 15, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <XAxis dataKey="time" stroke="#94a3b8" fontSize={11} tickLine={false} />
+                <YAxis domain={[0, 10]} stroke="#94a3b8" fontSize={11} tickLine={false} />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '11px' }}
+                />
+                <ReferenceLine y={8.0} stroke="#ef4444" strokeDasharray="3 3" label={{ value: 'Max 8°C', fill: '#ef4444', fontSize: 10 }} />
+                <ReferenceLine y={2.0} stroke="#0284c7" strokeDasharray="3 3" label={{ value: 'Min 2°C', fill: '#0284c7', fontSize: 10 }} />
+                <Line
+                  type="monotone"
+                  dataKey="temp"
+                  name="Temp (°C)"
+                  stroke="#0d9488"
+                  strokeWidth={3}
+                  dot={{ r: 4, fill: '#0d9488' }}
+                  activeDot={{ r: 6 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 
@@ -145,25 +284,25 @@ export const PharmacistWorkspace: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-200 text-slate-500 font-mono">
-                    <th className="py-2.5 px-3">Batch Lot</th>
-                    <th className="py-2.5 px-3">Medication</th>
-                    <th className="py-2.5 px-3">Expiry Date</th>
-                    <th className="py-2.5 px-3">Stock Units</th>
-                    <th className="py-2.5 px-3">Status</th>
+                  <tr className="border-b border-slate-200 text-slate-500 font-mono bg-slate-50/70">
+                    <th className="py-3 px-3">Batch Lot</th>
+                    <th className="py-3 px-3">Medication</th>
+                    <th className="py-3 px-3">Expiry Date</th>
+                    <th className="py-3 px-3">Stock Units</th>
+                    <th className="py-3 px-3">Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-slate-700">
                   {filteredBatches.map((b) => (
-                    <tr key={b.id} className="hover:bg-slate-50/50">
-                      <td className="py-3 px-3 font-mono font-bold text-slate-900">{b.batch_number}</td>
-                      <td className="py-3 px-3">
+                    <tr key={b.id} className="hover:bg-slate-50/70 transition-colors">
+                      <td className="py-3.5 px-3 font-mono font-bold text-slate-900">{b.batch_number}</td>
+                      <td className="py-3.5 px-3">
                         <div className="font-semibold text-slate-900">{b.medicine?.brand_name}</div>
                         <div className="text-[11px] text-slate-500">{b.medicine?.generic_name}</div>
                       </td>
-                      <td className="py-3 px-3 font-mono text-slate-600">{b.expiry_date}</td>
-                      <td className="py-3 px-3 font-mono font-semibold text-slate-900">{b.current_quantity}</td>
-                      <td className="py-3 px-3">
+                      <td className="py-3.5 px-3 font-mono text-slate-600">{b.expiry_date}</td>
+                      <td className="py-3.5 px-3 font-mono font-semibold text-slate-900">{b.current_quantity}</td>
+                      <td className="py-3.5 px-3">
                         <BatchBadge status={b.verification_status} />
                       </td>
                     </tr>
@@ -192,14 +331,14 @@ export const PharmacistWorkspace: React.FC = () => {
 
             <div className="space-y-2">
               {dispensingRecords.slice(0, 4).map((d) => (
-                <div key={d.id} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs">
+                <div key={d.id} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs">
                   <div>
                     <span className="font-mono font-bold text-slate-900">{d.id}</span>
                     <span className="text-slate-500 block text-[11px]">Prescription: {d.prescription_id}</span>
                   </div>
                   <div className="text-right">
                     <span className="font-mono font-bold text-slate-900">{d.quantity} Units</span>
-                    <span className="text-[10px] text-emerald-600 block">Deducted from stock</span>
+                    <span className="text-[10px] text-emerald-600 block font-medium">Deducted from verified stock</span>
                   </div>
                 </div>
               ))}
@@ -209,38 +348,37 @@ export const PharmacistWorkspace: React.FC = () => {
 
         {/* Right 4 Cols: Cold Chain Telemetry & Alerts */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-4">
-            <div className="flex items-center gap-2 text-teal-700">
-              <Thermometer className="w-5 h-5" />
-              <h3 className="text-sm font-bold font-heading text-slate-900">
-                Cold-Chain Storage Telemetry
-              </h3>
-            </div>
-            <div className="p-4 rounded-2xl bg-teal-50/60 border border-teal-200 space-y-2 text-center">
-              <span className="text-[11px] font-mono uppercase text-teal-700 font-semibold">Sensor SENS-COLD-01</span>
-              <div className="text-3xl font-bold font-mono text-teal-900">4.2 °C</div>
-              <span className="text-xs text-teal-700 font-medium">Refrigerated Safe Zone (2°C - 8°C)</span>
-            </div>
-            <div className="text-[11px] text-slate-500 space-y-1">
-              <p>• Backup power active on central refrigeration unit.</p>
-              <p>• Zero temperature excursion recorded in last 30 days.</p>
-            </div>
-          </div>
-
+          {/* Pharmacy Alerts */}
           <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-3">
             <h3 className="text-sm font-bold text-slate-900 font-heading flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-amber-600" />
-              <span>Pharmaceutical Alerts</span>
+              <span>Pharmaceutical Guard Alerts</span>
             </h3>
-            <div className="space-y-2">
-              <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs space-y-1">
+            <div className="space-y-2.5">
+              <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-xs space-y-1">
                 <span className="font-bold text-rose-900 block">Quarantined Batch Alert</span>
-                <p className="text-[11px] text-rose-700">Lot AZI-2024-SUSP has been withdrawn. Dispensing blocked.</p>
+                <p className="text-[11px] text-rose-700">Lot AZI-2024-SUSP has been recalled by manufacturer. Dispensing lock enforced across all stations.</p>
               </div>
-              <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs space-y-1">
-                <span className="font-bold text-amber-900 block">14-Day Repeat Antibiotic Course</span>
-                <p className="text-[11px] text-amber-700">Patient PT-9102 flagged for consecutive broad-spectrum fill.</p>
+              <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-xs space-y-1">
+                <span className="font-bold text-amber-900 block">14-Day Repeat Course Barrier</span>
+                <p className="text-[11px] text-amber-700">Patient PT-9102 flagged for consecutive broad-spectrum fill within 7 days. Escalation required.</p>
               </div>
+            </div>
+          </div>
+
+          {/* GS1 Serial Verification Card */}
+          <div className="p-5 rounded-3xl bg-slate-900 text-white border border-slate-800 shadow-sm space-y-3">
+            <div className="flex items-center gap-2">
+              <Barcode className="w-4 h-4 text-teal-400" />
+              <span className="text-xs font-bold uppercase tracking-wider text-teal-300 font-mono">
+                GS1 DataMatrix Scanner
+              </span>
+            </div>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Every pack scanned checks national falsified medicine registries and expiration dates automatically before pharmacist confirmation.
+            </p>
+            <div className="text-[10px] font-mono text-teal-300/80 pt-1">
+              Global Standards 1 (GS1) Compliance: Active
             </div>
           </div>
         </div>
