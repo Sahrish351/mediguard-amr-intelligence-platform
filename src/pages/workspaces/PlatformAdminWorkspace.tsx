@@ -113,7 +113,7 @@ export const PlatformAdminWorkspace: React.FC = () => {
           </Link>
           <Link
             to="/app/audit"
-            className="px-4 py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-xl bg-[#0B1F3A] hover:bg-[#142d52] text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
           >
             <Lock className="w-3.5 h-3.5" />
             <span>View Audit Trail</span>
@@ -483,7 +483,7 @@ export const PlatformAdminWorkspace: React.FC = () => {
 
             <Link
               to="/app/audit"
-              className="w-full py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-xs"
+              className="w-full py-2.5 rounded-xl bg-[#0B1F3A] hover:bg-[#142d52] text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-xs"
             >
               <span>Inspect Full Audit Trail</span>
               <ArrowRight className="w-3.5 h-3.5" />

@@ -229,7 +229,7 @@ export const ResearchInsightsPage: React.FC = () => {
 
       {/* Research CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="rounded-3xl bg-gradient-to-r from-[#0B5ED7] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 text-center space-y-6 shadow-xl border border-sky-400/30">
+        <div className="rounded-3xl bg-gradient-to-r from-[#0B1F3A] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 text-center space-y-6 shadow-xl border border-sky-400/30">
           <div className="max-w-2xl mx-auto space-y-3">
             <h3 className="text-2xl sm:text-3xl font-extrabold font-heading">
               Access Standardized AMR Surveillance Datasets
@@ -241,7 +241,7 @@ export const ResearchInsightsPage: React.FC = () => {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/researcher"
-              className="px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#0B5ED7] font-bold text-xs shadow-md transition-all cursor-pointer"
+              className="px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#0B1F3A] font-bold text-xs shadow-md transition-all cursor-pointer"
             >
               Enter Research Workspace
             </Link>

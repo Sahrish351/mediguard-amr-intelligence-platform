@@ -248,7 +248,7 @@ export const SecurityPrivacyPage: React.FC = () => {
       </section>
 
       {/* Bottom CTA */}
-      <section className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#0B5ED7] via-[#0284C7] to-[#0D9488] text-white text-center space-y-4 border border-sky-400/30 shadow-xl">
+      <section className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#0B1F3A] via-[#0284C7] to-[#0D9488] text-white text-center space-y-4 border border-sky-400/30 shadow-xl">
         <h3 className="text-2xl sm:text-3xl font-bold font-heading">
           Verify Cryptographic Multi-Tenancy on MediGuard
         </h3>
@@ -258,7 +258,7 @@ export const SecurityPrivacyPage: React.FC = () => {
         <div className="pt-2">
           <Link
             to="/register"
-            className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#0B5ED7] font-bold text-xs transition-colors inline-flex items-center gap-2 shadow-md cursor-pointer"
+            className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#0B1F3A] font-bold text-xs transition-colors inline-flex items-center gap-2 shadow-md cursor-pointer"
           >
             <span>Request Security &amp; Compliance Dossier</span>
             <ArrowRight className="w-4 h-4" />

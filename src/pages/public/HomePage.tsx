@@ -1071,7 +1071,7 @@ export const HomePage: React.FC = () => {
               <div className="p-6 rounded-3xl bg-white border border-indigo-200/90 shadow-xl space-y-4 text-xs text-slate-900">
                 {/* User Message */}
                 <div className="flex gap-2.5 items-start justify-end">
-                  <div className="p-3.5 rounded-2xl rounded-tr-xs bg-[#0B5ED7] text-white max-w-sm text-xs font-medium shadow-xs">
+                  <div className="p-3.5 rounded-2xl rounded-tr-xs bg-[#0B1F3A] text-white max-w-sm text-xs font-medium shadow-xs">
                     "Why did resistance to ceftriaxone increase this quarter?"
                   </div>
                 </div>
@@ -1318,7 +1318,7 @@ export const HomePage: React.FC = () => {
       {/* 12. FINAL CALL TO ACTION                                                  */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="rounded-3xl bg-gradient-to-r from-[#0B5ED7] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 lg:p-16 border border-sky-400/30 shadow-xl text-center space-y-6 relative overflow-hidden">
+        <div className="rounded-3xl bg-gradient-to-r from-[#0B1F3A] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 lg:p-16 border border-sky-400/30 shadow-xl text-center space-y-6 relative overflow-hidden">
           <div className="max-w-3xl mx-auto space-y-4 relative z-10">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading tracking-tight leading-tight">
               Turn fragmented healthcare data into actionable intelligence.
@@ -1331,7 +1331,7 @@ export const HomePage: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 relative z-10 pt-4">
             <Link
               to="/solutions"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-[#0B5ED7] font-bold text-sm shadow-md transition-all cursor-pointer"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-[#0B1F3A] font-bold text-sm shadow-md transition-all cursor-pointer"
             >
               Explore MediGuard
             </Link>

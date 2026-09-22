@@ -120,7 +120,7 @@ export const DoctorWorkspace: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2">
           <a
             href="#prescription-form"
-            className="px-4 py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-xl bg-[#0D9488] hover:bg-[#0f766e] text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>New Prescription</span>

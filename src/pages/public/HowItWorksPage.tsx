@@ -239,7 +239,7 @@ export const HowItWorksPage: React.FC = () => {
       </section>
 
       {/* Bottom CTA */}
-      <section className="rounded-3xl bg-gradient-to-r from-[#0B5ED7] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 text-center space-y-4 border border-sky-400/30 shadow-xl">
+      <section className="rounded-3xl bg-gradient-to-r from-[#0B1F3A] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 text-center space-y-4 border border-sky-400/30 shadow-xl">
         <h2 className="text-2xl sm:text-3xl font-extrabold font-heading">
           Ready to deploy MediGuard across your healthcare network?
         </h2>
@@ -249,7 +249,7 @@ export const HowItWorksPage: React.FC = () => {
         <div className="pt-2">
           <Link
             to="/register"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#0B5ED7] font-bold text-xs shadow-md transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#0B1F3A] font-bold text-xs shadow-md transition-all cursor-pointer"
           >
             <span>Request Institutional Deployment</span>
             <ArrowRight className="w-4 h-4" />

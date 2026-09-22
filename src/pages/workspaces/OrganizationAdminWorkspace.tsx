@@ -86,7 +86,7 @@ export const OrganizationAdminWorkspace: React.FC = () => {
           <div className="flex items-center gap-3 shrink-0">
             <Link
               to="/app/settings"
-              className="px-4 py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white font-bold text-xs transition-colors flex items-center gap-2 shadow-xs"
+              className="px-4 py-2.5 rounded-xl bg-[#0D9488] hover:bg-[#0f766e] text-white font-bold text-xs transition-colors flex items-center gap-2 shadow-xs"
             >
               <Settings className="w-4 h-4" />
               <span>Tenant Settings</span>

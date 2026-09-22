@@ -319,7 +319,7 @@ export const StewardshipWorkspace: React.FC = () => {
             </div>
             <Link
               to="/app/investigations"
-              className="w-full py-2.5 rounded-xl bg-[#0B5ED7] hover:bg-blue-700 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-xs"
+              className="w-full py-2.5 rounded-xl bg-[#0B1F3A] hover:bg-[#142d52] text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-xs"
             >
               <span>Manage Stewardship Cases</span>
               <ArrowRight className="w-3.5 h-3.5" />

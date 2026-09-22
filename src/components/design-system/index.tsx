@@ -376,3 +376,404 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
   );
 };
 
+// =====================================================================
+// PAGE HEADER COMPONENT
+// =====================================================================
+export interface PageHeaderProps {
+  title: string;
+  subtitle?: string;
+  badge?: string;
+  badgeColor?: 'blue' | 'teal' | 'indigo' | 'amber' | 'rose';
+  breadcrumbs?: React.ReactNode;
+  actions?: React.ReactNode;
+  className?: string;
+}
+
+export const PageHeader: React.FC<PageHeaderProps> = ({
+  title,
+  subtitle,
+  badge,
+  badgeColor = 'teal',
+  breadcrumbs,
+  actions,
+  className = '',
+}) => {
+  const badgeStyles = {
+    blue: 'bg-sky-50 text-sky-700 border-sky-200',
+    teal: 'bg-teal-50 text-teal-700 border-teal-200',
+    indigo: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+    amber: 'bg-amber-50 text-amber-700 border-amber-200',
+    rose: 'bg-rose-50 text-rose-700 border-rose-200',
+  };
+
+  return (
+    <div className={`space-y-3 pb-6 border-b border-slate-200/80 mb-6 ${className}`}>
+      {breadcrumbs && <div className="text-xs text-slate-500">{breadcrumbs}</div>}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0B1F3A] tracking-tight font-heading">
+              {title}
+            </h1>
+            {badge && (
+              <span
+                className={`text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md border ${badgeStyles[badgeColor]}`}
+              >
+                {badge}
+              </span>
+            )}
+          </div>
+          {subtitle && (
+            <p className="text-sm sm:text-base text-slate-600 max-w-3xl leading-relaxed">
+              {subtitle}
+            </p>
+          )}
+        </div>
+        {actions && <div className="flex items-center gap-3 shrink-0">{actions}</div>}
+      </div>
+    </div>
+  );
+};
+
+// =====================================================================
+// CARD COMPONENT
+// =====================================================================
+export interface CardProps {
+  children: React.ReactNode;
+  className?: string;
+  hoverEffect?: boolean;
+}
+
+export const Card: React.FC<CardProps> = ({ children, className = '', hoverEffect = false }) => {
+  return (
+    <div
+      className={`bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-2xs ${
+        hoverEffect ? 'hover:shadow-md hover:border-slate-300 transition-all duration-200' : ''
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
+};
+
+// =====================================================================
+// FORM INPUT & SELECT COMPONENTS
+// =====================================================================
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  error?: string;
+  helperText?: string;
+  icon?: LucideIcon;
+}
+
+export const Input: React.FC<InputProps> = ({
+  label,
+  error,
+  helperText,
+  icon: Icon,
+  className = '',
+  id,
+  ...props
+}) => {
+  const inputId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
+
+  return (
+    <div className="space-y-1.5 text-left w-full">
+      {label && (
+        <label htmlFor={inputId} className="block text-xs font-bold text-slate-700 uppercase tracking-wider font-heading">
+          {label}
+        </label>
+      )}
+      <div className="relative rounded-xl shadow-2xs">
+        {Icon && (
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <Icon className="w-4 h-4" />
+          </div>
+        )}
+        <input
+          id={inputId}
+          className={`block w-full rounded-xl border ${
+            error
+              ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-200'
+              : 'border-slate-200 focus:border-[#0284C7] focus:ring-sky-100'
+          } bg-white px-3.5 py-2.5 text-sm text-[#0B1F3A] placeholder:text-slate-400 focus:outline-none focus:ring-4 transition-all ${
+            Icon ? 'pl-10' : ''
+          } ${className}`}
+          {...props}
+        />
+      </div>
+      {error && <p className="text-xs text-rose-600 font-medium">{error}</p>}
+      {!error && helperText && <p className="text-xs text-slate-500">{helperText}</p>}
+    </div>
+  );
+};
+
+export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  label?: string;
+  error?: string;
+  options?: { value: string; label: string }[];
+  helperText?: string;
+}
+
+export const Select: React.FC<SelectProps> = ({
+  label,
+  error,
+  options,
+  children,
+  helperText,
+  className = '',
+  id,
+  ...props
+}) => {
+  const selectId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
+
+  return (
+    <div className="space-y-1.5 text-left w-full">
+      {label && (
+        <label htmlFor={selectId} className="block text-xs font-bold text-slate-700 uppercase tracking-wider font-heading">
+          {label}
+        </label>
+      )}
+      <select
+        id={selectId}
+        className={`block w-full rounded-xl border ${
+          error
+            ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-200'
+            : 'border-slate-200 focus:border-[#0284C7] focus:ring-sky-100'
+        } bg-white px-3.5 py-2.5 text-sm text-[#0B1F3A] focus:outline-none focus:ring-4 transition-all ${className}`}
+        {...props}
+      >
+        {options
+          ? options.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))
+          : children}
+      </select>
+      {error && <p className="text-xs text-rose-600 font-medium">{error}</p>}
+      {!error && helperText && <p className="text-xs text-slate-500">{helperText}</p>}
+    </div>
+  );
+};
+
+// =====================================================================
+// ALERT NOTIFICATION COMPONENT
+// =====================================================================
+export interface AlertProps {
+  type?: 'info' | 'success' | 'warning' | 'critical';
+  title?: string;
+  message: string;
+  onClose?: () => void;
+  action?: React.ReactNode;
+  className?: string;
+}
+
+export const AlertBanner: React.FC<AlertProps> = ({
+  type = 'info',
+  title,
+  message,
+  onClose,
+  action,
+  className = '',
+}) => {
+  const styles = {
+    info: 'bg-sky-50 text-sky-900 border-sky-200',
+    success: 'bg-emerald-50 text-emerald-900 border-emerald-200',
+    warning: 'bg-amber-50 text-amber-900 border-amber-200',
+    critical: 'bg-rose-50 text-rose-900 border-rose-200',
+  };
+
+  const iconColors = {
+    info: 'text-sky-600',
+    success: 'text-emerald-600',
+    warning: 'text-amber-600',
+    critical: 'text-rose-600',
+  };
+
+  return (
+    <div
+      role="alert"
+      className={`p-4 rounded-2xl border flex items-start gap-3 text-left transition-all ${styles[type]} ${className}`}
+    >
+      <AlertCircle className={`w-5 h-5 shrink-0 mt-0.5 ${iconColors[type]}`} />
+      <div className="flex-1 space-y-0.5">
+        {title && <h5 className="font-bold text-sm font-heading">{title}</h5>}
+        <p className="text-xs sm:text-sm leading-relaxed opacity-95">{message}</p>
+        {action && <div className="pt-2">{action}</div>}
+      </div>
+      {onClose && (
+        <button
+          type="button"
+          onClick={onClose}
+          className="text-slate-400 hover:text-slate-700 text-xs font-bold px-1.5 py-0.5 rounded-md hover:bg-black/5"
+          aria-label="Dismiss alert"
+        >
+          ✕
+        </button>
+      )}
+    </div>
+  );
+};
+
+// =====================================================================
+// ERROR STATE COMPONENT
+// =====================================================================
+export interface ErrorStateProps {
+  title?: string;
+  message: string;
+  onRetry?: () => void;
+  className?: string;
+}
+
+export const ErrorState: React.FC<ErrorStateProps> = ({
+  title = 'Something went wrong',
+  message,
+  onRetry,
+  className = '',
+}) => {
+  return (
+    <div className={`p-8 text-center rounded-3xl bg-rose-50/50 border border-rose-200 max-w-md mx-auto space-y-4 ${className}`}>
+      <div className="w-12 h-12 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center mx-auto border border-rose-200">
+        <AlertCircle className="w-6 h-6" />
+      </div>
+      <div className="space-y-1">
+        <h4 className="text-base font-bold text-rose-900 font-heading">{title}</h4>
+        <p className="text-xs sm:text-sm text-rose-700 max-w-sm mx-auto leading-relaxed">{message}</p>
+      </div>
+      {onRetry && (
+        <Button variant="danger" size="sm" onClick={onRetry} icon={RefreshCw}>
+          Retry Operation
+        </Button>
+      )}
+    </div>
+  );
+};
+
+// =====================================================================
+// STEPPER COMPONENT
+// =====================================================================
+export interface StepperStep {
+  label: string;
+  description?: string;
+}
+
+export interface StepperProps {
+  steps: StepperStep[];
+  currentStep: number;
+  className?: string;
+}
+
+export const Stepper: React.FC<StepperProps> = ({ steps, currentStep, className = '' }) => {
+  return (
+    <div className={`w-full ${className}`}>
+      <div className="flex items-center justify-between">
+        {steps.map((step, idx) => {
+          const isCompleted = idx < currentStep;
+          const isCurrent = idx === currentStep;
+
+          return (
+            <React.Fragment key={idx}>
+              <div className="flex flex-col items-center text-center max-w-[120px]">
+                <div
+                  className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-colors border ${
+                    isCompleted
+                      ? 'bg-teal-600 border-teal-600 text-white'
+                      : isCurrent
+                      ? 'bg-sky-600 border-sky-600 text-white ring-4 ring-sky-100'
+                      : 'bg-white border-slate-300 text-slate-500'
+                  }`}
+                >
+                  {isCompleted ? '✓' : idx + 1}
+                </div>
+                <span
+                  className={`mt-2 text-xs font-heading ${
+                    isCurrent ? 'font-bold text-[#0B1F3A]' : isCompleted ? 'font-semibold text-teal-800' : 'text-slate-500'
+                  }`}
+                >
+                  {step.label}
+                </span>
+                {step.description && (
+                  <span className="text-[10px] text-slate-400 hidden sm:block truncate w-full">
+                    {step.description}
+                  </span>
+                )}
+              </div>
+              {idx < steps.length - 1 && (
+                <div
+                  className={`flex-1 h-0.5 mx-2 -mt-5 ${
+                    idx < currentStep ? 'bg-teal-500' : 'bg-slate-200'
+                  }`}
+                />
+              )}
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+// =====================================================================
+// TABS COMPONENT
+// =====================================================================
+export interface TabItem {
+  id: string;
+  label: string;
+  badge?: string | number;
+  icon?: LucideIcon;
+}
+
+export interface TabsProps {
+  tabs: TabItem[];
+  activeTab: string;
+  onChange: (id: string) => void;
+  className?: string;
+}
+
+export const SegmentedTabs: React.FC<TabsProps> = ({
+  tabs,
+  activeTab,
+  onChange,
+  className = '',
+}) => {
+  return (
+    <div
+      role="tablist"
+      className={`inline-flex items-center p-1 bg-slate-100/80 rounded-2xl border border-slate-200/60 gap-1 overflow-x-auto max-w-full ${className}`}
+    >
+      {tabs.map((t) => {
+        const isActive = activeTab === t.id;
+        const Icon = t.icon;
+
+        return (
+          <button
+            key={t.id}
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => onChange(t.id)}
+            className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              isActive
+                ? 'bg-white text-[#0B1F3A] font-bold shadow-2xs'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+            }`}
+          >
+            {Icon && <Icon className="w-3.5 h-3.5" />}
+            <span>{t.label}</span>
+            {t.badge !== undefined && (
+              <span
+                className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-md ${
+                  isActive ? 'bg-teal-50 text-teal-700' : 'bg-slate-200/70 text-slate-600'
+                }`}
+              >
+                {t.badge}
+              </span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
+
