@@ -67,15 +67,18 @@ export const BatchRegistryPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-white">Batch Integrity & Cold-Chain Registry</h1>
-            <span className="px-2 py-0.5 text-xs font-mono bg-sky-500/10 text-sky-400 border border-sky-500/20 rounded">
+            <h1 className="text-xl font-bold tracking-tight text-[#0B1F3A] flex items-center gap-2">
+              <Package className="w-5 h-5 text-teal-600" />
+              Batch Integrity & Cold-Chain Registry
+            </h1>
+            <span className="px-2.5 py-0.5 text-xs font-mono bg-teal-50 text-teal-700 border border-teal-200 rounded-md font-semibold">
               GS1 Datamatrix Verification
             </span>
           </div>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Lot-level safety tracking, cold-chain temperature telemetry, expiry surveillance, and rapid quarantine recall controls.
           </p>
         </div>
@@ -83,7 +86,7 @@ export const BatchRegistryPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => window.print()}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200 shadow-xs transition-colors cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5" />
             Export Lot Manifest
@@ -103,7 +106,7 @@ export const BatchRegistryPage: React.FC = () => {
         <StatCard
           title="Expiring Within 90 Days"
           value={expiringLots}
-          subtitle="FIFO dispensing prioritization active"
+          subtitle="FIFO prioritization active"
           icon={AlertTriangle}
           color="amber"
         />
@@ -119,29 +122,29 @@ export const BatchRegistryPage: React.FC = () => {
           value="99.4%"
           subtitle="Real-time sensor logs (2°C - 8°C)"
           icon={Thermometer}
-          color="sky"
+          color="teal"
         />
       </div>
 
       {/* Filter and Table */}
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl overflow-hidden shadow-xs">
-        <div className="p-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+        <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
+          <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
-              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder="Search batch number, manufacturer, or drug..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 w-72"
+                className="bg-white border border-slate-200 rounded-lg pl-9 pr-3 py-1.5 text-xs text-[#0B1F3A] placeholder:text-slate-400 focus:outline-none focus:border-teal-500 w-72 shadow-xs"
               />
             </div>
 
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500"
+              className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-[#0B1F3A] shadow-xs focus:outline-none focus:border-teal-500"
             >
               <option value="all">All Verification Statuses</option>
               <option value="Verified">Verified Only</option>
@@ -152,64 +155,64 @@ export const BatchRegistryPage: React.FC = () => {
             </select>
           </div>
 
-          <span className="text-xs text-slate-400">
-            Showing <strong>{filteredBatches.length}</strong> batch lots
+          <span className="text-xs text-slate-500">
+            Showing <strong className="text-[#0B1F3A] font-semibold">{filteredBatches.length}</strong> batch lots
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/50 text-slate-400 border-b border-slate-800">
+            <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200 text-[11px] uppercase">
               <tr>
-                <th className="py-3 px-4 font-semibold">Batch Number / Lot</th>
-                <th className="py-3 px-4 font-semibold">Medication</th>
-                <th className="py-3 px-4 font-semibold">Manufacturer</th>
-                <th className="py-3 px-4 font-semibold">Expiry Date</th>
-                <th className="py-3 px-4 font-semibold text-right">Available Qty</th>
-                <th className="py-3 px-4 font-semibold text-center">Cold Chain</th>
-                <th className="py-3 px-4 font-semibold text-center">Status</th>
-                <th className="py-3 px-4 font-semibold text-right">Action</th>
+                <th className="py-3 px-4">Batch Number / Lot</th>
+                <th className="py-3 px-4">Medication</th>
+                <th className="py-3 px-4">Manufacturer</th>
+                <th className="py-3 px-4">Expiry Date</th>
+                <th className="py-3 px-4 text-right">Available Qty</th>
+                <th className="py-3 px-4 text-center">Cold Chain</th>
+                <th className="py-3 px-4 text-center">Status</th>
+                <th className="py-3 px-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-slate-100">
               {filteredBatches.map((b) => {
                 const med = medicines.find((m) => m.id === b.medicine_id);
                 const isColdChain = med?.dosage_form.includes('Injection') || med?.generic_name.includes('Colistin');
 
                 return (
-                  <tr key={b.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={b.id} className="hover:bg-slate-50/70 transition-colors">
                     <td className="py-3 px-4">
-                      <div className="font-mono font-bold text-white flex items-center gap-1.5">
-                        <QrCode className="w-3.5 h-3.5 text-sky-400" />
+                      <div className="font-mono font-bold text-[#0B1F3A] flex items-center gap-1.5">
+                        <QrCode className="w-3.5 h-3.5 text-teal-600" />
                         {b.batch_number}
                       </div>
                       <div className="text-[10px] text-slate-500">Mfg: {formatDate(b.manufacture_date || b.manufacturing_date)}</div>
                     </td>
                     <td className="py-3 px-4">
-                      <div className="font-medium text-white">{med?.generic_name || 'Unknown Drug'}</div>
-                      <div className="text-[11px] text-slate-400">{med?.brand_name}</div>
+                      <div className="font-semibold text-[#0B1F3A]">{med?.generic_name || 'Unknown Drug'}</div>
+                      <div className="text-[11px] text-slate-500">{med?.brand_name}</div>
                     </td>
-                    <td className="py-3 px-4 text-slate-300">{b.manufacturer || med?.manufacturer || 'Certified Pharma'}</td>
+                    <td className="py-3 px-4 text-slate-600">{b.manufacturer || med?.manufacturer || 'Certified Pharma'}</td>
                     <td className="py-3 px-4">
                       <span
-                        className={`font-mono ${
+                        className={`font-mono text-[11px] ${
                           b.verification_status === 'Expired'
-                            ? 'text-rose-400 font-bold'
+                            ? 'text-rose-700 font-bold'
                             : b.verification_status === 'Expiring Soon'
-                            ? 'text-amber-400 font-semibold'
-                            : 'text-slate-300'
+                            ? 'text-amber-700 font-semibold'
+                            : 'text-slate-600'
                         }`}
                       >
                         {formatDate(b.expiry_date)}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-right font-mono font-medium text-white">
+                    <td className="py-3 px-4 text-right font-mono font-bold text-teal-700">
                       {b.current_quantity.toLocaleString()} / {b.initial_quantity.toLocaleString()}
                     </td>
                     <td className="py-3 px-4 text-center">
                       {isColdChain ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-mono text-cyan-300 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/60">
-                          <Thermometer className="w-3 h-3 text-cyan-400" />
+                        <span className="inline-flex items-center gap-1 text-[11px] font-mono text-teal-800 bg-teal-50 px-2 py-0.5 rounded border border-teal-200 font-semibold">
+                          <Thermometer className="w-3 h-3 text-teal-600" />
                           4.2°C (Norm)
                         </span>
                       ) : (
@@ -223,12 +226,12 @@ export const BatchRegistryPage: React.FC = () => {
                       {b.verification_status !== 'Suspicious' && b.verification_status !== 'Recalled' ? (
                         <button
                           onClick={() => setSelectedBatchForQuarantine(b)}
-                          className="text-xs text-rose-400 hover:text-rose-300 font-medium hover:underline"
+                          className="text-xs text-rose-600 hover:text-rose-700 font-semibold hover:underline cursor-pointer"
                         >
                           Quarantine Lot
                         </button>
                       ) : (
-                        <span className="text-xs text-slate-500 italic">Quarantined</span>
+                        <span className="text-xs text-slate-400 italic">Quarantined</span>
                       )}
                     </td>
                   </tr>
@@ -241,42 +244,42 @@ export const BatchRegistryPage: React.FC = () => {
 
       {/* Quarantine Modal */}
       {selectedBatchForQuarantine && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-md w-full p-6 space-y-4 shadow-2xl">
-            <div className="flex items-center gap-2 text-rose-400">
+        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-xl animate-in fade-in">
+            <div className="flex items-center gap-2 text-rose-600">
               <ShieldAlert className="w-5 h-5" />
-              <h3 className="text-base font-bold text-white">Initiate Batch Quarantine</h3>
+              <h3 className="text-base font-bold text-[#0B1F3A]">Initiate Batch Quarantine</h3>
             </div>
 
-            <p className="text-xs text-slate-300">
-              You are placing batch <strong className="font-mono text-white">{selectedBatchForQuarantine.batch_number}</strong> on immediate safety hold.
+            <p className="text-xs text-slate-600 leading-relaxed bg-rose-50/50 p-3 rounded-xl border border-rose-100">
+              You are placing batch <strong className="font-mono text-[#0B1F3A]">{selectedBatchForQuarantine.batch_number}</strong> on immediate safety hold.
               This will block this lot from being dispensed by any pharmacy in the network.
             </p>
 
             <div>
-              <label className="text-xs text-slate-400 block mb-1 font-medium">Mandatory Quarantine Reason:</label>
+              <label className="text-xs text-slate-700 block mb-1 font-semibold">Mandatory Quarantine Reason:</label>
               <textarea
                 value={quarantineReason}
                 onChange={(e) => setQuarantineReason(e.target.value)}
                 placeholder="e.g. Temperature excursion detected in cold storage; suspected counterfeit packaging; manufacturer recall notice..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 h-24 resize-none"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-[#0B1F3A] placeholder-slate-400 focus:outline-none focus:border-rose-500 h-24 resize-none"
               />
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200">
               <button
                 onClick={() => {
                   setSelectedBatchForQuarantine(null);
                   setQuarantineReason('');
                 }}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white"
+                className="px-3.5 py-2 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={handleQuarantine}
                 disabled={!quarantineReason.trim()}
-                className="px-4 py-1.5 rounded-lg text-xs font-medium bg-rose-600 hover:bg-rose-500 text-white disabled:opacity-50 transition-colors"
+                className="px-4 py-2 rounded-lg text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white disabled:opacity-50 transition-colors shadow-xs cursor-pointer"
               >
                 Confirm Safety Quarantine
               </button>

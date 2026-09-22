@@ -112,15 +112,18 @@ export const RepeatDispensingPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-white">Repeat Dispensing & Refill Surveillance</h1>
-            <span className="px-2 py-0.5 text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded">
+            <h1 className="text-xl font-bold tracking-tight text-[#0B1F3A] flex items-center gap-2">
+              <Repeat className="w-5 h-5 text-teal-600" />
+              Repeat Dispensing & Refill Surveillance
+            </h1>
+            <span className="px-2.5 py-0.5 text-xs font-mono bg-amber-50 text-amber-700 border border-amber-200 rounded-md font-semibold">
               Stewardship Safety Watch
             </span>
           </div>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Automated monitoring for premature antibiotic refill requests, duplicate therapy, and excessive days of therapy (DOT).
           </p>
         </div>
@@ -128,7 +131,7 @@ export const RepeatDispensingPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => window.print()}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200 shadow-xs transition-colors cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5" />
             Export Safety Log
@@ -148,45 +151,45 @@ export const RepeatDispensingPage: React.FC = () => {
         <StatCard
           title="Premature Refill Requests"
           value={prematureCount}
-          subtitle="Requested &lt; 10 days since last fill"
+          subtitle="Requested < 10 days since last fill"
           icon={Clock}
           color="rose"
         />
         <StatCard
           title="Excessive DOT Warnings"
           value="1"
-          subtitle="Cumulative exposure &gt; 21 days"
+          subtitle="Cumulative exposure > 21 days"
           icon={Repeat}
           color="sky"
         />
         <StatCard
           title="Dispensing Interventions"
           value="98.2%"
-          subtitle="Resolution rate prior to medication release"
+          subtitle="Resolution rate prior to release"
           icon={CheckCircle2}
           color="emerald"
         />
       </div>
 
       {/* Filter and Table */}
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl overflow-hidden shadow-xs">
-        <div className="p-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+        <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
+          <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
-              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder="Search patient code, drug or doctor..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 w-72"
+                className="bg-white border border-slate-200 rounded-lg pl-9 pr-3 py-1.5 text-xs text-[#0B1F3A] placeholder-slate-400 focus:outline-none focus:border-teal-500 w-72 shadow-xs"
               />
             </div>
 
             <select
               value={filterSeverity}
               onChange={(e) => setFilterSeverity(e.target.value)}
-              className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500"
+              className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-[#0B1F3A] shadow-xs focus:outline-none focus:border-teal-500"
             >
               <option value="all">All Severity Levels</option>
               <option value="critical">Critical Only</option>
@@ -195,61 +198,61 @@ export const RepeatDispensingPage: React.FC = () => {
             </select>
           </div>
 
-          <span className="text-xs text-slate-400">
-            Showing <strong>{filtered.length}</strong> repeat dispensing surveillance records
+          <span className="text-xs text-slate-500">
+            Showing <strong className="text-[#0B1F3A] font-semibold">{filtered.length}</strong> repeat dispensing surveillance records
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/50 text-slate-400 border-b border-slate-800">
+            <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200 text-[11px] uppercase">
               <tr>
-                <th className="py-3 px-4 font-semibold">Patient Code</th>
-                <th className="py-3 px-4 font-semibold">Medication</th>
-                <th className="py-3 px-4 font-semibold">Flag & Anomaly Type</th>
-                <th className="py-3 px-4 font-semibold text-right">Days Since Last Fill</th>
-                <th className="py-3 px-4 font-semibold text-right">Cumulative DOT</th>
-                <th className="py-3 px-4 font-semibold">Prescriber & Facility</th>
-                <th className="py-3 px-4 font-semibold text-center">Status</th>
-                <th className="py-3 px-4 font-semibold text-right">Pharmacist Action</th>
+                <th className="py-3 px-4">Patient Code</th>
+                <th className="py-3 px-4">Medication</th>
+                <th className="py-3 px-4">Flag & Anomaly Type</th>
+                <th className="py-3 px-4 text-right">Days Since Last Fill</th>
+                <th className="py-3 px-4 text-right">Cumulative DOT</th>
+                <th className="py-3 px-4">Prescriber & Facility</th>
+                <th className="py-3 px-4 text-center">Status</th>
+                <th className="py-3 px-4 text-right">Pharmacist Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-slate-100 text-slate-700">
               {filtered.map((item) => (
-                <tr key={item.id} className="hover:bg-slate-800/30 transition-colors">
-                  <td className="py-3 px-4 font-mono font-bold text-sky-400">{item.patientRef}</td>
-                  <td className="py-3 px-4 font-medium text-white max-w-[200px] truncate">{item.medicationName}</td>
+                <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
+                  <td className="py-3 px-4 font-mono font-bold text-teal-700">{item.patientRef}</td>
+                  <td className="py-3 px-4 font-medium text-[#0B1F3A] max-w-[200px] truncate">{item.medicationName}</td>
                   <td className="py-3 px-4">
                     <span
-                      className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium ${
+                      className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
                         item.severity === 'Critical'
-                          ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                          ? 'bg-rose-50 text-rose-700 border border-rose-200'
                           : item.severity === 'High'
-                          ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                          : 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20'
+                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                          : 'bg-yellow-50 text-yellow-700 border border-yellow-200'
                       }`}
                     >
                       {item.flagType}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-right font-mono font-bold text-amber-400">
+                  <td className="py-3 px-4 text-right font-mono font-bold text-amber-700">
                     {item.intervalDays} days
                   </td>
-                  <td className="py-3 px-4 text-right font-mono text-white">
+                  <td className="py-3 px-4 text-right font-mono text-[#0B1F3A] font-semibold">
                     {item.cumulativeDaysOfTherapy} days
                   </td>
                   <td className="py-3 px-4">
-                    <div className="text-white font-medium">{item.prescriberName}</div>
-                    <div className="text-[10px] text-slate-400">{item.facilityName}</div>
+                    <div className="text-[#0B1F3A] font-medium">{item.prescriberName}</div>
+                    <div className="text-[10px] text-slate-500">{item.facilityName}</div>
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase ${
                         item.status === 'Open Review'
-                          ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
                           : item.status === 'Cleared'
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                          : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          : 'bg-rose-50 text-rose-700 border border-rose-200'
                       }`}
                     >
                       {item.status.toUpperCase()}
@@ -260,19 +263,19 @@ export const RepeatDispensingPage: React.FC = () => {
                       <div className="inline-flex items-center gap-2">
                         <button
                           onClick={() => handleAction(item.id, 'Cleared')}
-                          className="px-2 py-1 bg-emerald-950/60 text-emerald-300 hover:bg-emerald-900 border border-emerald-800 rounded text-[10px] font-medium"
+                          className="px-2.5 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 rounded-md text-[11px] font-semibold transition-colors cursor-pointer"
                         >
                           Clear Fill
                         </button>
                         <button
                           onClick={() => handleAction(item.id, 'Refill Blocked')}
-                          className="px-2 py-1 bg-rose-950/60 text-rose-300 hover:bg-rose-900 border border-rose-800 rounded text-[10px] font-medium"
+                          className="px-2.5 py-1 bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 rounded-md text-[11px] font-semibold transition-colors cursor-pointer"
                         >
                           Block Fill
                         </button>
                       </div>
                     ) : (
-                      <span className="text-[11px] text-slate-500">Processed</span>
+                      <span className="text-[11px] text-slate-400 font-mono">Processed</span>
                     )}
                   </td>
                 </tr>
@@ -284,4 +287,3 @@ export const RepeatDispensingPage: React.FC = () => {
     </div>
   );
 };
-

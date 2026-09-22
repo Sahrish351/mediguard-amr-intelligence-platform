@@ -81,13 +81,13 @@ export const DispensingPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-            <PackageCheck className="w-5 h-5 text-sky-400" />
+          <h1 className="text-xl font-bold tracking-tight text-[#0B1F3A] flex items-center gap-2">
+            <PackageCheck className="w-5 h-5 text-teal-600" />
             Pharmacy Dispensing & Batch Verification
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Dispensing records linked to verified medicine batches, stock deduction, and repeat dispensing signals
           </p>
         </div>
@@ -103,7 +103,7 @@ export const DispensingPage: React.FC = () => {
               }
               setIsDispenseModalOpen(true);
             }}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-md shadow-sky-600/20 transition-colors self-start sm:self-auto"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-semibold shadow-xs transition-colors self-start sm:self-auto cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Record Dispensing Event</span>
@@ -114,22 +114,22 @@ export const DispensingPage: React.FC = () => {
       {/* Search Bar */}
       <div className="flex items-center gap-3">
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search patient ref, medicine, batch number..."
-            className="w-full bg-[#0F172A] border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500"
+            className="w-full bg-white border border-slate-200 rounded-lg pl-9 pr-3 py-2 text-xs text-[#0B1F3A] placeholder:text-slate-400 shadow-xs focus:outline-none focus:border-teal-500"
           />
         </div>
       </div>
 
       {/* Dispensing Table */}
-      <div className="bg-[#0F172A] border border-slate-800 rounded-xl overflow-hidden">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#0B0F19] text-slate-400 font-mono text-[11px] uppercase border-b border-slate-800">
+            <thead className="bg-slate-50 text-slate-600 font-semibold text-[11px] uppercase border-b border-slate-200">
               <tr>
                 <th className="px-4 py-3">Patient Ref</th>
                 <th className="px-4 py-3">Medicine Dispensed</th>
@@ -141,39 +141,39 @@ export const DispensingPage: React.FC = () => {
                 <th className="px-4 py-3 text-right">Pattern Flag</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-100">
               {filteredDispensing.map((d) => (
-                <tr key={d.id} className="hover:bg-slate-800/30 transition-colors">
-                  <td className="px-4 py-3 font-mono font-bold text-white">
+                <tr key={d.id} className="hover:bg-slate-50/70 transition-colors">
+                  <td className="px-4 py-3 font-mono font-bold text-[#0B1F3A]">
                     {d.patient_reference}
                   </td>
                   <td className="px-4 py-3">
-                    <div className="font-semibold text-white">{d.medicine?.generic_name}</div>
-                    <div className="text-[11px] text-slate-400">{d.medicine?.brand_name}</div>
+                    <div className="font-semibold text-[#0B1F3A]">{d.medicine?.generic_name}</div>
+                    <div className="text-[11px] text-slate-500">{d.medicine?.brand_name}</div>
                   </td>
-                  <td className="px-4 py-3 font-mono font-semibold text-slate-300">
+                  <td className="px-4 py-3 font-mono font-semibold text-slate-700">
                     {d.batch?.batch_number || '—'}
                   </td>
                   <td className="px-4 py-3">
                     <BatchBadge status={d.batch?.verification_status || 'Verified'} />
                   </td>
-                  <td className="px-4 py-3 font-mono font-bold text-sky-400">
+                  <td className="px-4 py-3 font-mono font-bold text-teal-700">
                     {d.quantity} units
                   </td>
-                  <td className="px-4 py-3 text-slate-400">
+                  <td className="px-4 py-3 text-slate-600">
                     {d.pharmacist?.full_name}
                   </td>
-                  <td className="px-4 py-3 font-mono text-slate-400 text-[11px]">
+                  <td className="px-4 py-3 font-mono text-slate-500 text-[11px]">
                     {formatDate(d.dispensed_at)}
                   </td>
                   <td className="px-4 py-3 text-right">
                     {d.repeat_flag ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-amber-50 text-amber-700 border border-amber-200">
                         <AlertTriangle className="w-3 h-3" />
                         Repeat Fill
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-slate-800 text-slate-400">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-slate-100 text-slate-600 font-medium">
                         First Fill
                       </span>
                     )}
@@ -196,11 +196,11 @@ export const DispensingPage: React.FC = () => {
         <form onSubmit={handleDispenseSubmit} className="space-y-4 text-xs">
           {/* Link to Prescription */}
           <div>
-            <label className="block text-slate-400 mb-1 font-mono text-[11px]">Pending Prescription (Optional)</label>
+            <label className="block text-slate-700 mb-1 font-semibold text-[11px]">Pending Prescription (Optional)</label>
             <select
               value={selectedRxId}
               onChange={(e) => handleRxSelect(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[#0B1F3A] focus:outline-none focus:border-teal-500"
             >
               <option value="">Direct / Walk-in Dispense (No Rx Link)</option>
               {prescriptions
@@ -215,22 +215,22 @@ export const DispensingPage: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-400 mb-1 font-mono text-[11px]">Patient Pseudonymous Identifier *</label>
+              <label className="block text-slate-700 mb-1 font-semibold text-[11px]">Patient Pseudonymous Identifier *</label>
               <input
                 type="text"
                 value={patientRef}
                 onChange={(e) => setPatientRef(e.target.value)}
                 placeholder="e.g. PAT-88192-A"
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[#0B1F3A] focus:outline-none focus:border-teal-500"
                 required
               />
             </div>
             <div>
-              <label className="block text-slate-400 mb-1 font-mono text-[11px]">Facility *</label>
+              <label className="block text-slate-700 mb-1 font-semibold text-[11px]">Facility *</label>
               <select
                 value={facilityId}
                 onChange={(e) => setFacilityId(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[#0B1F3A] focus:outline-none focus:border-teal-500"
                 required
               >
                 {facilities.map((f) => (
@@ -243,7 +243,7 @@ export const DispensingPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-slate-400 mb-1 font-mono text-[11px]">Medicine to Dispense *</label>
+            <label className="block text-slate-700 mb-1 font-semibold text-[11px]">Medicine to Dispense *</label>
             <select
               value={selectedMedId}
               onChange={(e) => {
@@ -251,7 +251,7 @@ export const DispensingPage: React.FC = () => {
                 const match = batches.find((b) => b.medicine_id === e.target.value);
                 if (match) setSelectedBatchId(match.id);
               }}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[#0B1F3A] focus:outline-none focus:border-teal-500"
               required
             >
               {medicines.map((m) => (
@@ -264,11 +264,11 @@ export const DispensingPage: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-400 mb-1 font-mono text-[11px]">Batch Selection *</label>
+              <label className="block text-slate-700 mb-1 font-semibold text-[11px]">Batch Selection *</label>
               <select
                 value={selectedBatchId}
                 onChange={(e) => setSelectedBatchId(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[#0B1F3A] focus:outline-none focus:border-teal-500"
                 required
               >
                 {availableBatches.map((b) => (
@@ -280,13 +280,13 @@ export const DispensingPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-mono text-[11px]">Quantity Dispensed *</label>
+              <label className="block text-slate-700 mb-1 font-semibold text-[11px]">Quantity Dispensed *</label>
               <input
                 type="number"
                 min={1}
                 value={dispenseQty}
                 onChange={(e) => setDispenseQty(Number(e.target.value))}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[#0B1F3A] focus:outline-none focus:border-teal-500"
                 required
               />
             </div>
@@ -294,36 +294,36 @@ export const DispensingPage: React.FC = () => {
 
           {/* Batch Warning Banner if Expired or Suspicious */}
           {chosenBatch && (chosenBatch.verification_status === 'Expired' || chosenBatch.verification_status === 'Suspicious') && (
-            <div className="p-3 rounded-lg bg-red-950/30 border border-red-500/40 text-red-300 text-xs flex items-start gap-2">
-              <ShieldAlert className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+            <div className="p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-start gap-2">
+              <ShieldAlert className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
               <div>
-                <strong>Warning: Batch Integrity Alert:</strong> Selected batch <code className="font-mono">{chosenBatch.batch_number}</code> is flagged as <strong>{chosenBatch.verification_status}</strong>. Dispensing will generate a high-severity surveillance signal.
+                <strong>Warning: Batch Integrity Alert:</strong> Selected batch <code className="font-mono bg-white px-1 py-0.5 rounded border border-rose-200">{chosenBatch.batch_number}</code> is flagged as <strong>{chosenBatch.verification_status}</strong>. Dispensing will generate a high-severity surveillance signal.
               </div>
             </div>
           )}
 
           <div>
-            <label className="block text-slate-400 mb-1 font-mono text-[11px]">Pharmacist Verification Notes:</label>
+            <label className="block text-slate-700 mb-1 font-semibold text-[11px]">Pharmacist Verification Notes:</label>
             <textarea
               rows={2}
               value={dispensingNotes}
               onChange={(e) => setDispensingNotes(e.target.value)}
               placeholder="Verified physical packaging integrity, expiry, and patient dose counseling."
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[#0B1F3A] focus:outline-none focus:border-teal-500"
             />
           </div>
 
-          <div className="pt-2 flex justify-end gap-2">
+          <div className="pt-3 flex justify-end gap-2 border-t border-slate-200">
             <button
               type="button"
               onClick={() => setIsDispenseModalOpen(false)}
-              className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300"
+              className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold"
+              className="px-4 py-2 rounded-lg bg-[#0284C7] hover:bg-[#0369A1] text-white font-semibold shadow-xs cursor-pointer"
             >
               Confirm Dispensing
             </button>

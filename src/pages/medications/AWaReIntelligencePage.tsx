@@ -74,15 +74,18 @@ export const AWaReIntelligencePage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-white">WHO AWaRe Classification Intelligence</h1>
-            <span className="px-2 py-0.5 text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded">
+            <h1 className="text-xl font-bold tracking-tight text-[#0B1F3A] flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-teal-600" />
+              WHO AWaRe Classification Intelligence
+            </h1>
+            <span className="px-2.5 py-0.5 text-xs font-mono bg-teal-50 text-teal-700 border border-teal-200 rounded-md font-semibold">
               WHO Benchmark Target: &ge;60% Access
             </span>
           </div>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Institutional antimicrobial stewardship surveillance benchmarking against the World Health Organization AWaRe Framework.
           </p>
         </div>
@@ -90,7 +93,7 @@ export const AWaReIntelligencePage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => window.print()}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200 shadow-xs transition-colors cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5" />
             Export Report
@@ -99,11 +102,11 @@ export const AWaReIntelligencePage: React.FC = () => {
       </div>
 
       {/* Benchmark Compliance Banner */}
-      <div className="bg-emerald-950/30 border border-emerald-800/60 rounded-xl p-4 flex items-start gap-3">
-        <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-        <div className="text-xs text-slate-300 leading-relaxed">
-          <span className="font-semibold text-emerald-300">WHO 13th GPW Compliance Status:</span> Current network-wide Access
-          antimicrobial distribution is <strong className="text-emerald-400 font-mono">{accessPct}%</strong>.
+      <div className="bg-teal-50/60 border border-teal-200/80 rounded-xl p-4 flex items-start gap-3">
+        <ShieldCheck className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
+        <div className="text-xs text-teal-900 leading-relaxed">
+          <span className="font-semibold text-teal-950">WHO 13th GPW Compliance Status:</span> Current network-wide Access
+          antimicrobial distribution is <strong className="text-teal-800 font-mono font-bold">{accessPct}%</strong>.
           The WHO global target mandates that Access group antibiotics represent at least 60% of total consumption to ensure essential treatments remain widely available while curbing resistance.
         </div>
       </div>
@@ -143,10 +146,10 @@ export const AWaReIntelligencePage: React.FC = () => {
       {/* Visual Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Pie Breakdown */}
-        <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-5 shadow-xs flex flex-col justify-between">
+        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs flex flex-col justify-between">
           <div>
-            <h2 className="text-base font-semibold text-white">AWaRe Distribution</h2>
-            <p className="text-xs text-slate-400 mt-0.5">Ratio of monitored antimicrobial classifications</p>
+            <h2 className="text-sm font-semibold text-[#0B1F3A]">AWaRe Distribution</h2>
+            <p className="text-xs text-slate-500 mt-0.5">Ratio of monitored antimicrobial classifications</p>
           </div>
           <div className="h-56 my-2">
             <ResponsiveContainer width="100%" height="100%">
@@ -165,46 +168,46 @@ export const AWaReIntelligencePage: React.FC = () => {
                   ))}
                 </Pie>
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '0.5rem' }}
+                  contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#E2E8F0', borderRadius: '0.5rem', color: '#0B1F3A' }}
                 />
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-800 text-center text-xs font-medium">
-            <div>
-              <span className="text-emerald-400">Access</span>
-              <div className="font-mono text-white text-sm mt-0.5">{accessMeds.length}</div>
+          <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-200 text-center text-xs font-medium">
+            <div className="bg-emerald-50/60 p-2 rounded-lg border border-emerald-100">
+              <span className="text-emerald-800 font-semibold">Access</span>
+              <div className="font-mono text-emerald-950 font-bold text-sm mt-0.5">{accessMeds.length}</div>
             </div>
-            <div>
-              <span className="text-amber-400">Watch</span>
-              <div className="font-mono text-white text-sm mt-0.5">{watchMeds.length}</div>
+            <div className="bg-amber-50/60 p-2 rounded-lg border border-amber-100">
+              <span className="text-amber-800 font-semibold">Watch</span>
+              <div className="font-mono text-amber-950 font-bold text-sm mt-0.5">{watchMeds.length}</div>
             </div>
-            <div>
-              <span className="text-rose-400">Reserve</span>
-              <div className="font-mono text-white text-sm mt-0.5">{reserveMeds.length}</div>
+            <div className="bg-rose-50/60 p-2 rounded-lg border border-rose-100">
+              <span className="text-rose-800 font-semibold">Reserve</span>
+              <div className="font-mono text-rose-950 font-bold text-sm mt-0.5">{reserveMeds.length}</div>
             </div>
           </div>
         </div>
 
         {/* Facility Consumption Comparison */}
-        <div className="lg:col-span-2 bg-slate-900/60 border border-slate-800/80 rounded-xl p-5 shadow-xs">
+        <div className="lg:col-span-2 bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-base font-semibold text-white">Facility AWaRe Consumption (%)</h2>
-              <p className="text-xs text-slate-400 mt-0.5">Antimicrobial proportion by healthcare facility</p>
+              <h2 className="text-sm font-semibold text-[#0B1F3A]">Facility AWaRe Consumption (%)</h2>
+              <p className="text-xs text-slate-500 mt-0.5">Antimicrobial proportion by healthcare facility</p>
             </div>
-            <span className="text-xs font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
+            <span className="text-xs font-mono text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-200 font-semibold">
               Benchmark: &ge;60% Access
             </span>
           </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={facilityBreakdown} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.5} />
-                <XAxis type="number" stroke="#94a3b8" fontSize={12} unit="%" domain={[0, 100]} />
-                <YAxis dataKey="facility" type="category" stroke="#94a3b8" fontSize={11} width={150} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" opacity={0.7} />
+                <XAxis type="number" stroke="#64748B" fontSize={12} unit="%" domain={[0, 100]} />
+                <YAxis dataKey="facility" type="category" stroke="#64748B" fontSize={11} width={150} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '0.5rem' }}
+                  contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#E2E8F0', borderRadius: '0.5rem', color: '#0B1F3A' }}
                 />
                 <Legend />
                 <Bar dataKey="Access" name="Access (%)" fill="#10b981" stackId="a" />
@@ -217,49 +220,49 @@ export const AWaReIntelligencePage: React.FC = () => {
       </div>
 
       {/* Filter and Formulary Table */}
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl overflow-hidden shadow-xs">
-        <div className="p-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+        <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
+          <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
-              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder="Search generic, brand or ATC code..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 w-64"
+                className="bg-white border border-slate-200 rounded-lg pl-9 pr-3 py-1.5 text-xs text-[#0B1F3A] placeholder:text-slate-400 focus:outline-none focus:border-teal-500 w-64 shadow-xs"
               />
             </div>
 
-            <div className="flex items-center bg-slate-950 border border-slate-800 rounded-lg p-1 text-xs">
+            <div className="flex items-center bg-white border border-slate-200 rounded-lg p-1 text-xs shadow-xs">
               <button
                 onClick={() => setSelectedCategory('all')}
-                className={`px-2.5 py-1 rounded font-medium transition-colors ${
-                  selectedCategory === 'all' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white'
+                className={`px-2.5 py-1 rounded font-medium transition-colors cursor-pointer ${
+                  selectedCategory === 'all' ? 'bg-slate-100 text-[#0B1F3A] font-semibold' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 All ({medicines.length})
               </button>
               <button
                 onClick={() => setSelectedCategory('Access')}
-                className={`px-2.5 py-1 rounded font-medium transition-colors ${
-                  selectedCategory === 'Access' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'
+                className={`px-2.5 py-1 rounded font-medium transition-colors cursor-pointer ${
+                  selectedCategory === 'Access' ? 'bg-emerald-50 text-emerald-800 font-semibold' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Access ({accessMeds.length})
               </button>
               <button
                 onClick={() => setSelectedCategory('Watch')}
-                className={`px-2.5 py-1 rounded font-medium transition-colors ${
-                  selectedCategory === 'Watch' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-white'
+                className={`px-2.5 py-1 rounded font-medium transition-colors cursor-pointer ${
+                  selectedCategory === 'Watch' ? 'bg-amber-50 text-amber-800 font-semibold' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Watch ({watchMeds.length})
               </button>
               <button
                 onClick={() => setSelectedCategory('Reserve')}
-                className={`px-2.5 py-1 rounded font-medium transition-colors ${
-                  selectedCategory === 'Reserve' ? 'bg-rose-600 text-white' : 'text-slate-400 hover:text-white'
+                className={`px-2.5 py-1 rounded font-medium transition-colors cursor-pointer ${
+                  selectedCategory === 'Reserve' ? 'bg-rose-50 text-rose-800 font-semibold' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Reserve ({reserveMeds.length})
@@ -267,34 +270,34 @@ export const AWaReIntelligencePage: React.FC = () => {
             </div>
           </div>
 
-          <span className="text-xs text-slate-400">
-            Showing <strong>{filteredMeds.length}</strong> antimicrobial items
+          <span className="text-xs text-slate-500">
+            Showing <strong className="text-[#0B1F3A] font-semibold">{filteredMeds.length}</strong> antimicrobial items
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/50 text-slate-400 border-b border-slate-800">
+            <thead className="bg-slate-50 text-slate-600 font-semibold text-[11px] uppercase border-b border-slate-200">
               <tr>
-                <th className="py-3 px-4 font-semibold">Generic & Brand Name</th>
-                <th className="py-3 px-4 font-semibold">ATC Code</th>
-                <th className="py-3 px-4 font-semibold">Therapeutic Class</th>
-                <th className="py-3 px-4 font-semibold">Dosage / Form</th>
-                <th className="py-3 px-4 font-semibold text-center">AWaRe Category</th>
-                <th className="py-3 px-4 font-semibold">Stewardship Policy</th>
-                <th className="py-3 px-4 font-semibold text-center">Status</th>
+                <th className="py-3 px-4">Generic & Brand Name</th>
+                <th className="py-3 px-4">ATC Code</th>
+                <th className="py-3 px-4">Therapeutic Class</th>
+                <th className="py-3 px-4">Dosage / Form</th>
+                <th className="py-3 px-4 text-center">AWaRe Category</th>
+                <th className="py-3 px-4">Stewardship Policy</th>
+                <th className="py-3 px-4 text-center">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-slate-100">
               {filteredMeds.map((med) => (
-                <tr key={med.id} className="hover:bg-slate-800/30 transition-colors">
+                <tr key={med.id} className="hover:bg-slate-50/70 transition-colors">
                   <td className="py-3 px-4">
-                    <div className="font-semibold text-white">{med.generic_name}</div>
-                    <div className="text-[11px] text-slate-400">{med.brand_name}</div>
+                    <div className="font-semibold text-[#0B1F3A]">{med.generic_name}</div>
+                    <div className="text-[11px] text-teal-700 font-medium font-mono">{med.brand_name}</div>
                   </td>
-                  <td className="py-3 px-4 font-mono text-slate-400">{med.atc_code}</td>
-                  <td className="py-3 px-4 text-slate-300">{med.therapeutic_class}</td>
-                  <td className="py-3 px-4 text-slate-400">
+                  <td className="py-3 px-4 font-mono text-slate-500 text-[11px]">{med.atc_code}</td>
+                  <td className="py-3 px-4 text-slate-600">{med.therapeutic_class}</td>
+                  <td className="py-3 px-4 text-slate-600 font-mono text-[11px]">
                     {med.strength} &bull; {med.dosage_form}
                   </td>
                   <td className="py-3 px-4 text-center">
@@ -302,22 +305,22 @@ export const AWaReIntelligencePage: React.FC = () => {
                   </td>
                   <td className="py-3 px-4 text-xs">
                     {getAware(med) === 'Reserve' ? (
-                      <span className="text-rose-400 font-medium flex items-center gap-1">
+                      <span className="text-rose-700 font-semibold flex items-center gap-1">
                         <Lock className="w-3.5 h-3.5 shrink-0" />
-                        Infectious Disease Pre-Auth Required
+                        ID Pre-Auth Required
                       </span>
                     ) : getAware(med) === 'Watch' ? (
-                      <span className="text-amber-400 font-medium">Restricted to indicated cultures</span>
+                      <span className="text-amber-700 font-semibold">Restricted to indicated cultures</span>
                     ) : (
-                      <span className="text-emerald-400 font-medium">First-line empirical option</span>
+                      <span className="text-emerald-700 font-semibold">First-line empirical option</span>
                     )}
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className={`inline-block px-2 py-0.5 rounded text-[10px] font-semibold uppercase ${
+                      className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase ${
                         med.status === 'active'
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                          : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          : 'bg-rose-50 text-rose-700 border border-rose-200'
                       }`}
                     >
                       {med.status}

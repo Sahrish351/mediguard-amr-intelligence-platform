@@ -42,7 +42,7 @@ export const AlertCenterPage: React.FC = () => {
 
   const handleInvestigate = (alertId: string) => {
     api.updateAlertStatus(alertId, 'Investigating', currentUser.id);
-    navigate('/investigations');
+    navigate('/app/investigations');
   };
 
   const handleDismissSubmit = (e: React.FormEvent) => {
@@ -69,28 +69,28 @@ export const AlertCenterPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-left">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-            <AlertTriangle className="w-5 h-5 text-amber-400" />
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#0B1F3A] flex items-center gap-2 font-heading">
+            <AlertTriangle className="w-5 h-5 text-amber-500" />
             Deterministic Surveillance Alert Center
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Rule-based detection triage: usage anomalies, repeat fills, resistance surges, and batch defects
           </p>
         </div>
 
         {/* Severity Metrics Bar */}
         <div className="flex items-center gap-2 font-mono text-xs">
-          <span className="px-2.5 py-1 rounded bg-red-950/40 text-red-400 border border-red-800/40 font-bold">
+          <span className="px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 font-bold shadow-2xs">
             {alerts.filter((a) => a.severity === 'Critical').length} Critical
           </span>
-          <span className="px-2.5 py-1 rounded bg-orange-950/40 text-orange-400 border border-orange-800/40 font-bold">
+          <span className="px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-bold shadow-2xs">
             {alerts.filter((a) => a.severity === 'High').length} High
           </span>
-          <span className="px-2.5 py-1 rounded bg-amber-950/40 text-amber-400 border border-amber-800/40">
+          <span className="px-2.5 py-1 rounded-full bg-sky-50 text-[#0284C7] border border-sky-200 font-bold shadow-2xs">
             {alerts.filter((a) => a.severity === 'Medium').length} Medium
           </span>
         </div>
@@ -98,35 +98,35 @@ export const AlertCenterPage: React.FC = () => {
 
       {/* Filter Bar */}
       <div className="flex flex-wrap items-center gap-3">
-        <div className="flex items-center gap-2 bg-[#0F172A] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-300">
-          <Filter className="w-3.5 h-3.5 text-slate-500" />
-          <span className="font-mono text-[11px] text-slate-400">Severity:</span>
+        <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-700 shadow-2xs">
+          <Filter className="w-3.5 h-3.5 text-slate-400" />
+          <span className="font-mono text-[11px] text-slate-500">Severity:</span>
           <select
             value={severityFilter}
             onChange={(e) => setSeverityFilter(e.target.value)}
-            className="bg-transparent text-xs text-white focus:outline-none"
+            className="bg-transparent text-xs text-slate-800 font-medium focus:outline-none cursor-pointer"
           >
-            <option value="all" className="bg-slate-900">All Severities</option>
-            <option value="Critical" className="bg-slate-900">Critical</option>
-            <option value="High" className="bg-slate-900">High</option>
-            <option value="Medium" className="bg-slate-900">Medium</option>
-            <option value="Low" className="bg-slate-900">Low</option>
+            <option value="all">All Severities</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
           </select>
         </div>
 
-        <div className="flex items-center gap-2 bg-[#0F172A] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-300">
-          <span className="font-mono text-[11px] text-slate-400">Status:</span>
+        <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-700 shadow-2xs">
+          <span className="font-mono text-[11px] text-slate-500">Status:</span>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-transparent text-xs text-white focus:outline-none"
+            className="bg-transparent text-xs text-slate-800 font-medium focus:outline-none cursor-pointer"
           >
-            <option value="all" className="bg-slate-900">All Statuses</option>
-            <option value="New" className="bg-slate-900">New</option>
-            <option value="Acknowledged" className="bg-slate-900">Acknowledged</option>
-            <option value="Investigating" className="bg-slate-900">Investigating</option>
-            <option value="Resolved" className="bg-slate-900">Resolved</option>
-            <option value="Dismissed" className="bg-slate-900">Dismissed</option>
+            <option value="all">All Statuses</option>
+            <option value="New">New</option>
+            <option value="Acknowledged">Acknowledged</option>
+            <option value="Investigating">Investigating</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Dismissed">Dismissed</option>
           </select>
         </div>
       </div>
@@ -136,12 +136,12 @@ export const AlertCenterPage: React.FC = () => {
         {filteredAlerts.map((alert) => (
           <div
             key={alert.id}
-            className={`p-4 rounded-xl border bg-[#0F172A] transition-all ${
+            className={`p-5 rounded-2xl border transition-all shadow-2xs ${
               alert.severity === 'Critical'
-                ? 'border-red-500/40 bg-red-950/10'
+                ? 'border-rose-200 bg-rose-50/20'
                 : alert.severity === 'High'
-                ? 'border-orange-500/40 bg-orange-950/10'
-                : 'border-slate-800'
+                ? 'border-amber-200 bg-amber-50/20'
+                : 'border-slate-200 bg-white'
             }`}
           >
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -149,59 +149,59 @@ export const AlertCenterPage: React.FC = () => {
               <div className="space-y-2 flex-1">
                 <div className="flex items-center gap-2.5 flex-wrap">
                   <SeverityBadge severity={alert.severity} />
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 font-medium">
                     {alert.detection_rule_id} v{alert.detection_rule_version}
                   </span>
-                  <span className="text-xs text-slate-500 font-mono">
+                  <span className="text-xs text-slate-400 font-mono">
                     Detected: {formatDate(alert.detected_at)}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-semibold text-white tracking-tight">
+                  <h3 className="text-sm font-bold text-[#0B1F3A] tracking-tight font-heading">
                     {alert.title}
                   </h3>
-                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                     {alert.description}
                   </p>
                 </div>
 
                 {/* Evidence & Metrics Strip */}
-                <div className="flex flex-wrap items-center gap-4 text-xs font-mono pt-1 text-slate-300">
+                <div className="flex flex-wrap items-center gap-4 text-xs font-mono pt-1 text-slate-600">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-slate-500">Observed:</span>
-                    <span className="font-bold text-white">{alert.observed_value}</span>
+                    <span className="text-slate-400">Observed:</span>
+                    <span className="font-bold text-slate-900">{alert.observed_value}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-slate-500">Baseline:</span>
-                    <span>{alert.baseline_value}</span>
+                    <span className="text-slate-400">Baseline:</span>
+                    <span className="text-slate-700">{alert.baseline_value}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-slate-500">Deviation:</span>
-                    <span className="font-bold text-red-400">+{alert.change_percent}%</span>
+                    <span className="text-slate-400">Deviation:</span>
+                    <span className="font-bold text-rose-600">+{alert.change_percent}%</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-slate-500">Facility:</span>
-                    <span className="font-sans text-slate-300">{alert.facility?.name || 'Network'}</span>
+                    <span className="text-slate-400">Facility:</span>
+                    <span className="font-sans font-medium text-slate-800">{alert.facility?.name || 'Network'}</span>
                   </div>
                 </div>
 
                 {alert.dismissal_reason && (
-                  <div className="p-2 rounded bg-slate-900 border border-slate-800 text-[11px] text-slate-400">
-                    <strong>Dismissal Audit Justification:</strong> {alert.dismissal_reason}
+                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600">
+                    <strong className="text-slate-800">Dismissal Audit Justification:</strong> {alert.dismissal_reason}
                   </div>
                 )}
               </div>
 
               {/* Right Column: Status & Triage Actions */}
-              <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-between gap-3 shrink-0 border-t lg:border-t-0 pt-3 lg:pt-0 border-slate-800">
+              <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-between gap-3 shrink-0 border-t lg:border-t-0 pt-3 lg:pt-0 border-slate-200">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-slate-500 font-mono">Status:</span>
-                  <span className="px-2.5 py-0.5 rounded text-xs font-mono font-bold uppercase bg-slate-800 text-sky-400 border border-slate-700">
+                  <span className="text-xs text-slate-400 font-mono">Status:</span>
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase bg-slate-100 text-slate-700 border border-slate-200">
                     {alert.status}
                   </span>
                   {alert.assignee && (
-                    <span className="text-[11px] text-slate-400 font-sans">
+                    <span className="text-[11px] text-slate-500 font-sans">
                       ({alert.assignee.full_name})
                     </span>
                   )}
@@ -212,7 +212,7 @@ export const AlertCenterPage: React.FC = () => {
                   {alert.status === 'New' && (
                     <button
                       onClick={() => handleAcknowledge(alert.id)}
-                      className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors"
+                      className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-200 transition-colors shadow-2xs cursor-pointer"
                     >
                       Acknowledge
                     </button>
@@ -223,15 +223,15 @@ export const AlertCenterPage: React.FC = () => {
                       setAssignAlertTarget(alert);
                       setSelectedAssignee(alert.assigned_to || users[0].id);
                     }}
-                    className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors flex items-center gap-1.5"
+                    className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-200 transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
                   >
-                    <UserCheck className="w-3.5 h-3.5" />
+                    <UserCheck className="w-3.5 h-3.5 text-slate-400" />
                     <span>Assign</span>
                   </button>
 
                   <button
                     onClick={() => handleInvestigate(alert.id)}
-                    className="px-3.5 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-sm transition-colors flex items-center gap-1.5"
+                    className="px-4 py-1.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-bold shadow-2xs transition-colors flex items-center gap-1.5 cursor-pointer"
                   >
                     <FileSearch className="w-3.5 h-3.5" />
                     <span>Investigate</span>
@@ -240,7 +240,7 @@ export const AlertCenterPage: React.FC = () => {
                   {alert.status !== 'Dismissed' && alert.status !== 'Resolved' && (
                     <button
                       onClick={() => setSelectedAlertForDismiss(alert)}
-                      className="px-2.5 py-1.5 rounded-lg bg-rose-950/20 hover:bg-rose-950/40 text-rose-400 border border-rose-800/30 text-xs transition-colors"
+                      className="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-medium transition-colors cursor-pointer"
                     >
                       Dismiss
                     </button>
@@ -260,12 +260,12 @@ export const AlertCenterPage: React.FC = () => {
         subtitle="Medical safety protocol mandates a documented justification for dismissing safety signals"
       >
         <form onSubmit={handleDismissSubmit} className="space-y-4 text-xs">
-          <div className="p-3 bg-amber-950/20 border border-amber-800/30 rounded-lg text-amber-300">
+          <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900">
             <strong>Signal to Dismiss:</strong> {selectedAlertForDismiss?.title}
           </div>
 
           <div>
-            <label className="block text-slate-400 mb-1 font-mono text-[11px]">
+            <label className="block text-slate-700 mb-1 font-mono text-[11px] font-bold">
               Justification / False-Positive Rationale *
             </label>
             <textarea
@@ -273,7 +273,7 @@ export const AlertCenterPage: React.FC = () => {
               value={dismissalReason}
               onChange={(e) => setDismissalReason(e.target.value)}
               placeholder="e.g. Verified culture contamination or routine duplicate sample from same surgical case. Confirmed by lab supervisor."
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+              className="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-900 focus:outline-none focus:border-[#0284C7]"
               required
             />
           </div>
@@ -282,13 +282,13 @@ export const AlertCenterPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setSelectedAlertForDismiss(null)}
-              className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300"
+              className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold"
+              className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold cursor-pointer"
             >
               Confirm Dismissal
             </button>
@@ -305,13 +305,13 @@ export const AlertCenterPage: React.FC = () => {
       >
         <form onSubmit={handleAssignSubmit} className="space-y-4 text-xs">
           <div>
-            <label className="block text-slate-400 mb-1 font-mono text-[11px]">
+            <label className="block text-slate-700 mb-1 font-mono text-[11px] font-bold">
               Select Investigator / Clinical Officer *
             </label>
             <select
               value={selectedAssignee}
               onChange={(e) => setSelectedAssignee(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+              className="w-full bg-white border border-slate-200 rounded-xl p-3 text-slate-900 focus:outline-none focus:border-[#0284C7] cursor-pointer"
               required
             >
               {users.map((u) => (
@@ -326,13 +326,13 @@ export const AlertCenterPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setAssignAlertTarget(null)}
-              className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300"
+              className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold"
+              className="px-4 py-2 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold cursor-pointer"
             >
               Confirm Assignment
             </button>
@@ -342,4 +342,3 @@ export const AlertCenterPage: React.FC = () => {
     </div>
   );
 };
-

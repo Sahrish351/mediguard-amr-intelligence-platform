@@ -202,10 +202,10 @@ export const AntibiogramExplorerPage: React.FC = () => {
   ];
 
   const getSusceptibilityClass = (val: number | null) => {
-    if (val === null) return 'text-slate-600 bg-slate-950/40';
-    if (val >= 80) return 'text-emerald-300 bg-emerald-950/50 font-bold';
-    if (val >= 60) return 'text-yellow-300 bg-yellow-950/40 font-medium';
-    return 'text-rose-300 bg-rose-950/50 font-semibold';
+    if (val === null) return 'text-slate-400 bg-slate-100';
+    if (val >= 80) return 'text-emerald-800 bg-emerald-50 font-bold border border-emerald-200';
+    if (val >= 60) return 'text-amber-800 bg-amber-50 font-semibold border border-amber-200';
+    return 'text-rose-800 bg-rose-50 font-semibold border border-rose-200';
   };
 
   const handleExportCSV = () => {
@@ -227,24 +227,27 @@ export const AntibiogramExplorerPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-white">Cumulative Antibiogram Explorer</h1>
-            <span className="px-2 py-0.5 text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded">
+            <h1 className="text-xl font-bold tracking-tight text-[#0B1F3A] flex items-center gap-2">
+              <Microscope className="w-5 h-5 text-teal-600" />
+              Cumulative Antibiogram Explorer
+            </h1>
+            <span className="px-2.5 py-0.5 text-xs font-mono bg-teal-50 text-teal-700 border border-teal-200 rounded-md font-semibold">
               CLSI M39-A4 Standard
             </span>
           </div>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Annual cumulative susceptibility report showing percent susceptible (%S). Used by clinicians for empirical antibiotic selection.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
           <select
             value={reportingYear}
             onChange={(e) => setReportingYear(e.target.value)}
-            className="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500 font-mono"
+            className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-[#0B1F3A] shadow-xs focus:outline-none focus:border-teal-500 font-mono"
           >
             <option value="2026">CY 2026 (YTD)</option>
             <option value="2025">CY 2025 (Validated)</option>
@@ -254,7 +257,7 @@ export const AntibiogramExplorerPage: React.FC = () => {
           <select
             value={specimenGroup}
             onChange={(e) => setSpecimenGroup(e.target.value)}
-            className="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500"
+            className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-[#0B1F3A] shadow-xs focus:outline-none focus:border-teal-500"
           >
             <option value="all">All Clinical Specimens</option>
             <option value="inpatient">Inpatient Wards Only</option>
@@ -265,7 +268,7 @@ export const AntibiogramExplorerPage: React.FC = () => {
 
           <button
             onClick={handleExportCSV}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200 shadow-xs transition-colors cursor-pointer"
           >
             <Download className="w-3.5 h-3.5" />
             Export CSV
@@ -273,7 +276,7 @@ export const AntibiogramExplorerPage: React.FC = () => {
 
           <button
             onClick={() => window.print()}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-medium rounded-lg shadow-sm transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-semibold rounded-lg shadow-xs transition-colors cursor-pointer"
           >
             <Printer className="w-3.5 h-3.5" />
             Print Pocket Card
@@ -282,64 +285,64 @@ export const AntibiogramExplorerPage: React.FC = () => {
       </div>
 
       {/* CLSI M39 Guidelines Banner */}
-      <div className="bg-sky-950/30 border border-sky-800/60 rounded-xl p-4 flex items-start gap-3">
-        <Info className="w-5 h-5 text-sky-400 shrink-0 mt-0.5" />
-        <div className="text-xs text-slate-300 leading-relaxed">
-          <span className="font-semibold text-sky-300">CLSI M39 De-Duplication Protocol Applied:</span> Values represent the
+      <div className="bg-teal-50/60 border border-teal-200/80 rounded-xl p-4 flex items-start gap-3">
+        <Info className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
+        <div className="text-xs text-teal-900 leading-relaxed">
+          <span className="font-semibold text-teal-950">CLSI M39 De-Duplication Protocol Applied:</span> Values represent the
           percentage of isolates susceptible (%S). Only the first diagnostic isolate per patient encounter is included to eliminate bias from repeat culturing.
-          Cells with <span className="text-emerald-400 font-bold">&ge;80% S</span> indicate suitable empirical therapy candidates.
+          Cells with <span className="text-emerald-800 font-bold">&ge;80% S</span> indicate suitable empirical therapy candidates.
         </div>
       </div>
 
       {/* Legend */}
-      <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 bg-slate-900/40 p-3 rounded-lg border border-slate-800/80">
-        <span className="font-medium text-slate-400">Susceptibility Guide (%S):</span>
+      <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600 bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs">
+        <span className="font-semibold text-slate-700">Susceptibility Guide (%S):</span>
         <div className="flex items-center gap-1.5">
-          <div className="w-3.5 h-3.5 rounded bg-emerald-950 border border-emerald-700" />
-          <span className="text-emerald-300 font-medium">&ge;80% Susceptible (Recommended Empirical)</span>
+          <div className="w-3.5 h-3.5 rounded bg-emerald-50 border border-emerald-300" />
+          <span className="text-emerald-800 font-medium">&ge;80% Susceptible (Recommended Empirical)</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-3.5 h-3.5 rounded bg-yellow-950 border border-yellow-700" />
-          <span className="text-yellow-300 font-medium">60% - 79% (Moderate Susceptibility)</span>
+          <div className="w-3.5 h-3.5 rounded bg-amber-50 border border-amber-300" />
+          <span className="text-amber-800 font-medium">60% - 79% (Moderate Susceptibility)</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-3.5 h-3.5 rounded bg-rose-950 border border-rose-700" />
-          <span className="text-rose-300 font-medium">&lt;60% (Empirical Failure Likely)</span>
+          <div className="w-3.5 h-3.5 rounded bg-rose-50 border border-rose-300" />
+          <span className="text-rose-800 font-medium">&lt;60% (Empirical Failure Likely)</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-3.5 h-3.5 rounded bg-slate-900 border border-slate-800" />
+          <div className="w-3.5 h-3.5 rounded bg-slate-100 border border-slate-300" />
           <span className="text-slate-500">N/A (Intrinsic Resistance or Not Tested)</span>
         </div>
       </div>
 
       {/* Main Antibiogram Table */}
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl overflow-x-auto shadow-xs">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-x-auto shadow-xs">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="bg-slate-950/80 border-b border-slate-800 text-slate-400">
-              <th className="py-3 px-4 font-semibold text-slate-300 min-w-[200px] sticky left-0 bg-slate-950/95 z-10">
+            <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold text-[11px] uppercase">
+              <th className="py-3 px-4 text-[#0B1F3A] min-w-[200px] sticky left-0 bg-slate-50 z-10">
                 Organism / Pathogen
               </th>
-              <th className="py-3 px-2 font-semibold text-center text-slate-400 min-w-[60px]">
+              <th className="py-3 px-2 text-center text-slate-600 min-w-[60px]">
                 Isolates (N)
               </th>
               {antimicrobials.map((abx) => (
-                <th key={abx} className="py-3 px-2 font-semibold text-center min-w-[70px]">
+                <th key={abx} className="py-3 px-2 text-center min-w-[70px]">
                   {abx}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/50">
+          <tbody className="divide-y divide-slate-100">
             {antibiogramData.map((row) => (
-              <tr key={row.organism} className="hover:bg-slate-800/20 transition-colors">
-                <td className="py-3 px-4 font-medium text-white italic sticky left-0 bg-slate-900/95 z-10">
+              <tr key={row.organism} className="hover:bg-slate-50/70 transition-colors">
+                <td className="py-3 px-4 font-medium text-[#0B1F3A] italic sticky left-0 bg-white z-10 border-r border-slate-100">
                   <div className="flex items-center gap-1.5">
-                    <Microscope className="w-3.5 h-3.5 text-sky-400 not-italic shrink-0" />
+                    <Microscope className="w-3.5 h-3.5 text-teal-600 not-italic shrink-0" />
                     <span>{row.organism}</span>
                   </div>
                 </td>
-                <td className="py-3 px-2 text-center font-mono text-slate-400 font-medium">
+                <td className="py-3 px-2 text-center font-mono text-slate-600 font-medium">
                   {row.isolateCount}
                 </td>
                 {antimicrobials.map((abx) => {
@@ -347,7 +350,7 @@ export const AntibiogramExplorerPage: React.FC = () => {
                   return (
                     <td key={abx} className="py-2.5 px-1.5 text-center">
                       <div
-                        className={`py-1.5 px-1 rounded font-mono text-[11px] ${getSusceptibilityClass(val)}`}
+                        className={`py-1 px-1 rounded font-mono text-[11px] ${getSusceptibilityClass(val)}`}
                       >
                         {val !== null ? `${val}%` : '—'}
                       </div>

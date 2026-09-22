@@ -143,12 +143,12 @@ export const CriticalPathogensPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-white">WHO Priority Pathogens Surveillance</h1>
-            <span className="px-2 py-0.5 text-xs font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded">
+            <h1 className="text-2xl font-bold tracking-tight text-[#0B1F3A]">WHO Priority Pathogens Surveillance</h1>
+            <span className="px-2 py-0.5 text-xs font-mono bg-rose-50 text-rose-700 border border-rose-200 rounded">
               High-Consequence Organisms
             </span>
           </div>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-slate-500 mt-1">
             Active tracking of multi-drug resistant (MDR) priority pathogens designated by the World Health Organization.
           </p>
         </div>
@@ -157,7 +157,7 @@ export const CriticalPathogensPage: React.FC = () => {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500"
+            className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-[#0B1F3A] focus:outline-none focus:border-teal-500"
           >
             <option value="all">All WHO Tiers</option>
             <option value="critical">Critical Priority Only</option>
@@ -167,7 +167,7 @@ export const CriticalPathogensPage: React.FC = () => {
           <select
             value={selectedWard}
             onChange={(e) => setSelectedWard(e.target.value)}
-            className="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500"
+            className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-[#0B1F3A] focus:outline-none focus:border-teal-500"
           >
             <option value="all">All Clinical Wards</option>
             <option value="icu">Intensive Care Units (ICU)</option>
@@ -177,39 +177,39 @@ export const CriticalPathogensPage: React.FC = () => {
 
           <button
             onClick={() => window.print()}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium rounded-lg border border-slate-200 shadow-xs transition-colors"
           >
-            <FileDown className="w-3.5 h-3.5" />
+            <FileDown className="w-3.5 h-3.5 text-slate-500" />
             Export Brief
           </button>
         </div>
       </div>
 
       {/* Trajectory Chart */}
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-5 shadow-xs">
+      <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-base font-semibold text-white">6-Month Pathogen Resistance Trajectory</h2>
-            <p className="text-xs text-slate-400 mt-0.5">Non-susceptibility rates across key surveillance indicator organisms</p>
+            <h2 className="text-base font-semibold text-[#0B1F3A]">6-Month Pathogen Resistance Trajectory</h2>
+            <p className="text-xs text-slate-500 mt-0.5">Non-susceptibility rates across key surveillance indicator organisms</p>
           </div>
-          <span className="text-xs font-mono text-rose-400 bg-rose-950/50 px-2 py-0.5 rounded border border-rose-800">
+          <span className="text-xs font-mono text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
             CRE +7.2% vs Baseline
           </span>
         </div>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={trendData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.5} />
-              <XAxis dataKey="month" stroke="#94a3b8" fontSize={12} />
-              <YAxis stroke="#94a3b8" fontSize={12} unit="%" domain={[20, 100]} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+              <XAxis dataKey="month" stroke="#64748B" fontSize={12} />
+              <YAxis stroke="#64748B" fontSize={12} unit="%" domain={[20, 100]} />
               <Tooltip
-                contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '0.5rem' }}
+                contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#E2E8F0', borderRadius: '0.5rem', color: '#0B1F3A' }}
               />
               <Legend />
               <Line type="monotone" dataKey="crab" name="CR-Acinetobacter (CRAB)" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 4 }} />
               <Line type="monotone" dataKey="cre" name="CR-Klebsiella (CRE)" stroke="#f97316" strokeWidth={2.5} dot={{ r: 4 }} />
-              <Line type="monotone" dataKey="mrsa" name="MRSA" stroke="#0ea5e9" strokeWidth={2} strokeDasharray="4 4" />
-              <Line type="monotone" dataKey="vre" name="VRE" stroke="#a855f7" strokeWidth={2} strokeDasharray="4 4" />
+              <Line type="monotone" dataKey="mrsa" name="MRSA" stroke="#0284c7" strokeWidth={2} strokeDasharray="4 4" />
+              <Line type="monotone" dataKey="vre" name="VRE" stroke="#8b5cf6" strokeWidth={2} strokeDasharray="4 4" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -220,7 +220,7 @@ export const CriticalPathogensPage: React.FC = () => {
         {filtered.map((item) => (
           <div
             key={item.id}
-            className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-5 hover:border-slate-700 transition-all flex flex-col justify-between"
+            className="bg-white border border-slate-200 rounded-xl p-5 hover:border-slate-300 shadow-xs transition-all flex flex-col justify-between"
           >
             <div>
               {/* Category & Badge */}
@@ -228,30 +228,30 @@ export const CriticalPathogensPage: React.FC = () => {
                 <span
                   className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider ${
                     item.whoCategory === 'Critical'
-                      ? 'bg-rose-500/15 text-rose-400 border border-rose-500/30'
-                      : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                      ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                      : 'bg-amber-50 text-amber-700 border border-amber-200'
                   }`}
                 >
                   WHO {item.whoCategory} Priority
                 </span>
-                <span className="text-xs font-mono text-slate-400">n={item.isolatesCount} isolates</span>
+                <span className="text-xs font-mono text-slate-500">n={item.isolatesCount} isolates</span>
               </div>
 
               {/* Title */}
-              <h3 className="text-lg font-bold text-white italic mt-3">{item.name}</h3>
-              <p className="text-xs font-medium text-amber-400 mt-0.5">{item.resistancePhenotype}</p>
+              <h3 className="text-lg font-bold text-[#0B1F3A] italic mt-3">{item.name}</h3>
+              <p className="text-xs font-semibold text-rose-700 mt-0.5">{item.resistancePhenotype}</p>
 
               {/* Molecular Resistance Mechanisms */}
-              <div className="mt-3 bg-slate-950/60 p-2.5 rounded-lg border border-slate-800">
-                <div className="text-[11px] text-slate-400 font-medium flex items-center gap-1">
-                  <Dna className="w-3.5 h-3.5 text-sky-400" />
+              <div className="mt-3 bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <div className="text-[11px] text-slate-600 font-medium flex items-center gap-1">
+                  <Dna className="w-3.5 h-3.5 text-teal-600" />
                   Key Molecular Determinants:
                 </div>
                 <div className="flex flex-wrap gap-1.5 mt-1.5">
                   {item.keyMechanisms.map((mech) => (
                     <span
                       key={mech}
-                      className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-[10px] font-mono text-slate-300"
+                      className="px-1.5 py-0.5 rounded bg-white border border-slate-200 text-[10px] font-mono text-slate-700"
                     >
                       {mech}
                     </span>
@@ -261,35 +261,35 @@ export const CriticalPathogensPage: React.FC = () => {
 
               {/* Key Indicators */}
               <div className="grid grid-cols-3 gap-2 mt-4 text-center">
-                <div className="bg-slate-950/40 p-2 rounded-lg border border-slate-800/60">
-                  <div className="text-[10px] text-slate-400">Resistance</div>
-                  <div className="text-sm font-bold font-mono text-rose-400 mt-0.5">{item.resistanceRate}%</div>
-                  <div className="text-[9px] text-rose-500 mt-0.5">+{item.rateChange}%</div>
+                <div className="bg-slate-50 p-2 rounded-lg border border-slate-200">
+                  <div className="text-[10px] text-slate-500">Resistance</div>
+                  <div className="text-sm font-bold font-mono text-rose-600 mt-0.5">{item.resistanceRate}%</div>
+                  <div className="text-[9px] text-rose-600 mt-0.5">+{item.rateChange}%</div>
                 </div>
-                <div className="bg-slate-950/40 p-2 rounded-lg border border-slate-800/60">
-                  <div className="text-[10px] text-slate-400">ICU Burden</div>
-                  <div className="text-sm font-bold font-mono text-amber-300 mt-0.5">{item.icuIncidence}%</div>
-                  <div className="text-[9px] text-slate-500 mt-0.5">of isolates</div>
+                <div className="bg-slate-50 p-2 rounded-lg border border-slate-200">
+                  <div className="text-[10px] text-slate-500">ICU Burden</div>
+                  <div className="text-sm font-bold font-mono text-amber-700 mt-0.5">{item.icuIncidence}%</div>
+                  <div className="text-[9px] text-slate-400 mt-0.5">of isolates</div>
                 </div>
-                <div className="bg-slate-950/40 p-2 rounded-lg border border-slate-800/60">
-                  <div className="text-[10px] text-slate-400">In Isolation</div>
-                  <div className="text-sm font-bold font-mono text-sky-400 mt-0.5">{item.cohortInIsolation}</div>
-                  <div className="text-[9px] text-slate-500 mt-0.5">patients</div>
+                <div className="bg-slate-50 p-2 rounded-lg border border-slate-200">
+                  <div className="text-[10px] text-slate-500">In Isolation</div>
+                  <div className="text-sm font-bold font-mono text-teal-700 mt-0.5">{item.cohortInIsolation}</div>
+                  <div className="text-[9px] text-slate-400 mt-0.5">patients</div>
                 </div>
               </div>
 
               {/* Stewardship Action */}
-              <div className="mt-4 p-2.5 rounded-lg bg-sky-950/20 border border-sky-800/40 text-[11px] text-slate-300">
-                <span className="font-semibold text-sky-300">Control Protocol: </span>
+              <div className="mt-4 p-2.5 rounded-lg bg-teal-50/60 border border-teal-200 text-[11px] text-slate-700">
+                <span className="font-semibold text-teal-800">Control Protocol: </span>
                 {item.stewardshipAction}
               </div>
             </div>
 
-            <div className="mt-5 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
-              <span className="text-slate-400">Surveillance Status: <strong className="text-emerald-400">Active</strong></span>
+            <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span className="text-slate-500">Surveillance Status: <strong className="text-teal-700">Active</strong></span>
               <a
                 href="/app/alerts"
-                className="text-sky-400 hover:text-sky-300 inline-flex items-center gap-1 font-medium"
+                className="text-teal-700 hover:text-teal-800 inline-flex items-center gap-1 font-medium"
               >
                 View Signals <ArrowUpRight className="w-3.5 h-3.5" />
               </a>

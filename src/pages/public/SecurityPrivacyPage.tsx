@@ -114,72 +114,71 @@ export const SecurityPrivacyPage: React.FC = () => {
         </div>
 
         <div className="lg:col-span-5">
-          <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-slate-900 aspect-[4/3] relative">
+          <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-slate-100 aspect-[4/3] relative">
             <img
               src={CLINICAL_IMAGES.aiTelemetry}
               alt="Healthcare cybersecurity operations"
-              className="w-full h-full object-cover opacity-85"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-white/95 backdrop-blur-md text-xs text-slate-800 space-y-1">
-              <span className="font-mono font-bold text-emerald-700 text-[10px] uppercase">
+            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-xs text-xs text-slate-800 space-y-1">
+              <span className="font-mono font-bold text-teal-700 text-[10px] uppercase">
                 POSTGRESQL ROW-LEVEL SECURITY
               </span>
-              <p className="font-bold">Cryptographically isolates tenant records across all 25 relational tables.</p>
+              <p className="font-bold text-[#0B1F3A]">Cryptographically isolates tenant records across all 25 relational tables.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Security Architecture Flow */}
-      <section className="p-8 sm:p-10 rounded-3xl bg-slate-900 text-white space-y-8">
+      <section className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-2xs space-y-8">
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <span className="text-[10px] font-mono uppercase tracking-widest text-[#0D9488] font-bold">
             SECURITY ARCHITECTURE PIPELINE
           </span>
-          <h2 className="text-2xl sm:text-3xl font-bold font-heading">
+          <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#0B1F3A]">
             Six-Layer Cryptographic Defense Architecture
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300">
+          <p className="text-xs sm:text-sm text-slate-500">
             Every query and clinical mutation traverses an unbroken chain of authorization checks.
           </p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center text-xs">
-          <div className="p-4 rounded-2xl bg-slate-800 border border-slate-700 space-y-1">
-            <div className="text-[10px] font-mono text-sky-400 font-bold">STEP 01</div>
-            <div className="font-bold text-white text-sm">User</div>
-            <div className="text-slate-400 text-[11px]">Credentials &amp; MFA</div>
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+            <div className="text-[10px] font-mono text-teal-700 font-bold">STEP 01</div>
+            <div className="font-bold text-[#0B1F3A] text-sm">User</div>
+            <div className="text-slate-500 text-[11px]">Credentials &amp; MFA</div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-800 border border-slate-700 space-y-1">
-            <div className="text-[10px] font-mono text-sky-400 font-bold">STEP 02</div>
-            <div className="font-bold text-white text-sm">Authentication</div>
-            <div className="text-slate-400 text-[11px]">Supabase GoTrue JWT</div>
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+            <div className="text-[10px] font-mono text-teal-700 font-bold">STEP 02</div>
+            <div className="font-bold text-[#0B1F3A] text-sm">Authentication</div>
+            <div className="text-slate-500 text-[11px]">Supabase GoTrue JWT</div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-800 border border-slate-700 space-y-1">
-            <div className="text-[10px] font-mono text-sky-400 font-bold">STEP 03</div>
-            <div className="font-bold text-white text-sm">RBAC</div>
-            <div className="text-slate-400 text-[11px]">9 Role Workspace Guards</div>
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+            <div className="text-[10px] font-mono text-teal-700 font-bold">STEP 03</div>
+            <div className="font-bold text-[#0B1F3A] text-sm">RBAC</div>
+            <div className="text-slate-500 text-[11px]">9 Role Workspace Guards</div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-800 border border-slate-700 space-y-1">
-            <div className="text-[10px] font-mono text-sky-400 font-bold">STEP 04</div>
-            <div className="font-bold text-white text-sm">Org Boundary</div>
-            <div className="text-slate-400 text-[11px]">Tenant Scope Context</div>
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+            <div className="text-[10px] font-mono text-teal-700 font-bold">STEP 04</div>
+            <div className="font-bold text-[#0B1F3A] text-sm">Org Boundary</div>
+            <div className="text-slate-500 text-[11px]">Tenant Scope Context</div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-800 border border-slate-700 space-y-1">
-            <div className="text-[10px] font-mono text-sky-400 font-bold">STEP 05</div>
-            <div className="font-bold text-white text-sm">Supabase RLS</div>
-            <div className="text-slate-400 text-[11px]">Postgres Engine Filter</div>
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+            <div className="text-[10px] font-mono text-teal-700 font-bold">STEP 05</div>
+            <div className="font-bold text-[#0B1F3A] text-sm">Supabase RLS</div>
+            <div className="text-slate-500 text-[11px]">Postgres Engine Filter</div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-800 border border-slate-700 space-y-1">
-            <div className="text-[10px] font-mono text-sky-400 font-bold">STEP 06</div>
-            <div className="font-bold text-white text-sm">Audit Layer</div>
-            <div className="text-slate-400 text-[11px]">Append-Only Forensic Log</div>
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+            <div className="text-[10px] font-mono text-teal-700 font-bold">STEP 06</div>
+            <div className="font-bold text-[#0B1F3A] text-sm">Audit Layer</div>
+            <div className="text-slate-500 text-[11px]">Append-Only Forensic Log</div>
           </div>
         </div>
       </section>
@@ -248,17 +247,17 @@ export const SecurityPrivacyPage: React.FC = () => {
       </section>
 
       {/* Bottom CTA */}
-      <section className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#0B1F3A] via-[#0284C7] to-[#0D9488] text-white text-center space-y-4 border border-sky-400/30 shadow-xl">
-        <h3 className="text-2xl sm:text-3xl font-bold font-heading">
+      <section className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-sm text-center space-y-4">
+        <h3 className="text-2xl sm:text-3xl font-bold font-heading text-[#0B1F3A]">
           Verify Cryptographic Multi-Tenancy on MediGuard
         </h3>
-        <p className="text-xs sm:text-sm text-sky-100 max-w-lg mx-auto">
+        <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto">
           Our automated test harness validates cross-tenant PostgreSQL isolation, role guards, and immutable audit trails.
         </p>
         <div className="pt-2">
           <Link
             to="/register"
-            className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#0B1F3A] font-bold text-xs transition-colors inline-flex items-center gap-2 shadow-md cursor-pointer"
+            className="px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs transition-colors inline-flex items-center gap-2 shadow-md shadow-teal-600/10 cursor-pointer"
           >
             <span>Request Security &amp; Compliance Dossier</span>
             <ArrowRight className="w-4 h-4" />

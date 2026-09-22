@@ -83,63 +83,65 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-[#F7FAFC]">
-      <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 rounded-3xl bg-white border border-slate-200/90 shadow-2xl shadow-slate-900/5 overflow-hidden">
-        {/* Left Column: Clinical Hero Visual with Gradient Overlay */}
-        <div className="lg:col-span-5 relative bg-slate-900 p-8 sm:p-10 text-white flex flex-col justify-between overflow-hidden min-h-[380px] lg:min-h-full">
-          {/* Background Clinical Image */}
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-luminosity scale-105"
-            style={{ backgroundImage: `url(${CLINICAL_IMAGES.doctorTabletConsultation})` }}
-          />
-          {/* Deep Navy/Sky Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900/95 to-sky-950/85" />
-
+      <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 rounded-3xl bg-white border border-slate-200/90 shadow-xl shadow-slate-900/5 overflow-hidden">
+        {/* Left Column: Premium Light Clinical Visual Panel */}
+        <div className="lg:col-span-5 relative bg-gradient-to-b from-slate-50 to-slate-100/70 p-8 sm:p-10 border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col justify-between">
           {/* Top Brand & Back to Home */}
-          <div className="relative z-10 space-y-6">
+          <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <MediGuardLogo variant="white" size="md" showTagline={false} />
+              <MediGuardLogo size="md" showTagline={false} />
               <Link
                 to="/"
-                className="text-[11px] text-slate-300 hover:text-white flex items-center gap-1 bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-lg transition-colors font-medium backdrop-blur-xs"
+                className="text-[11px] text-slate-600 hover:text-[#0B1F3A] flex items-center gap-1 bg-white border border-slate-200 hover:border-slate-300 px-2.5 py-1 rounded-lg transition-colors font-medium shadow-2xs"
               >
                 <span>← Home</span>
               </Link>
             </div>
 
-            <div className="space-y-2 pt-4">
-              <span className="text-[11px] font-mono text-sky-400 font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-900/40 border border-sky-700/50 inline-block">
+            <div className="space-y-2 pt-2">
+              <span className="text-[10px] font-mono text-teal-700 font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-200 inline-block">
                 CLINICAL AUTHENTICATION
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold font-heading leading-snug">
+              <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#0B1F3A] leading-snug">
                 Securing Medication Decisions Across Global Networks.
               </h2>
-              <p className="text-xs text-slate-300 leading-relaxed pt-1">
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Enter authorized institutional credentials to load your role workspace, facility telemetry, and real-time surveillance alerts.
               </p>
+            </div>
+
+            {/* Framed Clean Clinical Photograph */}
+            <div className="rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs aspect-16/10 bg-slate-200">
+              <img
+                src={CLINICAL_IMAGES.doctorTabletConsultation}
+                alt="Clinical Consultation"
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
             </div>
           </div>
 
           {/* Bottom Trust Indicators */}
-          <div className="relative z-10 pt-8 space-y-4 border-t border-slate-800/80">
-            <div className="grid grid-cols-2 gap-3 text-[11px] text-slate-300 font-mono">
-              <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>PostgreSQL RLS</span>
+          <div className="pt-6 space-y-3 border-t border-slate-200/80">
+            <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600 font-mono">
+              <div className="flex items-center gap-1.5 bg-white p-2 rounded-lg border border-slate-200/80">
+                <ShieldCheck className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                <span className="truncate">PostgreSQL RLS</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>9 Role Workspaces</span>
+              <div className="flex items-center gap-1.5 bg-white p-2 rounded-lg border border-slate-200/80">
+                <ShieldCheck className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                <span className="truncate">9 Workspaces</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Audit Monitored</span>
+              <div className="flex items-center gap-1.5 bg-white p-2 rounded-lg border border-slate-200/80">
+                <ShieldCheck className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                <span className="truncate">Audit Monitored</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>CLSI M100 Ready</span>
+              <div className="flex items-center gap-1.5 bg-white p-2 rounded-lg border border-slate-200/80">
+                <ShieldCheck className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                <span className="truncate">CLSI M100 Ready</span>
               </div>
             </div>
-            <p className="text-[10px] text-slate-400 italic">
+            <p className="text-[10px] text-slate-400 italic text-center">
               "Unified surveillance prevents resistance before it spreads."
             </p>
           </div>
@@ -148,7 +150,7 @@ export const LoginPage: React.FC = () => {
         {/* Right Column: Clean Authentication Form */}
         <div className="lg:col-span-7 p-8 sm:p-10 space-y-6 bg-white text-left">
           <div className="space-y-1">
-            <h1 className="text-2xl font-bold text-slate-900 font-heading">
+            <h1 className="text-2xl font-bold text-[#0B1F3A] font-heading">
               Sign In to Your Workspace
             </h1>
             <p className="text-xs text-slate-500">
@@ -172,7 +174,7 @@ export const LoginPage: React.FC = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 focus:bg-white text-xs transition-colors"
+                  className="w-full pl-10 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-[#0B1F3A] focus:outline-hidden focus:border-[#0284C7] focus:bg-white text-xs transition-colors"
                   placeholder="doctor@hospital.org"
                   required
                 />
@@ -182,7 +184,7 @@ export const LoginPage: React.FC = () => {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="text-slate-700 font-semibold">Security Password</label>
-                <Link to="/forgot-password" className="text-sky-600 hover:text-sky-500 text-[11px] font-medium">
+                <Link to="/forgot-password" className="text-[#0284C7] hover:text-[#0369A1] text-[11px] font-medium">
                   Forgot password?
                 </Link>
               </div>
@@ -192,7 +194,7 @@ export const LoginPage: React.FC = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-900 focus:outline-hidden focus:border-sky-500 focus:bg-white text-xs transition-colors"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-[#0B1F3A] focus:outline-hidden focus:border-[#0284C7] focus:bg-white text-xs transition-colors"
                   required
                 />
                 <button
@@ -212,7 +214,7 @@ export const LoginPage: React.FC = () => {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+                  className="rounded border-slate-300 text-[#0284C7] focus:ring-[#0284C7]"
                 />
                 <span>Remember this terminal</span>
               </label>
@@ -221,10 +223,10 @@ export const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-60"
+              className="w-full py-3.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-xs shadow-md shadow-sky-600/20 hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-60"
             >
               <span>{submitting ? 'Verifying Credentials...' : 'Sign In to Workspace'}</span>
-              <ArrowRight className="w-4 h-4 text-sky-400" />
+              <ArrowRight className="w-4 h-4" />
             </button>
           </form>
 
@@ -332,64 +334,66 @@ export const RegisterPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-[#F7FAFC]">
-      <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 rounded-3xl bg-white border border-slate-200/90 shadow-2xl shadow-slate-900/5 overflow-hidden">
-        {/* Left Column: Clinical Imagery & Institutional Trust Visual */}
-        <div className="lg:col-span-5 relative bg-slate-900 p-8 sm:p-10 text-white flex flex-col justify-between overflow-hidden min-h-[380px] lg:min-h-full">
-          {/* Background Clinical Image */}
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity scale-105"
-            style={{ backgroundImage: `url(${CLINICAL_IMAGES.laboratory})` }}
-          />
-          {/* Deep Navy/Teal Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-[#0B1F3A]/95 to-teal-950/80" />
-
+      <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 rounded-3xl bg-white border border-slate-200/90 shadow-xl shadow-slate-900/5 overflow-hidden">
+        {/* Left Column: Premium Light Clinical Visual Panel */}
+        <div className="lg:col-span-5 relative bg-gradient-to-b from-slate-50 to-slate-100/70 p-8 sm:p-10 border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col justify-between">
           {/* Top Brand & Back to Home */}
-          <div className="relative z-10 space-y-6">
+          <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <MediGuardLogo variant="white" size="md" showTagline={false} />
+              <MediGuardLogo size="md" showTagline={false} />
               <Link
                 to="/"
-                className="text-[11px] text-slate-300 hover:text-white flex items-center gap-1 bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-lg transition-colors font-medium backdrop-blur-xs"
+                className="text-[11px] text-slate-600 hover:text-[#0B1F3A] flex items-center gap-1 bg-white border border-slate-200 hover:border-slate-300 px-2.5 py-1 rounded-lg transition-colors font-medium shadow-2xs"
               >
                 <span>← Home</span>
               </Link>
             </div>
 
-            <div className="space-y-2 pt-4">
-              <span className="text-[11px] font-mono text-teal-400 font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-teal-900/40 border border-teal-700/50 inline-block">
+            <div className="space-y-2 pt-2">
+              <span className="text-[10px] font-mono text-teal-700 font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-200 inline-block">
                 INSTITUTIONAL ONBOARDING
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold font-heading leading-snug">
+              <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#0B1F3A] leading-snug">
                 Join the Multidisciplinary Clinical Defense Against AMR.
               </h2>
-              <p className="text-xs text-slate-300 leading-relaxed pt-1">
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Register authorized institutional credentials to receive access to your facility's isolated tenant workspace, AST antibiograms, and closed-loop dispensing telemetry.
               </p>
+            </div>
+
+            {/* Framed Clean Clinical Photograph */}
+            <div className="rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs aspect-16/10 bg-slate-200">
+              <img
+                src={CLINICAL_IMAGES.laboratory}
+                alt="Digital Microbiology Laboratory"
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
             </div>
           </div>
 
           {/* Bottom Trust Indicators */}
-          <div className="relative z-10 pt-8 space-y-4 border-t border-slate-800/80">
-            <div className="grid grid-cols-2 gap-3 text-[11px] text-slate-300 font-mono">
-              <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-teal-400" />
-                <span>Tenant Isolation</span>
+          <div className="pt-6 space-y-3 border-t border-slate-200/80">
+            <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600 font-mono">
+              <div className="flex items-center gap-1.5 bg-white p-2 rounded-lg border border-slate-200/80">
+                <ShieldCheck className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                <span className="truncate">Tenant Isolation</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-teal-400" />
-                <span>CLSI M100 / EUCAST</span>
+              <div className="flex items-center gap-1.5 bg-white p-2 rounded-lg border border-slate-200/80">
+                <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                <span className="truncate">CLSI / EUCAST</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <Lock className="w-4 h-4 text-sky-400" />
-                <span>9 Role Workspaces</span>
+              <div className="flex items-center gap-1.5 bg-white p-2 rounded-lg border border-slate-200/80">
+                <Lock className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                <span className="truncate">9 Workspaces</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <Building2 className="w-4 h-4 text-sky-400" />
-                <span>HL7 FHIR &amp; ASTM</span>
+              <div className="flex items-center gap-1.5 bg-white p-2 rounded-lg border border-slate-200/80">
+                <Building2 className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                <span className="truncate">HL7 FHIR Ready</span>
               </div>
             </div>
-            <p className="text-[10px] text-slate-400">
-              Institutional registration is cryptographically governed under PostgreSQL Row-Level Security (RLS).
+            <p className="text-[10px] text-slate-400 text-center">
+              Institutional registration is cryptographically governed under PostgreSQL RLS.
             </p>
           </div>
         </div>

@@ -50,35 +50,35 @@ export const MedicationsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Pill className="w-5 h-5 text-sky-400" />
+          <h1 className="text-xl font-bold tracking-tight text-[#0B1F3A] flex items-center gap-2">
+            <Pill className="w-5 h-5 text-teal-600" />
             Medications & Batch Integrity Management
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Formulary catalog, ATC classification, and pharmaceutical batch regulatory verification
           </p>
         </div>
 
         {/* Tab Controls */}
-        <div className="flex items-center gap-1 bg-[#0F172A] border border-slate-800 p-1 rounded-lg">
+        <div className="flex items-center gap-1 bg-white border border-slate-200 p-1 rounded-lg shadow-xs">
           <button
             onClick={() => setActiveTab('catalog')}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
               activeTab === 'catalog'
-                ? 'bg-sky-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-teal-50 text-teal-700 font-semibold border border-teal-200 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Formulary Catalog ({medicines.length})
           </button>
           <button
             onClick={() => setActiveTab('batches')}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
               activeTab === 'batches'
-                ? 'bg-sky-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-teal-50 text-teal-700 font-semibold border border-teal-200 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Batch Verification ({batches.length})
@@ -89,23 +89,23 @@ export const MedicationsPage: React.FC = () => {
       {/* Search Bar */}
       <div className="flex items-center gap-3">
         <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search generic, brand, batch number..."
-            className="w-full bg-[#0F172A] border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-500"
+            className="w-full bg-white border border-slate-200 rounded-lg pl-9 pr-3 py-2 text-xs text-[#0B1F3A] placeholder:text-slate-400 shadow-xs focus:outline-none focus:border-teal-500"
           />
         </div>
       </div>
 
       {/* TAB 1: MEDICINES CATALOG */}
       {activeTab === 'catalog' && (
-        <div className="bg-[#0F172A] border border-slate-800 rounded-xl overflow-hidden">
+        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#0B0F19] text-slate-400 font-mono text-[11px] uppercase border-b border-slate-800">
+              <thead className="bg-slate-50 text-slate-600 font-semibold text-[11px] uppercase border-b border-slate-200">
                 <tr>
                   <th className="px-4 py-3">Generic Name / Brand</th>
                   <th className="px-4 py-3">Classification</th>
@@ -116,33 +116,33 @@ export const MedicationsPage: React.FC = () => {
                   <th className="px-4 py-3 text-right">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-slate-100">
                 {filteredMedicines.map((med) => (
-                  <tr key={med.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={med.id} className="hover:bg-slate-50/70 transition-colors">
                     <td className="px-4 py-3">
-                      <div className="font-semibold text-white">{med.generic_name}</div>
-                      <div className="text-[11px] text-sky-400 font-mono">{med.brand_name}</div>
+                      <div className="font-semibold text-[#0B1F3A]">{med.generic_name}</div>
+                      <div className="text-[11px] text-teal-700 font-mono font-medium">{med.brand_name}</div>
                     </td>
-                    <td className="px-4 py-3 text-slate-300">
+                    <td className="px-4 py-3 text-slate-600">
                       <div>{med.therapeutic_class}</div>
                       {med.antibiotic_class && (
-                        <div className="text-[10px] text-slate-500 font-mono">{med.antibiotic_class}</div>
+                        <div className="text-[10px] text-slate-400 font-mono">{med.antibiotic_class}</div>
                       )}
                     </td>
                     <td className="px-4 py-3">
                       <AWaReBadge category={med.awarre_category} />
                     </td>
-                    <td className="px-4 py-3 text-slate-300 font-mono">
+                    <td className="px-4 py-3 text-slate-700 font-mono text-[11px]">
                       {med.strength} • {med.dosage_form} ({med.route})
                     </td>
-                    <td className="px-4 py-3 text-slate-400">
+                    <td className="px-4 py-3 text-slate-600">
                       {med.manufacturer}
                     </td>
-                    <td className="px-4 py-3 font-mono text-slate-400">
+                    <td className="px-4 py-3 font-mono text-slate-500 text-[11px]">
                       {med.atc_code || '—'}
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
                         {med.status}
                       </span>
                     </td>
@@ -156,10 +156,10 @@ export const MedicationsPage: React.FC = () => {
 
       {/* TAB 2: BATCH INTEGRITY & VERIFICATION */}
       {activeTab === 'batches' && (
-        <div className="bg-[#0F172A] border border-slate-800 rounded-xl overflow-hidden">
+        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#0B0F19] text-slate-400 font-mono text-[11px] uppercase border-b border-slate-800">
+              <thead className="bg-slate-50 text-slate-600 font-semibold text-[11px] uppercase border-b border-slate-200">
                 <tr>
                   <th className="px-4 py-3">Batch Number</th>
                   <th className="px-4 py-3">Medicine</th>
@@ -170,38 +170,38 @@ export const MedicationsPage: React.FC = () => {
                   <th className="px-4 py-3 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 font-mono">
+              <tbody className="divide-y divide-slate-100 font-mono">
                 {filteredBatches.map((b) => (
-                  <tr key={b.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="px-4 py-3 font-bold text-white">
+                  <tr key={b.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="px-4 py-3 font-bold text-[#0B1F3A]">
                       {b.batch_number}
                     </td>
                     <td className="px-4 py-3 font-sans">
-                      <div className="text-white font-medium">{b.medicine?.generic_name}</div>
-                      <div className="text-[11px] text-slate-400">{b.medicine?.brand_name}</div>
+                      <div className="text-[#0B1F3A] font-semibold">{b.medicine?.generic_name}</div>
+                      <div className="text-[11px] text-slate-500">{b.medicine?.brand_name}</div>
                     </td>
-                    <td className="px-4 py-3 text-slate-300 text-[11px]">
+                    <td className="px-4 py-3 text-slate-600 text-[11px]">
                       <div>Mfg: {formatDate(b.manufacture_date)}</div>
-                      <div className={new Date(b.expiry_date) < new Date() ? 'text-red-400 font-bold' : ''}>
+                      <div className={new Date(b.expiry_date) < new Date() ? 'text-rose-600 font-bold' : ''}>
                         Exp: {formatDate(b.expiry_date)}
                       </div>
                     </td>
-                    <td className="px-4 py-3 font-bold text-sky-400">
+                    <td className="px-4 py-3 font-bold text-teal-700">
                       {b.current_quantity} units
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 font-sans">
                       <BatchBadge status={b.verification_status} />
                     </td>
-                    <td className="px-4 py-3 font-sans text-slate-400 text-[11px] max-w-xs truncate">
+                    <td className="px-4 py-3 font-sans text-slate-500 text-[11px] max-w-xs truncate">
                       {b.notes || b.verification_source || '—'}
                     </td>
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-4 py-3 text-right font-sans">
                       <button
                         onClick={() => {
                           setSelectedBatch(b);
                           setNewStatus(b.verification_status);
                         }}
-                        className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 text-xs transition-colors"
+                        className="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-semibold transition-colors cursor-pointer"
                       >
                         Verify / Status
                       </button>
@@ -223,11 +223,11 @@ export const MedicationsPage: React.FC = () => {
       >
         <form onSubmit={handleVerifySubmit} className="space-y-4 text-xs">
           <div>
-            <label className="block text-slate-400 mb-1 font-mono text-[11px]">Verification Status:</label>
+            <label className="block text-slate-700 mb-1 font-semibold text-[11px]">Verification Status:</label>
             <select
               value={newStatus}
               onChange={(e) => setNewStatus(e.target.value as any)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[#0B1F3A] focus:outline-none focus:border-teal-500 font-medium"
             >
               <option value="Verified">Verified (Conforms to regulatory QC standards)</option>
               <option value="Pending">Pending Verification</option>
@@ -239,40 +239,40 @@ export const MedicationsPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-slate-400 mb-1 font-mono text-[11px]">Verification Source:</label>
+            <label className="block text-slate-700 mb-1 font-semibold text-[11px]">Verification Source:</label>
             <input
               type="text"
               value={verificationSource}
               onChange={(e) => setVerificationSource(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[#0B1F3A] focus:outline-none focus:border-teal-500"
               placeholder="e.g. National Regulatory Authority GS1 Portal"
               required
             />
           </div>
 
           <div>
-            <label className="block text-slate-400 mb-1 font-mono text-[11px]">Clinical QC Notes / Evidence:</label>
+            <label className="block text-slate-700 mb-1 font-semibold text-[11px]">Clinical QC Notes / Evidence:</label>
             <textarea
               rows={3}
               value={verificationNotes}
               onChange={(e) => setVerificationNotes(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-[#0B1F3A] focus:outline-none focus:border-teal-500"
               placeholder="Document visual seal inspection, cold-chain temperature verification, or discrepancy findings..."
               required
             />
           </div>
 
-          <div className="pt-2 flex justify-end gap-2">
+          <div className="pt-3 flex justify-end gap-2 border-t border-slate-200">
             <button
               type="button"
               onClick={() => setSelectedBatch(null)}
-              className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300"
+              className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold"
+              className="px-4 py-2 rounded-lg bg-[#0284C7] hover:bg-[#0369A1] text-white font-semibold shadow-xs cursor-pointer"
             >
               Save Verification Audit
             </button>
@@ -282,4 +282,3 @@ export const MedicationsPage: React.FC = () => {
     </div>
   );
 };
-

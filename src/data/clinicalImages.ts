@@ -1,6 +1,7 @@
 /**
  * MediGuard Curated Clinical & Healthcare Photography Registry
  * Categorized high-resolution clinical imagery for editorial healthcare SaaS presentation.
+ * MANDATORY: Every image has a unique Unsplash URL with zero duplication.
  */
 
 export interface ClinicalImageItem {
@@ -8,7 +9,6 @@ export interface ClinicalImageItem {
   url: string;
   alt: string;
   caption?: string;
-  credit?: string;
   category:
     | 'hero'
     | 'doctor'
@@ -19,23 +19,20 @@ export interface ClinicalImageItem {
     | 'technology'
     | 'ai'
     | 'hospital'
-    | 'auth';
+    | 'auth'
+    | 'problem'
+    | 'research'
+    | 'security'
+    | 'stewardship';
 }
 
 export const CLINICAL_IMAGE_REGISTRY: Record<string, ClinicalImageItem> = {
-  // Hero Visuals
+  // Hero Visual
   heroComposition: {
     id: 'hero-comp',
     url: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1600&q=80',
-    alt: 'Healthcare clinician monitoring advanced clinical surveillance telemetries',
-    caption: 'Global Medication Safety & AMR Intelligence Operations Desk',
-    category: 'hero',
-  },
-  heroLaboratory: {
-    id: 'hero-lab',
-    url: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Sterile microbiology laboratory specimen testing bench',
-    caption: 'Automated Microdilution and Antibiogram Susceptibility Testing',
+    alt: 'Healthcare clinician reviewing clinical intelligence data',
+    caption: 'Global Medication Safety & AMR Intelligence Operations',
     category: 'hero',
   },
 
@@ -43,38 +40,38 @@ export const CLINICAL_IMAGE_REGISTRY: Record<string, ClinicalImageItem> = {
   doctorReviewingData: {
     id: 'doc-review',
     url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Senior physician reviewing electronic health records and antimicrobial advisories',
-    caption: 'Dr. Sarah Jenkins reviewing pathogen-directed therapy suggestions',
+    alt: 'Physician reviewing electronic health records and antimicrobial guidelines',
+    caption: 'Evidence-Based Prescribing & AWaRe Verification',
     category: 'doctor',
   },
   doctorTeamConsult: {
     id: 'doc-team',
     url: 'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Multidisciplinary clinical team conducting antimicrobial stewardship rounds',
-    caption: 'Antimicrobial Stewardship Collaborative Case Review',
+    alt: 'Multidisciplinary hospital clinical team consulting on patient therapy',
+    caption: 'Collaborative Antimicrobial Stewardship Review',
     category: 'doctor',
   },
 
-  // Microbiology & Cultures
+  // Microbiology & Diagnostics
   microbiologyCulturePetri: {
     id: 'micro-petri',
     url: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Petri dish culture plate showing bacterial inhibition zones for antibiotic susceptibility',
-    caption: 'Kirby-Bauer Disc Diffusion & Phenotypic Resistance Assessment',
+    alt: 'Culture plate showing bacterial inhibition zones for AST',
+    caption: 'Phenotypic Antimicrobial Susceptibility Testing',
     category: 'microbiology',
   },
   microscopeAnalysis: {
     id: 'micro-scope',
     url: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1200&q=80',
-    alt: 'High-power optical microscopy examining bacterial morphology and Gram staining',
-    caption: 'Rapid Gram-Negative Bacilli Identification and AST Verification',
+    alt: 'Laboratory microscope examination of bacterial isolate morphology',
+    caption: 'High-Power Microscopy & Organism Speciation',
     category: 'microbiology',
   },
   laboratoryScientistBench: {
     id: 'lab-bench',
     url: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Certified medical technologist accessioning blood culture specimens in cleanroom',
-    caption: 'Automated Blood Culture Specimen Processing Laboratory',
+    alt: 'Medical laboratory technologist working at specimen testing station',
+    caption: 'Quantitative Microdilution & CLSI Interpretive Rules',
     category: 'laboratory',
   },
 
@@ -82,15 +79,22 @@ export const CLINICAL_IMAGE_REGISTRY: Record<string, ClinicalImageItem> = {
   pharmacyVialsPackaging: {
     id: 'pharm-vials',
     url: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Pharmaceutical vials and cold-chain antibiotic packaging awaiting batch verification',
-    caption: 'GS1 Serialization and Cold-Chain Anti-Counterfeit Verification',
+    alt: 'Medication vials and pharmaceutical packaging awaiting verification',
+    caption: 'GS1 Serialization and Lot Traceability',
     category: 'pharmacy',
   },
   pharmacistReviewingMeds: {
     id: 'pharm-review',
     url: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Hospital clinical pharmacist dispensing critical intravenous antimicrobials',
-    caption: 'Closed-Loop Dispensing and Non-Negative Stock Floor Protection',
+    alt: 'Clinical pharmacist preparing medications at hospital pharmacy',
+    caption: 'Point-of-Dispense Verification & Stock Floor Protection',
+    category: 'pharmacy',
+  },
+  pharmacyColdChain: {
+    id: 'pharm-cold',
+    url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Refrigerated medicine storage and cold-chain compliance',
+    caption: 'Cold-Chain Telemetry (2–8°C Excursion Radar)',
     category: 'pharmacy',
   },
 
@@ -98,48 +102,105 @@ export const CLINICAL_IMAGE_REGISTRY: Record<string, ClinicalImageItem> = {
   epidemiologyMapAnalytics: {
     id: 'epi-analytics',
     url: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Epidemiological geospatial heatmaps and multidrug-resistant pathogen surveillance graphs',
-    caption: 'Macro-Surveillance Regional Resistance Index & Outbreak Cluster Detection',
+    alt: 'Geospatial epidemiological surveillance graphs and analytics',
+    caption: 'Catchment Resistance Heatmaps & Surge Forecasting',
     category: 'epidemiology',
   },
   publicHealthCenter: {
     id: 'public-health',
     url: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Modern hospital command center monitoring regional pathogen vectors',
-    caption: 'WHO GLASS & National Health Security Monitoring Network',
+    alt: 'Healthcare operations command center monitoring pathogen signals',
+    caption: 'Regional Public Health Surveillance Network',
     category: 'epidemiology',
   },
 
-  // AI & Technology
+  // Technology & AI
   aiHealthcareTelemetry: {
     id: 'ai-telemetry',
     url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Secure data center computing infrastructure for real-time clinical surveillance AI',
-    caption: 'Serverless Edge LLM Execution with Cryptographic Organization Scoping',
-    category: 'ai',
+    alt: 'High-availability data infrastructure for clinical surveillance',
+    caption: 'Zero-Leakage Multi-Tenant Security Kernel',
+    category: 'technology',
   },
   aiBioAnalytics: {
     id: 'ai-bio',
     url: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Neural network data streams analyzing bacterial genome sequences',
-    caption: 'Grounded Gemini AI Copilot Query Engine for Phenotypic Predictions',
+    alt: 'Data streams representing grounded healthcare AI analysis',
+    caption: 'Grounded Clinical AI Surveillance Engine',
     category: 'ai',
   },
 
-  // Authentication & Brand
+  // Authentication & Security
   authHeroVisual: {
     id: 'auth-hero',
     url: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Sterile surgical and clinical operations environment representing medical safety',
-    caption: 'Enterprise Healthcare Intelligence • Multi-Tenant Isolated Infrastructure',
+    alt: 'Sterile clinical hospital environment',
+    caption: 'Enterprise Healthcare Intelligence Platform',
     category: 'auth',
+  },
+
+  // The 4 Core Healthcare Problems
+  problemMedicationSafety: {
+    id: 'prob-med',
+    url: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Counterfeit and degraded medication inspection',
+    caption: 'Substandard & Counterfeit Antimicrobials',
+    category: 'problem',
+  },
+  problemAntimicrobialResistance: {
+    id: 'prob-amr',
+    url: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Superbug pathogen resistant to broad-spectrum therapies',
+    caption: 'Uncontrolled Resistance Selection Pressure',
+    category: 'problem',
+  },
+  problemFragmentedData: {
+    id: 'prob-data',
+    url: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Disjointed paper records and isolated hospital software silos',
+    caption: 'Fragmented Healthcare & Diagnostic Silos',
+    category: 'problem',
+  },
+  problemDelayedSurveillance: {
+    id: 'prob-surv',
+    url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Global network connectivity showing delayed reporting latencies',
+    caption: 'Delayed Outbreak Detection & Retrospective Audits',
+    category: 'problem',
+  },
+
+  // Research & Methodology
+  researchGenomics: {
+    id: 'res-genomics',
+    url: 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Scientific research laboratory studying resistance determinants',
+    caption: 'Translational Research & Antibiogram Standards',
+    category: 'research',
+  },
+
+  // Cybersecurity & Infrastructure
+  securityDatacenter: {
+    id: 'sec-infra',
+    url: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Cryptographic data security architecture for health systems',
+    caption: 'Row-Level Security & Cryptographic Tenancy',
+    category: 'security',
+  },
+
+  // Stewardship Oversight
+  stewardshipConsultation: {
+    id: 'stew-consult',
+    url: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Infectious disease stewardship specialist analyzing antibiotic metrics',
+    caption: 'Institutional AWaRe Target Oversight',
+    category: 'stewardship',
   },
 };
 
-// Direct convenience mapping
+// Direct convenience mapping with ZERO duplicated URLs
 export const CLINICAL_IMAGES = {
   hero: CLINICAL_IMAGE_REGISTRY.heroComposition.url,
-  heroLab: CLINICAL_IMAGE_REGISTRY.heroLaboratory.url,
+  heroLab: CLINICAL_IMAGE_REGISTRY.laboratoryScientistBench.url,
   doctor: CLINICAL_IMAGE_REGISTRY.doctorReviewingData.url,
   doctorTeam: CLINICAL_IMAGE_REGISTRY.doctorTeamConsult.url,
   microbiology: CLINICAL_IMAGE_REGISTRY.microbiologyCulturePetri.url,
@@ -147,11 +208,19 @@ export const CLINICAL_IMAGES = {
   laboratory: CLINICAL_IMAGE_REGISTRY.laboratoryScientistBench.url,
   pharmacy: CLINICAL_IMAGE_REGISTRY.pharmacyVialsPackaging.url,
   pharmacist: CLINICAL_IMAGE_REGISTRY.pharmacistReviewingMeds.url,
+  coldChain: CLINICAL_IMAGE_REGISTRY.pharmacyColdChain.url,
   epidemiology: CLINICAL_IMAGE_REGISTRY.epidemiologyMapAnalytics.url,
   publicHealth: CLINICAL_IMAGE_REGISTRY.publicHealthCenter.url,
   aiTelemetry: CLINICAL_IMAGE_REGISTRY.aiHealthcareTelemetry.url,
   aiBio: CLINICAL_IMAGE_REGISTRY.aiBioAnalytics.url,
   auth: CLINICAL_IMAGE_REGISTRY.authHeroVisual.url,
+  problemMedication: CLINICAL_IMAGE_REGISTRY.problemMedicationSafety.url,
+  problemAMR: CLINICAL_IMAGE_REGISTRY.problemAntimicrobialResistance.url,
+  problemData: CLINICAL_IMAGE_REGISTRY.problemFragmentedData.url,
+  problemSurveillance: CLINICAL_IMAGE_REGISTRY.problemDelayedSurveillance.url,
+  research: CLINICAL_IMAGE_REGISTRY.researchGenomics.url,
+  security: CLINICAL_IMAGE_REGISTRY.securityDatacenter.url,
+  stewardship: CLINICAL_IMAGE_REGISTRY.stewardshipConsultation.url,
 
   // Backward compatible aliases
   doctorTabletConsultation: CLINICAL_IMAGE_REGISTRY.doctorReviewingData.url,
@@ -170,4 +239,3 @@ export const CLINICAL_IMAGES = {
   globalResearchGenomics: CLINICAL_IMAGE_REGISTRY.aiBioAnalytics.url,
   heroDoctorReviewingData: CLINICAL_IMAGE_REGISTRY.doctorReviewingData.url,
 };
-

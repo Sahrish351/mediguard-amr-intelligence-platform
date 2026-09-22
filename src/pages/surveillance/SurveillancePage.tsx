@@ -79,34 +79,34 @@ export const SurveillancePage: React.FC = () => {
   ];
 
   const getHeatmapColor = (pct: number) => {
-    if (pct >= 60) return 'bg-red-950/60 text-red-300 font-bold border-red-800/40';
-    if (pct >= 40) return 'bg-orange-950/60 text-orange-300 font-semibold border-orange-800/40';
-    if (pct >= 20) return 'bg-amber-950/60 text-amber-300 border-amber-800/40';
-    return 'bg-emerald-950/60 text-emerald-300 border-emerald-800/40';
+    if (pct >= 60) return 'bg-rose-100 text-rose-800 font-bold border-rose-300';
+    if (pct >= 40) return 'bg-amber-100 text-amber-800 font-semibold border-amber-300';
+    if (pct >= 20) return 'bg-yellow-50 text-yellow-800 border-yellow-200';
+    return 'bg-emerald-50 text-emerald-800 border-emerald-200';
   };
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Activity className="w-5 h-5 text-sky-400" />
+          <h1 className="text-xl font-bold tracking-tight text-[#0B1F3A] flex items-center gap-2">
+            <Activity className="w-5 h-5 text-teal-600" />
             Antimicrobial Resistance & Usage Surveillance
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Systematic antibiogram profiling, susceptibility matrices, and epidemiological trend detection
           </p>
         </div>
 
         {/* Tab Controls */}
-        <div className="flex items-center gap-1 bg-[#0F172A] border border-slate-800 p-1 rounded-lg">
+        <div className="flex items-center gap-1 bg-white border border-slate-200 p-1 rounded-lg shadow-xs">
           <button
             onClick={() => setActiveTab('resistance')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
               activeTab === 'resistance'
-                ? 'bg-sky-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-teal-50 text-teal-700 font-semibold border border-teal-200 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Antibiogram Matrix
@@ -115,8 +115,8 @@ export const SurveillancePage: React.FC = () => {
             onClick={() => setActiveTab('usage')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
               activeTab === 'usage'
-                ? 'bg-sky-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-teal-50 text-teal-700 font-semibold border border-teal-200 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             AWaRe Utilization
@@ -125,8 +125,8 @@ export const SurveillancePage: React.FC = () => {
             onClick={() => setActiveTab('organisms')}
             className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
               activeTab === 'organisms'
-                ? 'bg-sky-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-teal-50 text-teal-700 font-semibold border border-teal-200 shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Pathogen Distribution
@@ -135,11 +135,11 @@ export const SurveillancePage: React.FC = () => {
       </div>
 
       {/* Surveillance Scope Notice */}
-      <div className="p-3 bg-sky-950/20 border border-sky-800/30 rounded-xl flex items-start gap-2.5 text-xs text-sky-300">
-        <Info className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+      <div className="p-3.5 bg-teal-50/60 border border-teal-200/80 rounded-xl flex items-start gap-2.5 text-xs text-teal-900">
+        <Info className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
         <div className="leading-relaxed">
           <strong>Statistical Surveillance Protocol:</strong> Resistance percentages are calculated strictly as{' '}
-          <code className="font-mono text-white bg-slate-900 px-1 py-0.5 rounded">
+          <code className="font-mono text-teal-900 bg-white border border-teal-200 px-1 py-0.5 rounded text-[11px]">
             (Resistant Isolates / Tested Isolates) * 100
           </code>
           . Only first isolate per patient per encounter is included to eliminate duplication bias. Small sample sizes (&lt; 30) are labeled as preliminary findings.
@@ -152,11 +152,11 @@ export const SurveillancePage: React.FC = () => {
           {/* Controls */}
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-400 font-mono">Organism Filter:</span>
+              <span className="text-xs text-slate-500 font-medium">Organism Filter:</span>
               <select
                 value={selectedOrganism}
                 onChange={(e) => setSelectedOrganism(e.target.value)}
-                className="bg-[#0F172A] border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none"
+                className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-[#0B1F3A] shadow-xs focus:outline-none focus:border-teal-500"
               >
                 <option value="all">All Pathogens (Critical & High Priority)</option>
                 {organisms.map((o) => (
@@ -167,51 +167,51 @@ export const SurveillancePage: React.FC = () => {
               </select>
             </div>
 
-            <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
-              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded bg-emerald-500 inline-block"></span> &lt; 20% (Low)</span>
-              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded bg-amber-500 inline-block"></span> 20-39%</span>
-              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded bg-orange-500 inline-block"></span> 40-59%</span>
-              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded bg-red-500 inline-block"></span> &gt;= 60% (Surge)</span>
+            <div className="text-xs font-mono text-slate-600 flex items-center gap-3">
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-emerald-500 inline-block"></span> &lt; 20% (Low)</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-amber-400 inline-block"></span> 20-39%</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-orange-400 inline-block"></span> 40-59%</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-rose-500 inline-block"></span> &gt;= 60% (Surge)</span>
             </div>
           </div>
 
           {/* Antibiogram Matrix Table */}
-          <div className="bg-[#0F172A] border border-slate-800 rounded-xl overflow-hidden">
-            <div className="p-4 border-b border-slate-800 flex items-center justify-between">
+          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+            <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
               <div>
-                <h2 className="text-sm font-semibold text-white">Cumulative Antibiogram Matrix (% Resistant)</h2>
-                <p className="text-xs text-slate-400">Validated non-duplicate isolates tested over the current 30-day period</p>
+                <h2 className="text-sm font-semibold text-[#0B1F3A]">Cumulative Antibiogram Matrix (% Resistant)</h2>
+                <p className="text-xs text-slate-500">Validated non-duplicate isolates tested over the current 30-day period</p>
               </div>
-              <span className="text-[11px] font-mono text-slate-500">CLSI M100 Breakpoints</span>
+              <span className="text-[11px] font-mono text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">CLSI M100 Breakpoints</span>
             </div>
 
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#0B0F19] text-slate-400 font-mono text-[11px] uppercase border-b border-slate-800">
+                <thead className="bg-slate-50 text-slate-600 font-semibold text-[11px] uppercase border-b border-slate-200">
                   <tr>
                     <th className="px-4 py-3 min-w-[200px]">Organism / Bacterial Species</th>
                     <th className="px-4 py-3 text-center">
-                      <div>Ceftriaxone (Watch)</div>
-                      <span className="text-[10px] lowercase text-slate-500">3rd gen cephalosporin</span>
+                      <div className="text-[#0B1F3A]">Ceftriaxone (Watch)</div>
+                      <span className="text-[10px] lowercase text-slate-500 font-normal">3rd gen cephalosporin</span>
                     </th>
                     <th className="px-4 py-3 text-center">
-                      <div>Ciprofloxacin (Watch)</div>
-                      <span className="text-[10px] lowercase text-slate-500">fluoroquinolone</span>
+                      <div className="text-[#0B1F3A]">Ciprofloxacin (Watch)</div>
+                      <span className="text-[10px] lowercase text-slate-500 font-normal">fluoroquinolone</span>
                     </th>
                     <th className="px-4 py-3 text-center">
-                      <div>Meropenem (Watch)</div>
-                      <span className="text-[10px] lowercase text-slate-500">carbapenem</span>
+                      <div className="text-[#0B1F3A]">Meropenem (Watch)</div>
+                      <span className="text-[10px] lowercase text-slate-500 font-normal">carbapenem</span>
                     </th>
                     <th className="px-4 py-3 text-center">
-                      <div>Colistin (Reserve)</div>
-                      <span className="text-[10px] lowercase text-slate-500">polymyxin</span>
+                      <div className="text-[#0B1F3A]">Colistin (Reserve)</div>
+                      <span className="text-[10px] lowercase text-slate-500 font-normal">polymyxin</span>
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
+                <tbody className="divide-y divide-slate-100 font-mono">
                   {filteredMatrix.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-slate-800/30 transition-colors">
-                      <td className="px-4 py-3.5 font-sans font-medium text-white italic">
+                    <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
+                      <td className="px-4 py-3.5 font-sans font-medium text-[#0B1F3A] italic">
                         {row.organism}
                       </td>
 
@@ -262,22 +262,22 @@ export const SurveillancePage: React.FC = () => {
           </div>
 
           {/* Longitudinal Trend Chart */}
-          <div className="bg-[#0F172A] border border-slate-800 rounded-xl p-5">
+          <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-sm font-semibold text-white">Longitudinal Resistance Evolution (Weekly Surveillance)</h2>
-                <p className="text-xs text-slate-400">Tracking emergence of resistance trends against benchmark antibiotics</p>
+                <h2 className="text-sm font-semibold text-[#0B1F3A]">Longitudinal Resistance Evolution (Weekly Surveillance)</h2>
+                <p className="text-xs text-slate-500">Tracking emergence of resistance trends against benchmark antibiotics</p>
               </div>
-              <span className="text-xs font-mono text-red-400 font-semibold">+18.4% pt rise in Ceftriaxone</span>
+              <span className="text-xs font-mono text-rose-600 font-semibold bg-rose-50 px-2 py-1 rounded border border-rose-200">+18.4% pt rise in Ceftriaxone</span>
             </div>
 
             <div className="h-64 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={trendComparisonData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                  <XAxis dataKey="period" stroke="#64748b" fontSize={11} />
-                  <YAxis stroke="#64748b" fontSize={11} unit="%" />
-                  <Tooltip contentStyle={{ backgroundColor: '#0b0f19', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+                  <XAxis dataKey="period" stroke="#64748B" fontSize={11} />
+                  <YAxis stroke="#64748B" fontSize={11} unit="%" />
+                  <Tooltip contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#E2E8F0', borderRadius: '8px', fontSize: '12px', color: '#0B1F3A' }} />
                   <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
                   <Line type="monotone" dataKey="Ceftriaxone" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 4 }} />
                   <Line type="monotone" dataKey="Ciprofloxacin" stroke="#f59e0b" strokeWidth={2} dot={{ r: 3 }} />
@@ -291,43 +291,43 @@ export const SurveillancePage: React.FC = () => {
 
       {/* Tab 2: AWaRe Utilization */}
       {activeTab === 'usage' && (
-        <div className="bg-[#0F172A] border border-slate-800 rounded-xl p-5 space-y-4">
+        <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-xs">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-sm font-semibold text-white">WHO AWaRe Antibiotic Stewardship Breakdown</h2>
-              <p className="text-xs text-slate-400">Proportion of Access, Watch, and Reserve antibiotics dispensed across departments</p>
+              <h2 className="text-sm font-semibold text-[#0B1F3A]">WHO AWaRe Antibiotic Stewardship Breakdown</h2>
+              <p className="text-xs text-slate-500">Proportion of Access, Watch, and Reserve antibiotics dispensed across departments</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-800/30">
+            <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-emerald-400">Access Antibiotics</span>
+                <span className="text-xs font-semibold text-emerald-800">Access Antibiotics</span>
                 <AWaReBadge category="Access" />
               </div>
-              <div className="text-2xl font-bold font-mono text-white">37.1%</div>
-              <p className="text-xs text-slate-400 mt-1">WHO Target: &ge; 60% of total consumption</p>
-              <div className="mt-2 text-xs text-red-400 font-mono">-22.9% below target</div>
+              <div className="text-2xl font-bold font-mono text-emerald-950">37.1%</div>
+              <p className="text-xs text-slate-600 mt-1">WHO Target: &ge; 60% of total consumption</p>
+              <div className="mt-2 text-xs text-rose-600 font-mono font-medium">-22.9% below target</div>
             </div>
 
-            <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-800/30">
+            <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-amber-400">Watch Antibiotics</span>
+                <span className="text-xs font-semibold text-amber-800">Watch Antibiotics</span>
                 <AWaReBadge category="Watch" />
               </div>
-              <div className="text-2xl font-bold font-mono text-white">58.4%</div>
-              <p className="text-xs text-slate-400 mt-1">Higher resistance potential (Ceftriaxone, Cipro, Meropenem)</p>
-              <div className="mt-2 text-xs text-amber-400 font-mono">Excessive empirical reliance</div>
+              <div className="text-2xl font-bold font-mono text-amber-950">58.4%</div>
+              <p className="text-xs text-slate-600 mt-1">Higher resistance potential (Ceftriaxone, Cipro, Meropenem)</p>
+              <div className="mt-2 text-xs text-amber-700 font-mono font-medium">Excessive empirical reliance</div>
             </div>
 
-            <div className="p-4 rounded-xl bg-rose-950/20 border border-rose-800/30">
+            <div className="p-4 rounded-xl bg-rose-50/70 border border-rose-200">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-rose-400">Reserve Antibiotics</span>
+                <span className="text-xs font-semibold text-rose-800">Reserve Antibiotics</span>
                 <AWaReBadge category="Reserve" />
               </div>
-              <div className="text-2xl font-bold font-mono text-white">4.5%</div>
-              <p className="text-xs text-slate-400 mt-1">Protected last-resort drugs (Linezolid, Colistin)</p>
-              <div className="mt-2 text-xs text-emerald-400 font-mono">Within stewardship safety limits</div>
+              <div className="text-2xl font-bold font-mono text-rose-950">4.5%</div>
+              <p className="text-xs text-slate-600 mt-1">Protected last-resort drugs (Linezolid, Colistin)</p>
+              <div className="mt-2 text-xs text-emerald-700 font-mono font-medium">Within stewardship safety limits</div>
             </div>
           </div>
         </div>
@@ -335,29 +335,29 @@ export const SurveillancePage: React.FC = () => {
 
       {/* Tab 3: Organisms Distribution */}
       {activeTab === 'organisms' && (
-        <div className="bg-[#0F172A] border border-slate-800 rounded-xl p-5 space-y-4">
+        <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-xs">
           <div>
-            <h2 className="text-sm font-semibold text-white">Microbiology Organism Isolates Profile</h2>
-            <p className="text-xs text-slate-400">Distribution of confirmed clinical culture isolates and WHO priority categories</p>
+            <h2 className="text-sm font-semibold text-[#0B1F3A]">Microbiology Organism Isolates Profile</h2>
+            <p className="text-xs text-slate-500">Distribution of confirmed clinical culture isolates and WHO priority categories</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {organisms.map((o) => (
-              <div key={o.id} className="p-4 rounded-lg bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+              <div key={o.id} className="p-4 rounded-lg bg-slate-50/70 border border-slate-200 flex flex-col justify-between hover:border-slate-300 transition-colors">
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-bold text-white italic">{o.name}</span>
-                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${
+                    <span className="text-xs font-bold text-[#0B1F3A] italic">{o.name}</span>
+                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border font-medium ${
                       o.who_priority === 'Critical'
-                        ? 'bg-red-950 text-red-400 border-red-800/40'
-                        : 'bg-amber-950 text-amber-400 border-amber-800/40'
+                        ? 'bg-rose-50 text-rose-700 border-rose-200'
+                        : 'bg-amber-50 text-amber-700 border-amber-200'
                     }`}>
                       {o.who_priority} Priority
                     </span>
                   </div>
-                  <span className="text-[11px] text-slate-400">{o.category} • {o.gram_stain}</span>
+                  <span className="text-[11px] text-slate-500">{o.category} • {o.gram_stain}</span>
                 </div>
-                <div className="mt-3 text-[11px] font-mono text-sky-400 border-t border-slate-800 pt-2">
+                <div className="mt-3 text-[11px] font-mono text-teal-700 border-t border-slate-200 pt-2 font-medium">
                   Active AST Panel: CLSI Guidelines
                 </div>
               </div>
@@ -368,4 +368,3 @@ export const SurveillancePage: React.FC = () => {
     </div>
   );
 };
-

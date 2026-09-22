@@ -153,7 +153,7 @@ export const ResourcesFaqPage: React.FC = () => {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
                   selectedCategory === cat.id
-                    ? 'bg-slate-900 text-white font-bold'
+                    ? 'bg-teal-700 text-white font-bold shadow-xs'
                     : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
                 }`}
               >
@@ -177,7 +177,7 @@ export const ResourcesFaqPage: React.FC = () => {
                   className="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-slate-50/50 transition-colors"
                 >
                   <span className="font-heading font-bold text-slate-900 text-sm">{faq.q}</span>
-                  {isOpen ? <ChevronUp className="w-4 h-4 text-sky-600 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
+                  {isOpen ? <ChevronUp className="w-4 h-4 text-teal-600 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
                 </button>
                 {isOpen && (
                   <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/30">
@@ -242,7 +242,7 @@ export const ResourcesFaqPage: React.FC = () => {
                   <input
                     type="text"
                     placeholder="Dr. Tariq Mehmood"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs text-slate-900 focus:outline-hidden focus:border-sky-500"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs text-slate-900 focus:outline-hidden focus:border-teal-500"
                     required
                   />
                 </div>
@@ -251,7 +251,7 @@ export const ResourcesFaqPage: React.FC = () => {
                   <input
                     type="email"
                     placeholder="tariq@hospital.org"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs text-slate-900 focus:outline-hidden focus:border-sky-500"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs text-slate-900 focus:outline-hidden focus:border-teal-500"
                     required
                   />
                 </div>
@@ -261,13 +261,13 @@ export const ResourcesFaqPage: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Mayo Memorial Hospital Network"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs text-slate-900 focus:outline-hidden focus:border-sky-500"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-xs text-slate-900 focus:outline-hidden focus:border-teal-500"
                   required
                 />
               </div>
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-[#0B1F3A] hover:bg-[#142d52] text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
+                className="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
               >
                 Submit Inquiry
               </button>
@@ -278,25 +278,25 @@ export const ResourcesFaqPage: React.FC = () => {
 
       {/* Global Bottom CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="rounded-3xl bg-gradient-to-r from-[#0B1F3A] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 text-center space-y-6 shadow-xl border border-sky-400/30">
+        <div className="rounded-3xl bg-white border border-slate-200 p-8 sm:p-12 text-center space-y-6 shadow-sm">
           <div className="max-w-2xl mx-auto space-y-3">
-            <h3 className="text-2xl sm:text-3xl font-extrabold font-heading">
+            <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#0B1F3A]">
               Ready to Strengthen Your Hospital Stewardship?
             </h3>
-            <p className="text-xs sm:text-sm text-sky-100">
+            <p className="text-xs sm:text-sm text-slate-600">
               Deploy MediGuard across your inpatient wards, pharmacy inventory, and microbiology benches today.
             </p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/register"
-              className="px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#0B1F3A] font-bold text-xs shadow-md transition-all cursor-pointer"
+              className="px-6 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md shadow-teal-600/10 transition-all cursor-pointer"
             >
               Request Access
             </Link>
             <Link
               to="/solutions"
-              className="px-6 py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs border border-white/30 transition-all cursor-pointer"
+              className="px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs border border-slate-200 transition-all cursor-pointer"
             >
               Explore Solutions
             </Link>

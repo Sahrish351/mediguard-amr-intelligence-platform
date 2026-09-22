@@ -125,19 +125,18 @@ export const HowItWorksPage: React.FC = () => {
           >
             {/* Left: Large Number & Visual */}
             <div className="lg:col-span-5 relative">
-              <div className="rounded-2xl overflow-hidden aspect-[4/3] bg-slate-900 relative">
+              <div className="rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100 border border-slate-200 relative shadow-2xs">
                 <img
                   src={stage.image}
                   alt={stage.title}
-                  className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                 <div className="absolute top-4 left-4 flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-xl bg-white/95 text-slate-900 font-mono font-extrabold text-sm shadow-xs">
+                  <span className="px-3 py-1 rounded-xl bg-white/95 text-[#0B1F3A] font-mono font-extrabold text-sm shadow-xs border border-slate-200/80">
                     STAGE {stage.num}
                   </span>
-                  <span className="px-2.5 py-1 rounded-xl bg-slate-900/80 text-white font-mono text-[10px] uppercase font-bold border border-white/20">
+                  <span className="px-2.5 py-1 rounded-xl bg-white/95 text-teal-800 font-mono text-[10px] uppercase font-bold border border-teal-200 shadow-xs">
                     {stage.badge}
                   </span>
                 </div>
@@ -156,24 +155,24 @@ export const HowItWorksPage: React.FC = () => {
               {/* Structured Inputs / Processing / Outputs */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-100 text-xs">
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/70 space-y-1">
-                  <span className="text-[10px] font-mono font-bold uppercase text-slate-400 block">
+                  <span className="text-[10px] font-mono font-bold uppercase text-slate-500 block">
                     INPUTS
                   </span>
-                  <p className="text-slate-700 font-medium leading-snug">{stage.inputs}</p>
+                  <p className="text-slate-800 font-medium leading-snug">{stage.inputs}</p>
                 </div>
 
                 <div className="p-3 rounded-xl bg-sky-50/60 border border-sky-100 space-y-1">
                   <span className="text-[10px] font-mono font-bold uppercase text-sky-700 block">
                     PROCESSING
                   </span>
-                  <p className="text-slate-700 font-medium leading-snug">{stage.processing}</p>
+                  <p className="text-slate-800 font-medium leading-snug">{stage.processing}</p>
                 </div>
 
                 <div className="p-3 rounded-xl bg-teal-50/60 border border-teal-100 space-y-1">
                   <span className="text-[10px] font-mono font-bold uppercase text-teal-700 block">
                     OUTPUTS
                   </span>
-                  <p className="text-slate-700 font-medium leading-snug">{stage.outputs}</p>
+                  <p className="text-slate-800 font-medium leading-snug">{stage.outputs}</p>
                 </div>
               </div>
             </div>
@@ -239,17 +238,17 @@ export const HowItWorksPage: React.FC = () => {
       </section>
 
       {/* Bottom CTA */}
-      <section className="rounded-3xl bg-gradient-to-r from-[#0B1F3A] via-[#0284C7] to-[#0D9488] text-white p-8 sm:p-12 text-center space-y-4 border border-sky-400/30 shadow-xl">
-        <h2 className="text-2xl sm:text-3xl font-extrabold font-heading">
+      <section className="rounded-3xl bg-white border border-slate-200 p-8 sm:p-12 text-center space-y-4 shadow-sm">
+        <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#0B1F3A]">
           Ready to deploy MediGuard across your healthcare network?
         </h2>
-        <p className="text-sky-100 text-xs sm:text-sm max-w-xl mx-auto">
+        <p className="text-slate-600 text-xs sm:text-sm max-w-xl mx-auto">
           Contact our clinical informatics specialists for architecture blueprints, HL7 FHIR connector documentation, and staging sandbox access.
         </p>
         <div className="pt-2">
           <Link
             to="/register"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#0B1F3A] font-bold text-xs shadow-md transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md shadow-teal-600/10 transition-all cursor-pointer"
           >
             <span>Request Institutional Deployment</span>
             <ArrowRight className="w-4 h-4" />

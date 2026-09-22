@@ -54,15 +54,18 @@ export const ConnectorsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-white">Healthcare System Connectors</h1>
-            <span className="px-2 py-0.5 text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded">
+            <h1 className="text-xl font-bold tracking-tight text-[#0B1F3A] flex items-center gap-2">
+              <Network className="w-5 h-5 text-teal-600" />
+              Healthcare System Connectors
+            </h1>
+            <span className="px-2.5 py-0.5 text-xs font-mono bg-teal-50 text-teal-700 border border-teal-200 rounded-md font-semibold">
               HL7 FHIR &bull; ASTM E1394 &bull; GS1
             </span>
           </div>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Standardized electronic health record (EHR), laboratory analyzer, and pharmaceutical supply chain ingestion telemetry.
           </p>
         </div>
@@ -70,7 +73,7 @@ export const ConnectorsPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => handleManualSync(connectors[0]?.id)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-medium rounded-lg shadow-sm transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-semibold rounded-lg shadow-xs transition-colors cursor-pointer"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             Poll All Active Endpoints
@@ -80,8 +83,8 @@ export const ConnectorsPage: React.FC = () => {
 
       {/* Sync Banner Notification */}
       {syncMessage && (
-        <div className="bg-sky-950/80 border border-sky-600/80 rounded-xl p-3 flex items-center gap-3 text-xs text-sky-200 animate-in fade-in">
-          <Zap className="w-4 h-4 text-sky-400 shrink-0" />
+        <div className="bg-teal-50 border border-teal-200 rounded-xl p-3.5 flex items-center gap-3 text-xs text-teal-900 font-medium animate-in fade-in">
+          <Zap className="w-4 h-4 text-teal-600 shrink-0" />
           <span>{syncMessage}</span>
         </div>
       )}
@@ -123,30 +126,30 @@ export const ConnectorsPage: React.FC = () => {
         {connectors.map((c) => (
           <div
             key={c.id}
-            className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-5 hover:border-slate-700 transition-all flex flex-col justify-between"
+            className="bg-white border border-slate-200 rounded-xl p-5 hover:border-slate-300 transition-all flex flex-col justify-between shadow-xs"
           >
             <div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-sky-400">
+                  <div className="w-9 h-9 rounded-xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-700">
                     <Server className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-white">{c.name}</h3>
-                    <span className="text-[11px] font-mono text-slate-400">{c.protocol}</span>
+                    <h3 className="text-sm font-bold text-[#0B1F3A]">{c.name}</h3>
+                    <span className="text-[11px] font-mono text-slate-500">{c.protocol}</span>
                   </div>
                 </div>
 
                 <span
-                  className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
                     c.status === 'Active'
-                      ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                      : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                      : 'bg-amber-50 text-amber-700 border border-amber-200'
                   }`}
                 >
                   <span
                     className={`w-1.5 h-1.5 rounded-full ${
-                      c.status === 'Active' ? 'bg-emerald-400' : 'bg-amber-400'
+                      c.status === 'Active' ? 'bg-emerald-500' : 'bg-amber-500'
                     }`}
                   />
                   {c.status}
@@ -154,39 +157,39 @@ export const ConnectorsPage: React.FC = () => {
               </div>
 
               {/* Specs & URL */}
-              <div className="mt-4 bg-slate-950/60 p-3 rounded-lg border border-slate-800 space-y-2 text-xs">
+              <div className="mt-4 bg-slate-50/70 p-3.5 rounded-xl border border-slate-200 space-y-2 text-xs">
                 <div className="flex items-center justify-between">
                   <span className="text-slate-500">Endpoint:</span>
-                  <span className="font-mono text-slate-300 truncate max-w-[240px]">{c.endpoint}</span>
+                  <span className="font-mono text-slate-700 truncate max-w-[240px]">{c.endpoint}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-500">Last Successful Sync:</span>
-                  <span className="text-slate-300">{formatDate(c.last_sync)}</span>
+                  <span className="text-slate-700">{formatDate(c.last_sync)}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-500">Total Records Synced:</span>
-                  <span className="font-mono font-bold text-emerald-400">
+                  <span className="font-mono font-bold text-teal-700">
                     {(c.records_synced ?? c.records_processed_24h ?? 0).toLocaleString()}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-500">Error Rate:</span>
-                  <span className="font-mono text-slate-400">{c.error_rate ?? 0}%</span>
+                  <span className="font-mono text-slate-600">{c.error_rate ?? 0}%</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-end gap-2">
+            <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
               <button
                 onClick={() => handleTestConnection(c.id)}
                 disabled={testingId === c.id}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors disabled:opacity-50"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition-colors disabled:opacity-50 cursor-pointer shadow-2xs"
               >
                 {testingId === c.id ? 'Pinging...' : 'Test Connection'}
               </button>
               <button
                 onClick={() => handleManualSync(c.id)}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-sky-600 hover:bg-sky-500 text-white transition-colors"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0284C7] hover:bg-[#0369A1] text-white transition-colors cursor-pointer shadow-2xs"
               >
                 Sync Now
               </button>

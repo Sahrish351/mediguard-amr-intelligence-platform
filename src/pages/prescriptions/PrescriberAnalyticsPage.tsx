@@ -75,15 +75,18 @@ export const PrescriberAnalyticsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-white">Prescriber Stewardship Analytics</h1>
-            <span className="px-2 py-0.5 text-xs font-mono bg-sky-500/10 text-sky-400 border border-sky-500/20 rounded">
+            <h1 className="text-xl font-bold tracking-tight text-[#0B1F3A] flex items-center gap-2">
+              <Stethoscope className="w-5 h-5 text-teal-600" />
+              Prescriber Stewardship Analytics
+            </h1>
+            <span className="px-2.5 py-0.5 text-xs font-mono bg-teal-50 text-teal-700 border border-teal-200 rounded-md font-semibold">
               Peer Benchmarking
             </span>
           </div>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Clinician-level antimicrobial prescribing scorecards, guideline adherence, and WHO AWaRe distribution profiles.
           </p>
         </div>
@@ -91,7 +94,7 @@ export const PrescriberAnalyticsPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => window.print()}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200 shadow-xs transition-colors cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5" />
             Export Scorecards
@@ -132,24 +135,24 @@ export const PrescriberAnalyticsPage: React.FC = () => {
       </div>
 
       {/* Chart */}
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-5 shadow-xs">
+      <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-base font-semibold text-white">Prescriber AWaRe Ratio Comparison (%)</h2>
-            <p className="text-xs text-slate-400 mt-0.5">Ratio of Access vs. Watch vs. Reserve antibiotic prescriptions by clinician</p>
+            <h2 className="text-sm font-semibold text-[#0B1F3A]">Prescriber AWaRe Ratio Comparison (%)</h2>
+            <p className="text-xs text-slate-500 mt-0.5">Ratio of Access vs. Watch vs. Reserve antibiotic prescriptions by clinician</p>
           </div>
-          <span className="text-xs font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
+          <span className="text-xs font-mono text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-200 font-semibold">
             Target: Access &ge; 60%
           </span>
         </div>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.5} />
-              <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} />
-              <YAxis stroke="#94a3b8" fontSize={12} unit="%" domain={[0, 100]} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" opacity={0.7} />
+              <XAxis dataKey="name" stroke="#64748B" fontSize={11} />
+              <YAxis stroke="#64748B" fontSize={12} unit="%" domain={[0, 100]} />
               <Tooltip
-                contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '0.5rem' }}
+                contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#E2E8F0', borderRadius: '0.5rem', color: '#0B1F3A' }}
               />
               <Legend />
               <Bar dataKey="Access" fill="#10b981" stackId="a" />
@@ -161,24 +164,24 @@ export const PrescriberAnalyticsPage: React.FC = () => {
       </div>
 
       {/* Prescriber Table */}
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl overflow-hidden shadow-xs">
-        <div className="p-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+        <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
+          <div className="flex flex-wrap items-center gap-2">
             <div className="relative">
-              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder="Search clinician name, specialty, facility..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 w-72"
+                className="bg-white border border-slate-200 rounded-lg pl-9 pr-3 py-1.5 text-xs text-[#0B1F3A] placeholder:text-slate-400 focus:outline-none focus:border-teal-500 w-72 shadow-xs"
               />
             </div>
 
             <select
               value={departmentFilter}
               onChange={(e) => setDepartmentFilter(e.target.value)}
-              className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500"
+              className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-[#0B1F3A] shadow-xs focus:outline-none focus:border-teal-500"
             >
               <option value="all">All Departments</option>
               <option value="critical">Critical Care / ICU</option>
@@ -188,25 +191,25 @@ export const PrescriberAnalyticsPage: React.FC = () => {
             </select>
           </div>
 
-          <span className="text-xs text-slate-400">
-            Showing <strong>{filtered.length}</strong> prescriber scorecards
+          <span className="text-xs text-slate-500">
+            Showing <strong className="text-[#0B1F3A] font-semibold">{filtered.length}</strong> prescriber scorecards
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/50 text-slate-400 border-b border-slate-800">
+            <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200 text-[11px] uppercase">
               <tr>
-                <th className="py-3 px-4 font-semibold">Clinician</th>
-                <th className="py-3 px-4 font-semibold">Department & Facility</th>
-                <th className="py-3 px-4 font-semibold text-right">Prescriptions</th>
-                <th className="py-3 px-4 font-semibold text-center">AWaRe Distribution</th>
-                <th className="py-3 px-4 font-semibold text-right">Guideline Adherence</th>
-                <th className="py-3 px-4 font-semibold text-right">Safety Flags</th>
-                <th className="py-3 px-4 font-semibold text-center">Stewardship Tier</th>
+                <th className="py-3 px-4">Clinician</th>
+                <th className="py-3 px-4">Department & Facility</th>
+                <th className="py-3 px-4 text-right">Prescriptions</th>
+                <th className="py-3 px-4 text-center">AWaRe Distribution</th>
+                <th className="py-3 px-4 text-right">Guideline Adherence</th>
+                <th className="py-3 px-4 text-right">Safety Flags</th>
+                <th className="py-3 px-4 text-center">Stewardship Tier</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-slate-100">
               {filtered.map((p) => {
                 const adherence = getAdherence(p);
                 const alertsCount = getAlerts(p);
@@ -215,35 +218,35 @@ export const PrescriberAnalyticsPage: React.FC = () => {
                 const isWarning = alertsCount > 3 || aware.Reserve > 10;
 
                 return (
-                  <tr key={p.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={p.id} className="hover:bg-slate-50/70 transition-colors">
                     <td className="py-3 px-4">
-                      <div className="font-semibold text-white flex items-center gap-2">
-                        <UserCheck className="w-3.5 h-3.5 text-sky-400" />
+                      <div className="font-semibold text-[#0B1F3A] flex items-center gap-2">
+                        <UserCheck className="w-3.5 h-3.5 text-teal-600" />
                         {getName(p)}
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <div className="text-slate-300 font-medium">{getDept(p)}</div>
-                      <div className="text-[11px] text-slate-400">{getFacility(p)}</div>
+                      <div className="text-[#0B1F3A] font-medium">{getDept(p)}</div>
+                      <div className="text-[11px] text-slate-500">{getFacility(p)}</div>
                     </td>
-                    <td className="py-3 px-4 text-right font-mono font-medium">{getTotalRx(p)}</td>
+                    <td className="py-3 px-4 text-right font-mono font-medium text-slate-700">{getTotalRx(p)}</td>
                     <td className="py-3 px-4 text-center">
                       <div className="inline-flex items-center gap-1 font-mono text-[11px]">
-                        <span className="text-emerald-400">{aware.Access}% A</span>
-                        <span className="text-slate-600">|</span>
-                        <span className="text-amber-400">{aware.Watch}% W</span>
-                        <span className="text-slate-600">|</span>
-                        <span className="text-rose-400">{aware.Reserve}% R</span>
+                        <span className="text-emerald-700 font-semibold">{aware.Access}% A</span>
+                        <span className="text-slate-300">|</span>
+                        <span className="text-amber-700 font-semibold">{aware.Watch}% W</span>
+                        <span className="text-slate-300">|</span>
+                        <span className="text-rose-700 font-semibold">{aware.Reserve}% R</span>
                       </div>
                     </td>
                     <td className="py-3 px-4 text-right">
                       <span
                         className={`font-mono font-bold ${
                           adherence >= 90
-                            ? 'text-emerald-400'
+                            ? 'text-emerald-700'
                             : adherence >= 80
-                            ? 'text-amber-400'
-                            : 'text-rose-400'
+                            ? 'text-amber-700'
+                            : 'text-rose-700'
                         }`}
                       >
                         {adherence}%
@@ -251,10 +254,10 @@ export const PrescriberAnalyticsPage: React.FC = () => {
                     </td>
                     <td className="py-3 px-4 text-right font-mono">
                       <span
-                        className={`px-2 py-0.5 rounded ${
+                        className={`px-2 py-0.5 rounded text-[11px] ${
                           alertsCount > 0
-                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold'
-                            : 'text-slate-500'
+                            ? 'bg-amber-50 text-amber-700 border border-amber-200 font-bold'
+                            : 'text-slate-400'
                         }`}
                       >
                         {alertsCount}
@@ -262,12 +265,12 @@ export const PrescriberAnalyticsPage: React.FC = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-medium ${
+                        className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
                           isExemplary
-                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                             : isWarning
-                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
-                            : 'bg-sky-500/10 text-sky-400 border border-sky-500/30'
+                            ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                            : 'bg-teal-50 text-teal-700 border border-teal-200'
                         }`}
                       >
                         {isExemplary ? 'Exemplary' : isWarning ? 'Peer Review' : 'Compliant'}
